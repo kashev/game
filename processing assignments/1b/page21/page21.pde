@@ -16,7 +16,6 @@
 /*
  * CONSTANTS
  */
-
 final int canvas_width  = 640;
 final int canvas_height = 480;
 
