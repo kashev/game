@@ -24,7 +24,7 @@ final int canvas_height = 700;
 void
 setup ()
 {
-    size(400, 400);
+    size(canvas_width, canvas_height);
     stroke(255);
     background(192, 64, 0);
 }
