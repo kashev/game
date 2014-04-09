@@ -1,10 +1,26 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><style>html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+<!DOCTYPE html><html><head><meta charset="utf-8"><style>body
+{
+  font-size:15px;
+  line-height:1.7;
+  overflow-x:hidden;
 
-body{
+    background-color: white;
+    border-radius: 3px;
+    border: 3px solid #EEE;
+    box-shadow: inset 0 0 0 1px #CECECE;
+    font-family: Helvetica, arial, freesans, clean, sans-serif;
+    width: 912px;
+    padding: 30px;
+    margin: 2em auto;
+
+    color:#333333;
+}
+
+
+.body-classic{
   color:#444;
-  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman',
-              "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
-  font-size:12px;
+  font-family:Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', "Hiragino Sans GB", "STXihei", "微软雅黑", serif;
+  font-size:16px;
   line-height:1.5em;
   background:#fefefe;
   width: 45em;
@@ -13,114 +29,727 @@ body{
   outline: 1300px solid #FAFAFA;
 }
 
-a{ color: #0645ad; text-decoration:none;}
-a:visited{ color: #0b0080; }
-a:hover{ color: #06e; }
-a:active{ color:#faa700; }
-a:focus{ outline: thin dotted; }
-a:hover, a:active{ outline: 0; }
+body>:first-child
+{
+  margin-top:0!important;
+}
 
-span.backtick {
-  border:1px solid #EAEAEA;
+body>:last-child
+{
+  margin-bottom:0!important;
+}
+
+blockquote,dl,ol,p,pre,table,ul {
+  border: 0;
+  margin: 15px 0;
+  padding: 0;
+}
+
+body a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+body a:hover {
+  text-decoration: underline;
+}
+
+body a.absent
+{
+  color:#c00;
+}
+
+body a.anchor
+{
+  display:block;
+  padding-left:30px;
+  margin-left:-30px;
+  cursor:pointer;
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0
+}
+
+/*h4,h5,h6{ font-weight: bold; }*/
+
+.octicon{
+  font:normal normal 16px sans-serif;
+  width: 1em;
+  height: 1em;
+  line-height:1;
+  display:inline-block;
+  text-decoration:none;
+  -webkit-font-smoothing:antialiased
+}
+
+.octicon-link {
+  background: url("data:image/svg+xml;utf8,<?xml version='1.0' standalone='no'?> <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'> <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 832'> <metadata>Copyright (C) 2013 by GitHub</metadata> <!-- scale(0.01565557729941) --> <path transform='' d='M768 64h-192s-254 0-256 256c0 22 3 43 8 64h137c-11-19-18-41-18-64 0-128 128-128 128-128h192s128 0 128 128-128 128-128 128 0 64-64 128h64s256 0 256-256-256-256-256-256z m-72 192h-137c11 19 18 41 18 64 0 128-128 128-128 128h-192s-128 0-128-128 128-128 128-128-4-65 66-128h-66s-256 0-256 256 256 256 256 256h192s256 0 256-256c0-22-4-44-8-64z'/> </svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.octicon-link:before{
+  content:'\a0';
+}
+
+body h1,body h2,body h3,body h4,body h5,body h6{
+  margin:1em 0 15px;
+  padding:0;
+  font-weight:bold;
+  line-height:1.7;
+  cursor:text;
+  position:relative
+}
+
+body h1 .octicon-link,body h2 .octicon-link,body h3 .octicon-link,body h4 .octicon-link,body h5 .octicon-link,body h6 .octicon-link{
+  display:none;
+  color:#000
+}
+
+body h1:hover a.anchor,body h2:hover a.anchor,body h3:hover a.anchor,body h4:hover a.anchor,body h5:hover a.anchor,body h6:hover a.anchor{
+  text-decoration:none;
+  line-height:1;
+  padding-left:0;
+  margin-left:-22px;
+  top:15%
+}
+
+body h1:hover a.anchor .octicon-link,body h2:hover a.anchor .octicon-link,body h3:hover a.anchor .octicon-link,body h4:hover a.anchor .octicon-link,body h5:hover a.anchor .octicon-link,body h6:hover a.anchor .octicon-link{
+  display:inline-block
+}
+
+body h1 tt,body h1 code,body h2 tt,body h2 code,body h3 tt,body h3 code,body h4 tt,body h4 code,body h5 tt,body h5 code,body h6 tt,body h6 code{
+  font-size:inherit
+}
+
+body h1{
+  font-size:2.5em;
+  border-bottom:1px solid #ddd
+}
+
+body h2{
+  font-size:2em;
+  border-bottom:1px solid #eee
+}
+
+body h3{
+  font-size:1.5em
+}
+
+body h4{
+  font-size:1.2em
+}
+
+body h5{
+  font-size:1em
+}
+
+body h6{
+  color:#777;
+  font-size:1em
+}
+
+body p,body blockquote,body ul,body ol,body dl,body table,body pre{
+  margin:15px 0
+}
+
+body h1 tt,body h1 code,body h2 tt,body h2 code,body h3 tt,body h3 code,body h4 tt,body h4 code,body h5 tt,body h5 code,body h6 tt,body h6 code
+{
+  font-size:inherit;
+}
+
+
+body hr
+{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC);
+  background-repeat: repeat-x;
+  /*background:transparent url(http://overblown.net/files/markdown/dirty-shade.png) repeat-x 0 0;*/
+  background-color: transparent;
+  background-position: 0;
+  border:0 none;
+  color:#ccc;
+  height:4px;
+  margin:15px 0;
+  padding:0;
+}
+
+body li p.first
+{
+  display:inline-block;
+}
+
+body ul,body ol
+{
+  padding-left:30px;
+}
+
+body ul.no-list,body ol.no-list
+{
+  list-style-type:none;
+  padding:0;
+}
+
+body ul ul,body ul ol,body ol ol,body ol ul
+{
+  margin-bottom:0;
+  margin-top:0;
+}
+
+body dl
+{
+  padding:0;
+}
+
+body dl dt
+{
+  font-size:14px;
+  font-style:italic;
+  font-weight:700;
+  margin-top:15px;
+  padding:0;
+}
+
+body dl dd
+{
+  margin-bottom:15px;
+  padding:0 15px;
+}
+
+body blockquote
+{
+  border-left:4px solid #DDD;
+  color:#777;
+  padding:0 15px;
+}
+
+body blockquote>:first-child
+{
+  margin-top:0;
+}
+
+body blockquote>:last-child
+{
+  margin-bottom:0;
+}
+
+body table
+{
+  display:block;
+  overflow:auto;
+  width:100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  padding: 0;
+}
+
+body table th
+{
+  font-weight:700;
+}
+
+body table th,body table td
+{
+  border:1px solid #ddd;
+  padding:6px 13px;
+}
+
+body table tr
+{
+  background-color:#fff;
+  border-top:1px solid #ccc;
+}
+
+body table tr:nth-child(2n)
+{
+  background-color:#f8f8f8;
+}
+
+body img
+{
+  -moz-box-sizing:border-box;
+  box-sizing:border-box;
+  max-width:100%;
+}
+
+body span.frame
+{
+  display:block;
+  overflow:hidden;
+}
+
+body span.frame>span
+{
+  border:1px solid #ddd;
+  display:block;
+  float:left;
+  margin:13px 0 0;
+  overflow:hidden;
+  padding:7px;
+  width:auto;
+}
+
+body span.frame span img
+{
+  display:block;
+  float:left;
+}
+
+body span.frame span span
+{
+  clear:both;
+  color:#333;
+  display:block;
+  padding:5px 0 0;
+}
+
+body span.align-center
+{
+  clear:both;
+  display:block;
+  overflow:hidden;
+}
+
+body span.align-center>span
+{
+  display:block;
+  margin:13px auto 0;
+  overflow:hidden;
+  text-align:center;
+}
+
+body span.align-center span img
+{
+  margin:0 auto;
+  text-align:center;
+}
+
+body span.align-right
+{
+  clear:both;
+  display:block;
+  overflow:hidden;
+}
+
+body span.align-right>span
+{
+  display:block;
+  margin:13px 0 0;
+  overflow:hidden;
+  text-align:right;
+}
+
+body span.align-right span img
+{
+  margin:0;
+  text-align:right;
+}
+
+body span.float-left
+{
+  display:block;
+  float:left;
+  margin-right:13px;
+  overflow:hidden;
+}
+
+body span.float-left span
+{
+  margin:13px 0 0;
+}
+
+body span.float-right
+{
+  display:block;
+  float:right;
+  margin-left:13px;
+  overflow:hidden;
+}
+
+body span.float-right>span
+{
+  display:block;
+  margin:13px auto 0;
+  overflow:hidden;
+  text-align:right;
+}
+
+body code,body tt
+{
+  background-color:#f8f8f8;
+  border:1px solid #ddd;
   border-radius:3px;
-  background:#F8F8F8;
-  padding:0 3px 0 3px;
+  margin:0 2px;
+  padding:0 5px;
 }
 
-::-moz-selection{background:rgba(255,255,0,0.3);color:#000}
-::selection{background:rgba(255,255,0,0.3);color:#000}
-
-a::-moz-selection{background:rgba(255,255,0,0.3);color:#0645ad}
-a::selection{background:rgba(255,255,0,0.3);color:#0645ad}
-
-p{
-margin:1em 0;
+body code
+{
+  white-space:nowrap;
 }
 
-img{
-max-width:100%;
+
+code,pre{
+  font-family:Consolas, "Liberation Mono", Courier, monospace;
+  font-size:12px
 }
 
-h1,h2,h3,h4,h5,h6{
-font-weight:normal;
-color:#111;
-line-height:1em;
-}
-h4,h5,h6{ font-weight: bold; }
-h1{ font-size:2.5em; }
-h2{ font-size:2em; border-bottom:1px solid silver; padding-bottom: 5px; }
-h3{ font-size:1.5em; }
-h4{ font-size:1.2em; }
-h5{ font-size:1em; }
-h6{ font-size:0.9em; }
-
-blockquote{
-color:#666666;
-margin:0;
-padding-left: 3em;
-border-left: 0.5em #EEE solid;
-}
-hr { display: block; height: 2px; border: 0; border-top: 1px solid #aaa;border-bottom: 1px solid #eee; margin: 1em 0; padding: 0; }
-
-
-pre , code, kbd, samp { 
-  color: #000; 
-  font-family: monospace; 
-  font-size: 0.88em; 
-  border-radius:3px;
-  background-color: #F8F8F8;
-  border: 1px solid #CCC; 
-}
-pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 5px 12px;}
-pre code { border: 0px !important; padding: 0;}
-code { padding: 0 3px 0 3px; }
-
-b, strong { font-weight: bold; }
-
-dfn { font-style: italic; }
-
-ins { background: #ff9; color: #000; text-decoration: none; }
-
-mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
-
-sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
-sup { top: -0.5em; }
-sub { bottom: -0.25em; }
-
-ul, ol { margin: 1em 0; padding: 0 0 0 2em; }
-li p:last-child { margin:0 }
-dd { margin: 0 0 0 2em; }
-
-img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
-
-table { border-collapse: collapse; border-spacing: 0; }
-td { vertical-align: top; }
-
-@media only screen and (min-width: 480px) {
-body{font-size:14px;}
+body pre>code
+{
+  background:transparent;
+  border:none;
+  margin:0;
+  padding:0;
+  white-space:pre;
 }
 
-@media only screen and (min-width: 768px) {
-body{font-size:16px;}
+body .highlight pre,body pre
+{
+  background-color:#f8f8f8;
+  border:1px solid #ddd;
+  font-size:13px;
+  line-height:19px;
+  overflow:auto;
+  padding:6px 10px;
+  border-radius:3px
 }
 
-@media print {
-  * { background: transparent !important; color: black !important; filter:none !important; -ms-filter: none !important; }
-  body{font-size:12pt; max-width:100%; outline:none;}
-  a, a:visited { text-decoration: underline; }
-  hr { height: 1px; border:0; border-bottom:1px solid black; }
-  a[href]:after { content: " (" attr(href) ")"; }
-  abbr[title]:after { content: " (" attr(title) ")"; }
-  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }
-  pre, blockquote { border: 1px solid #999; padding-right: 1em; page-break-inside: avoid; }
-  tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
-  @page :left { margin: 15mm 20mm 15mm 10mm; }
-  @page :right { margin: 15mm 10mm 15mm 20mm; }
-  p, h2, h3 { orphans: 3; widows: 3; }
-  h2, h3 { page-break-after: avoid; }
+body pre code,body pre tt
+{
+  background-color:transparent;
+  border:none;
+  margin:0;
+  padding:0;
 }
-</style><title>research</title></head><body><h1 id="research">Research</h1>
+
+body .task-list{
+  list-style-type:none;
+  padding-left:10px
+}
+
+.task-list-item{
+  padding-left:20px
+}
+
+.task-list-item label{
+  font-weight:normal
+}
+
+.task-list-item.enabled label{
+  cursor:pointer
+}
+
+.task-list-item+.task-list-item{
+  margin-top:5px
+}
+
+.task-list-item-checkbox{
+  float:left;
+  margin-left:-20px;
+  margin-top:7px
+}
+
+
+.highlight{
+  background:#ffffff
+}
+
+.highlight .c{
+  color:#999988;
+  font-style:italic
+}
+
+.highlight .err{
+  color:#a61717;
+  background-color:#e3d2d2
+}
+
+.highlight .k{
+  font-weight:bold
+}
+
+.highlight .o{
+  font-weight:bold
+}
+
+.highlight .cm{
+  color:#999988;
+  font-style:italic
+}
+
+.highlight .cp{
+  color:#999999;
+  font-weight:bold
+}
+
+.highlight .c1{
+  color:#999988;
+  font-style:italic
+}
+
+.highlight .cs{
+  color:#999999;
+  font-weight:bold;
+  font-style:italic
+}
+
+.highlight .gd{
+  color:#000000;
+  background-color:#ffdddd
+}
+
+.highlight .gd .x{
+  color:#000000;
+  background-color:#ffaaaa
+}
+
+.highlight .ge{
+  font-style:italic
+}
+
+.highlight .gr{
+  color:#aa0000
+}
+
+.highlight .gh{
+  color:#999999
+}
+
+.highlight .gi{
+  color:#000000;
+  background-color:#ddffdd
+}
+
+.highlight .gi .x{
+  color:#000000;
+  background-color:#aaffaa
+}
+
+.highlight .go{
+  color:#888888
+}
+
+.highlight .gp{
+  color:#555555
+}
+
+.highlight .gs{
+  font-weight:bold
+}
+
+.highlight .gu{
+  color:#800080;
+  font-weight:bold
+}
+
+.highlight .gt{
+  color:#aa0000
+}
+
+.highlight .kc{
+  font-weight:bold
+}
+
+.highlight .kd{
+  font-weight:bold
+}
+
+.highlight .kn{
+  font-weight:bold
+}
+
+.highlight .kp{
+  font-weight:bold
+}
+
+.highlight .kr{
+  font-weight:bold
+}
+
+.highlight .kt{
+  color:#445588;
+  font-weight:bold
+}
+
+.highlight .m{
+  color:#009999
+}
+
+.highlight .s{
+  color:#d14
+}
+
+.highlight .n{
+  color:#333333
+}
+
+.highlight .na{
+  color:#008080
+}
+
+.highlight .nb{
+  color:#0086B3
+}
+
+.highlight .nc{
+  color:#445588;
+  font-weight:bold
+}
+
+.highlight .no{
+  color:#008080
+}
+
+.highlight .ni{
+  color:#800080
+}
+
+.highlight .ne{
+  color:#990000;
+  font-weight:bold
+}
+
+.highlight .nf{
+  color:#990000;
+  font-weight:bold
+}
+
+.highlight .nn{
+  color:#555555
+}
+
+.highlight .nt{
+  color:#000080
+}
+
+.highlight .nv{
+  color:#008080
+}
+
+.highlight .ow{
+  font-weight:bold
+}
+
+.highlight .w{
+  color:#bbbbbb
+}
+
+.highlight .mf{
+  color:#009999
+}
+
+.highlight .mh{
+  color:#009999
+}
+
+.highlight .mi{
+  color:#009999
+}
+
+.highlight .mo{
+  color:#009999
+}
+
+.highlight .sb{
+  color:#d14
+}
+
+.highlight .sc{
+  color:#d14
+}
+
+.highlight .sd{
+  color:#d14
+}
+
+.highlight .s2{
+  color:#d14
+}
+
+.highlight .se{
+  color:#d14
+}
+
+.highlight .sh{
+  color:#d14
+}
+
+.highlight .si{
+  color:#d14
+}
+
+.highlight .sx{
+  color:#d14
+}
+
+.highlight .sr{
+  color:#009926
+}
+
+.highlight .s1{
+  color:#d14
+}
+
+.highlight .ss{
+  color:#990073
+}
+
+.highlight .bp{
+  color:#999999
+}
+
+.highlight .vc{
+  color:#008080
+}
+
+.highlight .vg{
+  color:#008080
+}
+
+.highlight .vi{
+  color:#008080
+}
+
+.highlight .il{
+  color:#009999
+}
+
+.highlight .gc{
+  color:#999;
+  background-color:#EAF2F5
+}
+
+.type-csharp .highlight .k{
+  color:#0000FF
+}
+
+.type-csharp .highlight .kt{
+  color:#0000FF
+}
+
+.type-csharp .highlight .nf{
+  color:#000000;
+  font-weight:normal
+}
+
+.type-csharp .highlight .nc{
+  color:#2B91AF
+}
+
+.type-csharp .highlight .nn{
+  color:#000000
+}
+
+.type-csharp .highlight .s{
+  color:#A31515
+}
+
+.type-csharp .highlight .sc{
+  color:#A31515
+}</style><title>research</title></head><body><h1>
+<a name="user-content-research" class="anchor" href="#research"><span class="octicon octicon-link"></span></a>Research</h1>
+
 <pre><code>game
 'A Simple Game made with ProcessingJS'
 
@@ -132,48 +761,92 @@ proj2a4b - dalmia3
 
 research.md
 </code></pre>
-<h2 id="492014-researching-a-game">4/9/2014 : Researching a Game</h2>
+
+<h2>
+<a name="user-content-492014--researching-a-game" class="anchor" href="#492014--researching-a-game"><span class="octicon octicon-link"></span></a>4/9/2014 : Researching a Game</h2>
+
 <p>Consider the following points about games (from Rules of Play by Salen and Zimmerman):</p>
+
 <ul>
 <li>The goal of successful game design is meaningful play.</li>
 <li>An interactive context presents participants with choices. Choices can be micro-choices of moment-to-moment interactivity, or macro-choices which concern the long-term progress of the game experience.</li>
 <li>The basic unit out of which interactive meaning is made is the action-outcome unit. These units are the molecules out of which interactive designers create larger structures of designed interaction.</li>
 <li>A game is a system in which players engage in an artificial conflict, defined by rules, that results in a quantifiable outcome. A puzzle is a special kind of game in which there is a single correct answer or set of correct answers.</li>
-<li>Three ways to frame or understand games are through rules, play, and culture:<ul>
+<li>Three ways to frame or understand games are through rules, play, and culture:
+
+<ul>
 <li>Rules focus on the logical or mathematical structures of games. What is the structure of the game?</li>
 <li>Play focuses on human experience and interaction. Who will play the game, and how?</li>
 <li>Culture focuses on the relationship between a game and the societal contexts in which it is embedded. Why play the game?` Big hint: games are not always, nor are they required to be, fun—so your answer to this question should be something else!</li>
 </ul>
 </li>
-</ul>
-<h3 id="main-questions">Main Questions:</h3>
+</ul><h3>
+<a name="user-content-main-questions" class="anchor" href="#main-questions"><span class="octicon octicon-link"></span></a>Main Questions:</h3>
+
 <ul>
 <li><strong>What is the structure of the game?</strong></li>
 <li><strong>Who will play the game, and how?</strong></li>
 <li><strong>Why play the game?</strong></li>
-</ul>
-<h2 id="case-study-2048">Case Study : <a href="http://gabrielecirulli.github.io/2048/">2048</a></h2>
-<h3 id="what-is-the-structure-of-the-game">What is the structure of the game?</h3>
+</ul><h2>
+<a name="user-content-case-study--2048" class="anchor" href="#case-study--2048"><span class="octicon octicon-link"></span></a>Case Study : <a href="http://gabrielecirulli.github.io/2048/">2048</a>
+</h2>
+
+<h3>
+<a name="user-content-what-is-the-structure-of-the-game" class="anchor" href="#what-is-the-structure-of-the-game"><span class="octicon octicon-link"></span></a>What is the structure of the game?</h3>
+
 <p>The structure of 2048 is highly mathematical. The user selects one of four directions, and all blocks slide in that direction. Blocks of the same number combine to make a new block with twice the value. Every time this happens, a new block (with a value of either 2 or 4) will randomly appear in an empty space. The goal is to get a block with the number 2048 (or higher).</p>
-<h3 id="who-will-play-the-game-and-how">Who will play the game, and how?</h3>
+
+<h3>
+<a name="user-content-who-will-play-the-game-and-how" class="anchor" href="#who-will-play-the-game-and-how"><span class="octicon octicon-link"></span></a>Who will play the game, and how?</h3>
+
 <p>2048 has achieved cult status via transmission over the internet; people see their friends playing, and want to play themselves.</p>
-<h3 id="why-play-the-game">Why play the game?</h3>
+
+<h3>
+<a name="user-content-why-play-the-game" class="anchor" href="#why-play-the-game"><span class="octicon octicon-link"></span></a>Why play the game?</h3>
+
 <p>People want to prove themself as smart and competent as their friends. It is highly competitive: who can beat it first, who can get the highest score.</p>
-<h2 id="case-study-flappy-bird">Case Study : <a href="http://en.wikipedia.org/wiki/Flappy_Bird">Flappy Bird</a></h2>
-<h3 id="what-is-the-structure-of-the-game_1">What is the structure of the game?</h3>
+
+<h2>
+<a name="user-content-case-study--flappy-bird" class="anchor" href="#case-study--flappy-bird"><span class="octicon octicon-link"></span></a>Case Study : <a href="http://en.wikipedia.org/wiki/Flappy_Bird">Flappy Bird</a>
+</h2>
+
+<h3>
+<a name="user-content-what-is-the-structure-of-the-game-1" class="anchor" href="#what-is-the-structure-of-the-game-1"><span class="octicon octicon-link"></span></a>What is the structure of the game?</h3>
+
 <p>You press the only button (the screen) to make a bird flap to navigate between pipes. Hitting a pipe causes the game to end.</p>
-<h3 id="who-will-play-the-game-and-how_1">Who will play the game, and how?</h3>
+
+<h3>
+<a name="user-content-who-will-play-the-game-and-how-1" class="anchor" href="#who-will-play-the-game-and-how-1"><span class="octicon octicon-link"></span></a>Who will play the game, and how?</h3>
+
 <p>This game had its popularity spread in a similar fashion to 2048, virally over the internet and word of mouth. They play on their phone: Android or iOS.</p>
-<h3 id="why-play-the-game_1">Why play the game?</h3>
+
+<h3>
+<a name="user-content-why-play-the-game-1" class="anchor" href="#why-play-the-game-1"><span class="octicon octicon-link"></span></a>Why play the game?</h3>
+
 <p>Because the game is maddeningly difficult, people see an opportunity to distinguish themselves amongst their friends by being better at something, regardless of the lack of meaning to this feat.</p>
-<h2 id="case-study-warning-forever">Case Study <a href="http://download.cnet.com/Warning-Forever/3000-2095_4-10298144.html">Warning Forever</a></h2>
-<h3 id="what-is-the-structure-of-the-game_2">What is the structure of the game?</h3>
+
+<h2>
+<a name="user-content-case-study-warning-forever" class="anchor" href="#case-study-warning-forever"><span class="octicon octicon-link"></span></a>Case Study <a href="http://download.cnet.com/Warning-Forever/3000-2095_4-10298144.html">Warning Forever</a>
+</h2>
+
+<h3>
+<a name="user-content-what-is-the-structure-of-the-game-2" class="anchor" href="#what-is-the-structure-of-the-game-2"><span class="octicon octicon-link"></span></a>What is the structure of the game?</h3>
+
 <p>You play a single ship, which has a single gun. The game is a series of boss battles. The game adapats to the play style of the player, making it difficult to adapt a single strategy.</p>
-<h3 id="who-will-play-the-game-and-how_2">Who will play the game, and how?</h3>
+
+<h3>
+<a name="user-content-who-will-play-the-game-and-how-2" class="anchor" href="#who-will-play-the-game-and-how-2"><span class="octicon octicon-link"></span></a>Who will play the game, and how?</h3>
+
 <p>The game doesn't have much of a following, but those who find it find themselves drawn to it because it is quick to play, offers scores to be able to improve themselves (sharing scores with others isn't a feature, but local, arcade style high scores are).</p>
-<h3 id="why-play-the-game_2">Why play the game?</h3>
+
+<h3>
+<a name="user-content-why-play-the-game-2" class="anchor" href="#why-play-the-game-2"><span class="octicon octicon-link"></span></a>Why play the game?</h3>
+
 <p>Because the game learns, the motivation to play this game is very much the struggle between man and machine; the game encourages the player to beat it by almost taunting him, by learning his strategy. Moreover, the game's local high scores allows one to compete with one's previous self, and focus on self improvement.</p>
-<h2 id="research-for-my-game">Research for My Game</h2>
+
+<h2>
+<a name="user-content-research-for-my-game" class="anchor" href="#research-for-my-game"><span class="octicon octicon-link"></span></a>Research for My Game</h2>
+
 <ul>
 <li><a href="http://jamie.ly/wordpress/programming/software/clojurescript-tetris-attack/">ClosureScript Implementation of Tetris Attack</a></li>
 </ul></body></html>
