@@ -1,14 +1,5 @@
 /*
- * game
- * 'A Simple Game made with ProcessingJS'
- *
- * Kashev Dalmia
- * kashev.dalmia@gmail.com
- *
- * The Last Project for ARTD 313 @ UIUC, Sp 2014
- * proj2a4b - dalmia3
- *
- * sketch_140407a.pde
+ * Lecture Sketch
  */
 
 /*
@@ -32,5 +23,9 @@ setup ()
 void
 draw ()
 {
-    line(150, 25, mouseX, mouseY);
+    background(192, 64, 0);
+    line(0, 0, mouseX, mouseY);
+    noFill();
+    rect(100, 100, 100, 100);
+    triangle(0, 0, 200, 100, 100, 200);
 }
