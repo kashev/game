@@ -152,9 +152,61 @@ public class GameState {
 }
 
 /*
+ * RENDERING METHODS
+ */
+void
+drawBlock (byte block, int block_x, int block_y)
+{
+    color d;
+    switch (block)
+    {
+        case NONE_ENUM:
+            d = bg;
+            break;
+        case SQUARE_ENUM:
+            d = SQUARE_COLOR;
+            break;
+        case TRIANGLE_ENUM:
+            d = TRIANGLE_COLOR;
+            break;
+        case CIRCLE_ENUM:
+            d = CIRCLE_COLOR;
+            break;
+        case STAR_ENUM:
+            d = STAR_COLOR;
+            break;
+        case CRESCENT_ENUM:
+            d = CRESCENT_COLOR;
+            break;
+        default :
+            d = #000000;
+            break;    
+    }
+
+    pushMatrix();
+    translate(block_x * BLOCK_SIZE, block_y * BLOCK_SIZE);
+
+    fill(d);
+    rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+
+    popMatrix();
+}
+
+void
+render (GameState g)
+{
+    for (int j = g.high - 1 ; j >= 0 ; j--)
+    {
+        for (int i = 0; i < g.across; i++)
+        {
+            drawBlock(g.blocks[i][j], i, j);
+        }
+    }
+}
+
+/*
  * VARIABLES
  */
-
 GameState gs = new GameState(6, 8);
 
 /*
@@ -173,5 +225,5 @@ setup ()
 void
 draw ()
 {
-    // todo
+    render(gs);
 }
