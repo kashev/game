@@ -45,7 +45,13 @@ final color TRIANGLE_COLOR = #2ecc71;
 final color CIRCLE_COLOR   = #9b59b6;
 final color STAR_COLOR     = #f1c40f;
 final color CRESCENT_COLOR = #e74c3c;
-/* Block Unicode is for debugging */
+/* Shapes Drawn in Colors */
+// final PShape SQUARE_SHAPE   = createShape(RECT, 15, 15, 75, 75);
+// final PShape TRIANGLE_SHAPE = createShape(TRIANGLE, 50, 15, 15, 15, 15, 100 - 15); //triangle(30, 75, 58, 20, 86, 75);
+// final PShape CIRCLE_SHAPE   = createShape(RECT, 0, 0, 50, 50);
+// final PShape STAR_SHAPE     = createShape(RECT, 0, 0, 50, 50);
+// final PShape CRESCENT_SHAPE = createShape(RECT, 0, 0, 50, 50);
+/* Block Char Strings is for debugging */
 final String NONE_CHAR     = "  ";
 final String SQUARE_CHAR   = "[]";
 final String TRIANGLE_CHAR = "^ ";
@@ -74,6 +80,9 @@ public class GameState {
      */
     public byte [][] blocks;
     public int across, high;
+    /*
+     * PUBLIC
+     */
     
     /*
      * Constructor
@@ -94,10 +103,6 @@ public class GameState {
             }
         }
     }
-
-    /*
-     * PUBLIC
-     */
 
     /*
      * PRIVATE
@@ -158,6 +163,7 @@ void
 drawBlock (byte block, int block_x, int block_y)
 {
     color d;
+
     switch (block)
     {
         case NONE_ENUM:
@@ -189,6 +195,8 @@ drawBlock (byte block, int block_x, int block_y)
     fill(d);
     rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
 
+    stroke(0);
+
     popMatrix();
 }
 
@@ -210,7 +218,22 @@ render (GameState g)
 GameState gs = new GameState(6, 8);
 
 /*
- * Processing Required
+ * KEYBOARD HANDLER
+ */
+void
+keyTyped()
+{
+  println("typed " + int(key) + " " + keyCode);
+}
+
+void
+keyReleased()
+{
+  println("released " + int(key) + " " + keyCode);
+}
+
+/*
+ * PROCESSING REQUIRED
  */
 void
 setup ()
