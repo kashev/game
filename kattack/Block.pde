@@ -65,6 +65,7 @@ public class Block {
     public byte   type;
     public color  col;
     public String str;
+    public PShape shape;
 
     /*
      * PRIVATE METHODS
@@ -127,6 +128,35 @@ public class Block {
         }
     }
 
+    private void
+    getShape ()
+    {
+        switch (this.type)
+        {
+            case NONE_ENUM:
+                this.shape = createShape(RECT, 0, 0, 80, 80);
+                break;
+            case SQUARE_ENUM:
+                this.shape = createShape(RECT, 0, 0, 80, 80);
+                break;
+            case TRIANGLE_ENUM:
+                this.shape = createShape(RECT, 0, 0, 80, 80);
+                break;
+            case CIRCLE_ENUM:
+                this.shape = createShape(RECT, 0, 0, 80, 80);
+                break;
+            case STAR_ENUM:
+                this.shape = createShape(RECT, 0, 0, 80, 80);
+                break;
+            case CRESCENT_ENUM:
+                this.shape = createShape(RECT, 0, 0, 80, 80);
+                break;
+            default :
+                this.shape = createShape(RECT, 0, 0, 80, 80);;
+                break;
+        }
+    }
+
     /*
      * CONSTRUCTORS
      */
@@ -136,6 +166,7 @@ public class Block {
         this.type = type;
         this.getColor();
         this.getString();
+        this.getShape();
     }
 
     public
@@ -144,6 +175,7 @@ public class Block {
         this.type = (byte) random(1, 6);
         this.getColor();
         this.getString();
+        this.getShape();
     }
 
     /*
@@ -154,6 +186,7 @@ public class Block {
     {
         fill(this.col);
         rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+        shape(this.shape, 10, 10);
     }
 
 }

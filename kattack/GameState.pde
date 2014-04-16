@@ -71,6 +71,18 @@ public class GameState {
 
         popMatrix();
     }
+
+    private void
+    findMatches ()
+    {
+
+    }
+
+    private void
+    handleGravity ()
+    {
+        
+    }
     
     /*
      * PUBLIC METHODS
@@ -86,6 +98,13 @@ public class GameState {
                 this.drawBlock(this.blocks[i][j], i, j);
             }
         }
+    }
+
+    public void
+    update()
+    {
+        findMatches();
+        handleGravity();
     }
 
     /*

@@ -31,7 +31,7 @@ final color bg = #FFFFFF;
 GameState gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH);
 
 /*
- * KEYBOARD HANDLER
+ * KEYBOARD HANDLERS
  */
 void
 keyTyped()
@@ -62,5 +62,6 @@ setup ()
 void
 draw ()
 {
+    gs.update();
     gs.render();
 }
