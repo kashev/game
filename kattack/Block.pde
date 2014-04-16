@@ -15,12 +15,18 @@
  * Block Class
  */
 
-
+/* Shapes Drawn in Colors */
+// final PShape SQUARE_SHAPE   = createShape(RECT, 15, 15, 75, 75);
+// final PShape TRIANGLE_SHAPE = createShape(TRIANGLE, 50, 15, 15, 15, 15, 100 - 15); //triangle(30, 75, 58, 20, 86, 75);
+// final PShape CIRCLE_SHAPE   = createShape(RECT, 0, 0, 50, 50);
+// final PShape STAR_SHAPE     = createShape(RECT, 0, 0, 50, 50);
+// final PShape CRESCENT_SHAPE = createShape(RECT, 0, 0, 50, 50);
 
 public class Block {
     /*
      * STATICS
      */
+    final static int BLOCK_SIZE = 100;
     /*
      * BLOCKS
      *     Enums aren't supported in Processing. BlockTypes are bytes
@@ -139,4 +145,15 @@ public class Block {
         this.getColor();
         this.getString();
     }
+
+    /*
+     * PUBLIC METHODS
+     */
+    public void
+    draw ()
+    {
+        fill(this.col);
+        rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+    }
+
 }

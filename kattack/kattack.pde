@@ -25,43 +25,6 @@ final int BLOCKS_HIGH   = 11;
 
 final color bg = #FFFFFF;
 
-/* Shapes Drawn in Colors */
-// final PShape SQUARE_SHAPE   = createShape(RECT, 15, 15, 75, 75);
-// final PShape TRIANGLE_SHAPE = createShape(TRIANGLE, 50, 15, 15, 15, 15, 100 - 15); //triangle(30, 75, 58, 20, 86, 75);
-// final PShape CIRCLE_SHAPE   = createShape(RECT, 0, 0, 50, 50);
-// final PShape STAR_SHAPE     = createShape(RECT, 0, 0, 50, 50);
-// final PShape CRESCENT_SHAPE = createShape(RECT, 0, 0, 50, 50);
-
-
-/*
- * RENDERING METHODS
- */
-void
-drawBlock (Block b, int block_x, int block_y)
-{
-    pushMatrix();
-    translate(block_x * BLOCK_SIZE, block_y * BLOCK_SIZE);
-
-    fill(b.col);
-    rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-
-    stroke(0);
-
-    popMatrix();
-}
-
-void
-render (GameState g)
-{
-    for (int j = g.high - 1 ; j >= 0 ; j--)
-    {
-        for (int i = 0; i < g.across; i++)
-        {
-            drawBlock(g.blocks[i][j], i, j);
-        }
-    }
-}
-
 /*
  * VARIABLES
  */
@@ -98,5 +61,5 @@ setup ()
 void
 draw ()
 {
-    render(gs);
+    gs.render();
 }

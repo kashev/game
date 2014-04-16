@@ -42,12 +42,9 @@ public class GameState {
      */
     public Block [][] blocks;
     public int across, high;
+
     /*
-     * PUBLIC
-     */
-    
-    /*
-     * Constructor
+     * CONSTRUCTOR
      */
     public
     GameState (int across, int high)
@@ -75,6 +72,33 @@ public class GameState {
         return new Block(); // don't return no block, 0
     }
 
+    private void
+    drawBlock (Block b, int block_x, int block_y)
+    {
+        pushMatrix();
+        translate(block_x * BLOCK_SIZE, block_y * BLOCK_SIZE);
+
+        b.draw();
+
+        popMatrix();
+    }
+    
+    /*
+     * PUBLIC METHODS
+     */
+    
+    public void
+    render()
+    {
+        for(int j = this.high - 1; j >=0; j--)
+        {
+            for(int i = 0; i < this.across; i++)
+            {
+                this.drawBlock(this.blocks[i][j], i, j);
+            }
+        }
+    }
+
     /*
      * DEBUGGING
      */
@@ -93,4 +117,5 @@ public class GameState {
 
         print("\n\n");
     }
-}
+
+} /* END GAMESTATE */
