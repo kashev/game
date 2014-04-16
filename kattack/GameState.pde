@@ -72,7 +72,7 @@ public class GameState {
     private Block
     randomBlock ()
     {
-        return new Block((byte) random(1, 6)); // don't return no block, 0
+        return new Block(); // don't return no block, 0
     }
 
     /*
@@ -86,30 +86,7 @@ public class GameState {
         {
             for (int i = 0; i < this.across; i++)
             {
-                switch (this.blocks[i][j].type)
-                {
-                    case NONE_ENUM:
-                        print(NONE_CHAR);
-                        break;
-                    case SQUARE_ENUM:
-                        print(SQUARE_CHAR);
-                        break;
-                    case TRIANGLE_ENUM:
-                        print(TRIANGLE_CHAR);
-                        break;
-                    case CIRCLE_ENUM:
-                        print(CIRCLE_CHAR);
-                        break;
-                    case STAR_ENUM:
-                        print(STAR_CHAR);
-                        break;
-                    case CRESCENT_ENUM:
-                        print(CRESCENT_CHAR);
-                        break;
-                    default :
-                        print("XX");
-                        break;    
-                }
+                print(this.blocks[i][j].str);
             }
             print("\n");
         }
