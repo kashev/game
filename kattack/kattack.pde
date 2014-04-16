@@ -55,6 +55,7 @@ setup ()
     background(bg);
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
+
     gs.printState();
 }
 

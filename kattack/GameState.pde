@@ -12,17 +12,6 @@
  */
 
 /*
- * BLOCKS
- *     Enums aren't supported in Processing. BlockTypes are bytes
- */
-final byte NONE_ENUM     = 0;
-final byte SQUARE_ENUM   = 1;
-final byte TRIANGLE_ENUM = 2;
-final byte CIRCLE_ENUM   = 3;
-final byte STAR_ENUM     = 4;
-final byte CRESCENT_ENUM = 5;
-
-/*
  * GameState Class
  */
 public class GameState {
