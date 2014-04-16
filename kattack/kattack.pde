@@ -16,19 +16,18 @@
  */
 final String GAME_NAME = "kattack";
 
-final int CANVAS_WIDTH  = 600;
-final int CANVAS_HEIGHT = 800;
-
-final int BLOCK_SIZE    = 100;
-final int BLOCKS_ACROSS = 6;
-final int BLOCKS_HIGH   = 11;
-
-final color bg = #FFFFFF;
-
 /*
  * VARIABLES
  */
+final int BLOCKS_ACROSS = 6;
+final int BLOCKS_HIGH   = 11;
 GameState gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH);
+final int BLOCK_SIZE    = gs.blocks[0][0].BLOCK_SIZE;
+final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
+final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
+
+
+final color bg = #FFFFFF;
 
 /*
  * KEYBOARD HANDLERS

@@ -39,7 +39,7 @@ public class GameState {
     GameState (int across, int high)
     {
         this.across = across;
-        this.high   = high; 
+        this.high   = high;
         this.blocks = new Block[across][high];
 
         /* initially, random blocks */
@@ -65,7 +65,7 @@ public class GameState {
     drawBlock (Block b, int block_x, int block_y)
     {
         pushMatrix();
-        translate(block_x * BLOCK_SIZE, block_y * BLOCK_SIZE);
+        translate(block_x * b.BLOCK_SIZE, block_y * b.BLOCK_SIZE);
 
         b.draw();
 
@@ -75,13 +75,13 @@ public class GameState {
     private void
     findMatches ()
     {
-
+        // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
     }
 
     private void
     handleGravity ()
     {
-        
+        // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
     }
     
     /*
@@ -91,7 +91,7 @@ public class GameState {
     public void
     render()
     {
-        for(int j = this.high - 1; j >=0; j--)
+        for(int j = this.high - 1; j >= 0; j--)
         {
             for(int i = 0; i < this.across; i++)
             {

@@ -26,37 +26,37 @@ public class Block {
     /*
      * STATICS
      */
-    final static int BLOCK_SIZE = 100;
+    public final static int BLOCK_SIZE = 75;
     /*
      * BLOCKS
      *     Enums aren't supported in Processing. BlockTypes are bytes
      */
-    final static byte NONE_ENUM     = 0;
-    final static byte SQUARE_ENUM   = 1;
-    final static byte TRIANGLE_ENUM = 2;
-    final static byte CIRCLE_ENUM   = 3;
-    final static byte STAR_ENUM     = 4;
-    final static byte CRESCENT_ENUM = 5;
+    private final static byte NONE_ENUM     = 0;
+    private final static byte SQUARE_ENUM   = 1;
+    private final static byte TRIANGLE_ENUM = 2;
+    private final static byte CIRCLE_ENUM   = 3;
+    private final static byte STAR_ENUM     = 4;
+    private final static byte CRESCENT_ENUM = 5;
     /*
      * DEFINITIONS
      */
     /* Colors Courtesy of http://flatuicolors.com/ */
-    final static color NONE_COLOR     = #ffffff;
-    final static color SQUARE_COLOR   = #3498db;
-    final static color TRIANGLE_COLOR = #2ecc71;
-    final static color CIRCLE_COLOR   = #9b59b6;
-    final static color STAR_COLOR     = #f1c40f;
-    final static color CRESCENT_COLOR = #e74c3c;
+    private final static color NONE_COLOR     = #ffffff;
+    private final static color SQUARE_COLOR   = #3498db;
+    private final static color TRIANGLE_COLOR = #2ecc71;
+    private final static color CIRCLE_COLOR   = #9b59b6;
+    private final static color STAR_COLOR     = #f1c40f;
+    private final static color CRESCENT_COLOR = #e74c3c;
     /*
      * 
      */
     /* Block Char Strings is for debugging */
-    final String NONE_CHAR     = "  ";
-    final String SQUARE_CHAR   = "[]";
-    final String TRIANGLE_CHAR = "^ ";
-    final String CIRCLE_CHAR   = "O ";
-    final String STAR_CHAR     = "* ";
-    final String CRESCENT_CHAR = "C ";
+    private final static String NONE_CHAR     = "  ";
+    private final static String SQUARE_CHAR   = "[]";
+    private final static String TRIANGLE_CHAR = "^ ";
+    private final static String CIRCLE_CHAR   = "O ";
+    private final static String STAR_CHAR     = "* ";
+    private final static String CRESCENT_CHAR = "C ";
 
 
     /*
@@ -166,7 +166,7 @@ public class Block {
         this.type = type;
         this.getColor();
         this.getString();
-        this.getShape();
+        // this.getShape();
     }
 
     public
@@ -175,7 +175,7 @@ public class Block {
         this.type = (byte) random(1, 6);
         this.getColor();
         this.getString();
-        this.getShape();
+        // this.getShape();
     }
 
     /*
@@ -186,7 +186,7 @@ public class Block {
     {
         fill(this.col);
         rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-        shape(this.shape, 10, 10);
+        // shape(this.shape, 10, 10);
     }
 
 }
