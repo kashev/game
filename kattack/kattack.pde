@@ -21,11 +21,7 @@ final String GAME_NAME = "kattack";
  */
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
-GameState gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH);
-final int BLOCK_SIZE    = gs.blocks[0][0].BLOCK_SIZE;
-final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
-final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
-
+GameState gs;
 
 final color bg = #FFFFFF;
 
@@ -50,7 +46,13 @@ keyReleased()
 void
 setup ()
 {
-    size(CANVAS_WIDTH, CANVAS_HEIGHT);
+    gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH);
+    
+    final int BLOCK_SIZE    = gs.blocks[0][0].BLOCK_SIZE;
+    final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
+    final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
+    
+    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
     background(bg);
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
