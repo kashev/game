@@ -23,10 +23,10 @@ Exercises
 
 final int CANVAS_WIDTH  = 700;
 final int CANVAS_HEIGHT = 500;
+
 /*
  * Processing Required
  */
-
 
 void
 setup ()
