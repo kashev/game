@@ -21,6 +21,7 @@ final String GAME_NAME = "kattack";
  */
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
+
 GameState gs;
 
 final color bg = #FFFFFF;
@@ -52,7 +53,8 @@ setup ()
     final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
     final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
     
-    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D);
+    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some PShapes
+
     background(bg);
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
