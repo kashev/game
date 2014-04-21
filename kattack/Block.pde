@@ -16,17 +16,13 @@
  */
 
 /* Shapes Drawn in Colors */
-// final PShape SQUARE_SHAPE   = createShape(RECT, 15, 15, 75, 75);
-// final PShape TRIANGLE_SHAPE = createShape(TRIANGLE, 50, 15, 15, 15, 15, 100 - 15); //triangle(30, 75, 58, 20, 86, 75);
-// final PShape CIRCLE_SHAPE   = createShape(RECT, 0, 0, 50, 50);
-// final PShape STAR_SHAPE     = createShape(RECT, 0, 0, 50, 50);
-// final PShape CRESCENT_SHAPE = createShape(RECT, 0, 0, 50, 50);
 
 public class Block {
     /*
-     * STATICS
+     * BLOCK SIZE - should be the same for all blocks
      */
-    public final static int BLOCK_SIZE = 80;
+    private int BLOCK_SIZE;
+    
     /*
      * BLOCKS
      *     Enums aren't supported in Processing. BlockTypes are bytes
@@ -37,27 +33,22 @@ public class Block {
     private final static byte CIRCLE_ENUM   = 3;
     private final static byte STAR_ENUM     = 4;
     private final static byte CRESCENT_ENUM = 5;
-    /*
-     * DEFINITIONS
-     */
-    /* Colors Courtesy of http://flatuicolors.com/ */
+
+    /* Colors - Courtesy of http://flatuicolors.com/ */
     private final static color NONE_COLOR     = #ffffff;
     private final static color SQUARE_COLOR   = #3498db;
     private final static color TRIANGLE_COLOR = #2ecc71;
     private final static color CIRCLE_COLOR   = #9b59b6;
     private final static color STAR_COLOR     = #f1c40f;
     private final static color CRESCENT_COLOR = #e74c3c;
-    /*
-     * 
-     */
-    /* Block Char Strings is for debugging */
+
+    /* Block Strings -  for debugging */
     private final static String NONE_CHAR     = "  ";
     private final static String SQUARE_CHAR   = "[]";
     private final static String TRIANGLE_CHAR = "^ ";
     private final static String CIRCLE_CHAR   = "O ";
     private final static String STAR_CHAR     = "* ";
     private final static String CRESCENT_CHAR = "C ";
-
 
     /*
      * MEMBER VARIABLES
@@ -136,29 +127,29 @@ public class Block {
         switch (this.type)
         {
             case NONE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 0, 0); // no shape
+                this.shape = createShape(RECT, 0, 0, 1, 1);
                 break;
             case SQUARE_ENUM:
-                this.shape = createShape(RECT,
-                                         (int)(BLOCK_SIZE * 0.2),
-                                         (int)(BLOCK_SIZE * 0.2),
-                                         (int)(BLOCK_SIZE * 0.6),
-                                         (int)(BLOCK_SIZE * 0.6) );
+                this.shape = createShape(RECT, (int)(this.BLOCK_SIZE * 0.2),
+                                               (int)(this.BLOCK_SIZE * 0.2),
+                                               (int)(this.BLOCK_SIZE * 0.6),
+                                               (int)(this.BLOCK_SIZE * 0.6) );
+                // this.shape.fill(lighten(this.col, 0.2));
                 break;
             case TRIANGLE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 20, 20);
+                this.shape = createShape(RECT, 0, 0, 1, 1);
                 break;
             case CIRCLE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 20, 20);
+                this.shape = createShape(RECT, 0, 0, 1, 1);
                 break;
             case STAR_ENUM:
-                this.shape = createShape(RECT, 0, 0, 20, 20);
+                this.shape = createShape(RECT, 0, 0, 1, 1);
                 break;
             case CRESCENT_ENUM:
-                this.shape = createShape(RECT, 0, 0, 20, 20);
+                this.shape = createShape(RECT, 0, 0, 1, 1);
                 break;
             default :
-                this.shape = createShape(RECT, 0, 0, 20, 20);;
+                this.shape = createShape(RECT, 0, 0, 1, 1);
                 break;
         }
     }
@@ -167,18 +158,20 @@ public class Block {
      * CONSTRUCTORS
      */
     public
-    Block (byte type)
+    Block (byte type, int blocksize)
     {
         this.type = type;
+        this.BLOCK_SIZE = blocksize;
         this.setColor();
         this.setString();
         this.setShape();
     }
 
     public
-    Block ()
+    Block (int blocksize)
     {
         this.type = (byte) random(1, 6);
+        this.BLOCK_SIZE = blocksize;
         this.setColor();
         this.setString();
         this.setShape();
@@ -200,14 +193,16 @@ public class Block {
         return this.str;
     }
 
+    /* RENDERING */
     public void
     draw ()
     {
         fill(this.col);
-        rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
+        rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
         shape(this.shape, 0, 0);
     }
 
+    /* UPDATING */
     public void
     markForDeletion ()
     {

@@ -30,8 +30,8 @@ public class GameState {
      * [0,7] [1,7] [2,7] [3,7] [4,7] [5,7]
      */
     public Block [][] blocks;
-    public int across, high;
-    public int BLOCK_SIZE;
+    private int BLOCKS_ACROSS, BLOCKS_HIGH;
+    private int BLOCK_SIZE;
 
     private final static color bg = 0xfffffff;
 
@@ -39,22 +39,22 @@ public class GameState {
      * CONSTRUCTOR
      */
     public
-    GameState (int across, int high)
+    GameState (int across, int high, int blocksize)
     {
-        this.across = across;
-        this.high   = high;
+        this.BLOCKS_ACROSS = across;
+        this.BLOCKS_HIGH   = high;
+        this.BLOCK_SIZE    = blocksize;
+
         this.blocks = new Block[across][high];
 
         /* initially, random blocks */
-        for (int i = 0; i < this.across; i++)
+        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
         {
-            for (int j = 0; j < this.high; j++)
+            for (int j = 0; j < this.BLOCKS_HIGH; j++)
             {
                 this.blocks[i][j] = this.randomBlock();
             }
         }
-
-        this.BLOCK_SIZE = this.blocks[0][0].BLOCK_SIZE;
     }
 
     /*
@@ -63,7 +63,7 @@ public class GameState {
     private Block
     randomBlock ()
     {
-        return new Block(); // don't return no block, 0
+        return new Block(BLOCK_SIZE); // don't return no block, 0
     }
 
     private void
@@ -98,9 +98,9 @@ public class GameState {
     {
         background(bg);
 
-        for(int j = this.high - 1; j >= 0; j--)
+        for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
         {
-            for(int i = 0; i < this.across; i++)
+            for(int i = 0; i < this.BLOCKS_ACROSS; i++)
             {
                 this.drawBlock(this.blocks[i][j], i, j);
             }
@@ -121,9 +121,9 @@ public class GameState {
     printState ()
     {
         print("GAME STATE :\n\n");
-        for (int j = 0; j < this.high ; j++)
+        for (int j = 0; j < this.BLOCKS_HIGH ; j++)
         {
-            for (int i = 0; i < this.across; i++)
+            for (int i = 0; i < this.BLOCKS_ACROSS; i++)
             {
                 print(this.blocks[i][j].getString());
             }

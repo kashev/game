@@ -21,6 +21,9 @@ final String GAME_NAME = "kattack";
  */
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
+final int BLOCK_SIZE    = 80;
+final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
+final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
 
 GameState gs;
 
@@ -45,13 +48,9 @@ keyReleased()
 void
 setup ()
 {
-    gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH);
-    
-    final int BLOCK_SIZE    = gs.blocks[0][0].BLOCK_SIZE;
-    final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
-    final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
-    
     size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some PShapes
+    
+    gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH, BLOCK_SIZE);  
 
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
@@ -65,4 +64,5 @@ draw ()
 {
     gs.update();
     gs.render();
+    frame.setTitle(GAME_NAME + " : " + int(frameRate) + " fps");
 }
