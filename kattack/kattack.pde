@@ -24,8 +24,6 @@ final int BLOCKS_HIGH   = 11;
 
 GameState gs;
 
-final color bg = #FFFFFF;
-
 /*
  * KEYBOARD HANDLERS
  */
@@ -55,11 +53,11 @@ setup ()
     
     size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some PShapes
 
-    background(bg);
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
 
     gs.printState();
+    gs.render();
 }
 
 void

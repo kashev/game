@@ -137,7 +137,11 @@ public class Block {
                 this.shape = createShape(RECT, 0, 0, 0, 0); // no shape
                 break;
             case SQUARE_ENUM:
-                this.shape = createShape(RECT, (int)(BLOCK_SIZE * 0.25), (int)(BLOCK_SIZE * 0.25), (int)(BLOCK_SIZE * 0.5), (int)(BLOCK_SIZE * 0.5));
+                this.shape = createShape(RECT,
+                                         (int)(BLOCK_SIZE * 0.2),
+                                         (int)(BLOCK_SIZE * 0.2),
+                                         (int)(BLOCK_SIZE * 0.6),
+                                         (int)(BLOCK_SIZE * 0.6) );
                 break;
             case TRIANGLE_ENUM:
                 this.shape = createShape(RECT, 0, 0, 20, 20);
@@ -186,7 +190,13 @@ public class Block {
     {
         fill(this.col);
         rect(0, 0, BLOCK_SIZE, BLOCK_SIZE);
-        shape(this.shape, 10, 10);
+        shape(this.shape, 0, 0);
+    }
+
+    public void
+    markForDeletion ()
+    {
+        //stub
     }
 
 }
