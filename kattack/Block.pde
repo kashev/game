@@ -134,7 +134,7 @@ public class Block {
                                                (int)(this.BLOCK_SIZE * 0.2),
                                                (int)(this.BLOCK_SIZE * 0.6),
                                                (int)(this.BLOCK_SIZE * 0.6) );
-                // this.shape.fill(lighten(this.col, 0.2));
+                this.shape.setFill(lighten(this.col, 0.2));
                 break;
             case TRIANGLE_ENUM:
                 this.shape = createShape(RECT, 0, 0, 1, 1);
