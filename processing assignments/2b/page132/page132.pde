@@ -35,8 +35,8 @@ setup ()
 void
 draw ()
 {
-    s = (int)random(100, 400);
-    x = (int)random(0, CANVAS_SIZE);
-    y = (int)random(0, CANVAS_SIZE);
+    s = (int) random(100, 400);
+    x = (int) random(0, CANVAS_SIZE);
+    y = (int) random(0, CANVAS_SIZE);
     ellipse(x, y, s, s);
 }

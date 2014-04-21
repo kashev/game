@@ -26,7 +26,7 @@ public class Block {
     /*
      * STATICS
      */
-    public final static int BLOCK_SIZE = 75;
+    public final static int BLOCK_SIZE = 80;
     /*
      * BLOCKS
      *     Enums aren't supported in Processing. BlockTypes are bytes
@@ -134,10 +134,10 @@ public class Block {
         switch (this.type)
         {
             case NONE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 20, 20);
+                this.shape = createShape(RECT, 0, 0, 0, 0); // no shape
                 break;
             case SQUARE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 20, 20);
+                this.shape = createShape(RECT, (int)(BLOCK_SIZE * 0.25), (int)(BLOCK_SIZE * 0.25), (int)(BLOCK_SIZE * 0.5), (int)(BLOCK_SIZE * 0.5));
                 break;
             case TRIANGLE_ENUM:
                 this.shape = createShape(RECT, 0, 0, 20, 20);

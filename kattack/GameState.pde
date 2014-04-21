@@ -32,6 +32,8 @@ public class GameState {
     public Block [][] blocks;
     public int across, high;
 
+    private final static color bg = 0xfffffff;
+
     /*
      * CONSTRUCTOR
      */
@@ -91,6 +93,7 @@ public class GameState {
     public void
     render()
     {
+        background(bg);
         for(int j = this.high - 1; j >= 0; j--)
         {
             for(int i = 0; i < this.across; i++)
