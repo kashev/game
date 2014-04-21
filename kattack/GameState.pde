@@ -125,7 +125,7 @@ public class GameState {
         {
             for (int i = 0; i < this.across; i++)
             {
-                print(this.blocks[i][j].str);
+                print(this.blocks[i][j].getString());
             }
             print("\n");
         }

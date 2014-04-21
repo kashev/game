@@ -62,16 +62,18 @@ public class Block {
     /*
      * MEMBER VARIABLES
      */
-    public byte   type;
-    public color  col;
-    public String str;
-    public PShape shape;
+    /* PUBLIC */
+    /* PRIVATE */
+    private byte   type;
+    private color  col;
+    private String str;
+    private PShape shape;
 
     /*
      * PRIVATE METHODS
      */
     private void
-    getColor ()
+    setColor ()
     {
         switch (this.type)
         {
@@ -100,7 +102,7 @@ public class Block {
     }
 
     private void
-    getString ()
+    setString ()
     {
         switch (this.type)
         {
@@ -129,7 +131,7 @@ public class Block {
     }
 
     private void
-    getShape ()
+    setShape ()
     {
         switch (this.type)
         {
@@ -168,23 +170,36 @@ public class Block {
     Block (byte type)
     {
         this.type = type;
-        this.getColor();
-        this.getString();
-        this.getShape();
+        this.setColor();
+        this.setString();
+        this.setShape();
     }
 
     public
     Block ()
     {
         this.type = (byte) random(1, 6);
-        this.getColor();
-        this.getString();
-        this.getShape();
+        this.setColor();
+        this.setString();
+        this.setShape();
     }
 
     /*
      * PUBLIC METHODS
      */
+    /* GETTERS */
+    public byte
+    getType ()
+    {
+        return this.type;
+    }
+
+    public String
+    getString ()
+    {
+        return this.str;
+    }
+
     public void
     draw ()
     {
