@@ -28,27 +28,27 @@ public class Block {
      *     Enums aren't supported in Processing. BlockTypes are bytes
      */
     private final static byte NONE_ENUM     = 0;
-    private final static byte SQUARE_ENUM   = 1;
+    private final static byte DIAMOND_ENUM  = 1;
     private final static byte TRIANGLE_ENUM = 2;
     private final static byte CIRCLE_ENUM   = 3;
     private final static byte STAR_ENUM     = 4;
-    private final static byte CRESCENT_ENUM = 5;
+    private final static byte HEART_ENUM    = 5;
 
     /* Colors - Courtesy of http://flatuicolors.com/ */
     private final static color NONE_COLOR     = #ffffff;
-    private final static color SQUARE_COLOR   = #3498db;
-    private final static color TRIANGLE_COLOR = #2ecc71;
-    private final static color CIRCLE_COLOR   = #9b59b6;
-    private final static color STAR_COLOR     = #f1c40f;
-    private final static color CRESCENT_COLOR = #e74c3c;
+    private final static color DIAMOND_COLOR  = #8e44ad; // wisteria
+    private final static color TRIANGLE_COLOR = #2980b9; // belize hole
+    private final static color CIRCLE_COLOR   = #27ae60; // nephritis
+    private final static color STAR_COLOR     = #f1c40f; // sunflower
+    private final static color HEART_COLOR    = #c0392b; // pomegranite
 
     /* Block Strings -  for debugging */
     private final static String NONE_CHAR     = "  ";
-    private final static String SQUARE_CHAR   = "[]";
+    private final static String DIAMOND_CHAR  = "<>";
     private final static String TRIANGLE_CHAR = "^ ";
     private final static String CIRCLE_CHAR   = "O ";
     private final static String STAR_CHAR     = "* ";
-    private final static String CRESCENT_CHAR = "C ";
+    private final static String HEART_CHAR    = "<3";
 
     /*
      * MEMBER VARIABLES
@@ -71,8 +71,8 @@ public class Block {
             case NONE_ENUM:
                 this.col = NONE_COLOR;
                 break;
-            case SQUARE_ENUM:
-                this.col = SQUARE_COLOR;
+            case DIAMOND_ENUM:
+                this.col = DIAMOND_COLOR;
                 break;
             case TRIANGLE_ENUM:
                 this.col = TRIANGLE_COLOR;
@@ -83,8 +83,8 @@ public class Block {
             case STAR_ENUM:
                 this.col = STAR_COLOR;
                 break;
-            case CRESCENT_ENUM:
-                this.col = CRESCENT_COLOR;
+            case HEART_ENUM:
+                this.col = HEART_COLOR;
                 break;
             default :
                 this.col = #000000;
@@ -100,8 +100,8 @@ public class Block {
             case NONE_ENUM:
                 this.str = NONE_CHAR;
                 break;
-            case SQUARE_ENUM:
-                this.str = SQUARE_CHAR;
+            case DIAMOND_ENUM:
+                this.str = DIAMOND_CHAR;
                 break;
             case TRIANGLE_ENUM:
                 this.str = TRIANGLE_CHAR;
@@ -112,8 +112,8 @@ public class Block {
             case STAR_ENUM:
                 this.str = STAR_CHAR;
                 break;
-            case CRESCENT_ENUM:
-                this.str = CRESCENT_CHAR;
+            case HEART_ENUM:
+                this.str = HEART_CHAR;
                 break;
             default :
                 this.str = "XX";
@@ -127,29 +127,72 @@ public class Block {
         switch (this.type)
         {
             case NONE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 1, 1);
+                this.shape = createShape();
                 break;
-            case SQUARE_ENUM:
-                this.shape = createShape(RECT, (int)(this.BLOCK_SIZE * 0.2),
-                                               (int)(this.BLOCK_SIZE * 0.2),
-                                               (int)(this.BLOCK_SIZE * 0.6),
-                                               (int)(this.BLOCK_SIZE * 0.6) );
-                this.shape.setFill(lighten(this.col, 0.2));
+            case DIAMOND_ENUM:
+                this.shape = createShape();
+                this.shape.beginShape();
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.1), (int)(this.BLOCK_SIZE * 0.5));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.9));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.5));
+
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
+
+                this.shape.endShape();
+                this.shape.setFill(lighten(this.col, 0.4));
                 break;
             case TRIANGLE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 1, 1);
+                this.shape = createShape();
+                this.shape.beginShape();
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.1), (int)(this.BLOCK_SIZE * 0.9));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.9));
+
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
+
+                this.shape.endShape();
+                this.shape.setFill(lighten(this.col, 0.4));
                 break;
             case CIRCLE_ENUM:
-                this.shape = createShape(RECT, 0, 0, 1, 1);
+                this.shape = createShape(ELLIPSE, (int)(this.BLOCK_SIZE * 0.1),
+                                                  (int)(this.BLOCK_SIZE * 0.1),
+                                                  (int)(this.BLOCK_SIZE * 0.8),
+                                                  (int)(this.BLOCK_SIZE * 0.8));
+                this.shape.setFill(lighten(this.col, 0.4));
                 break;
             case STAR_ENUM:
-                this.shape = createShape(RECT, 0, 0, 1, 1);
+                this.shape = createShape();
+                this.shape.beginShape();
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.63), (int)(this.BLOCK_SIZE * 0.33));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.95), (int)(this.BLOCK_SIZE * 0.38));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.71), (int)(this.BLOCK_SIZE * 0.59));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.77), (int)(this.BLOCK_SIZE * 0.90));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.76));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.21), (int)(this.BLOCK_SIZE * 0.90));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.27), (int)(this.BLOCK_SIZE * 0.59));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.38));
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.36), (int)(this.BLOCK_SIZE * 0.33));
+
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05));
+
+                this.shape.endShape();
+                this.shape.setFill(lighten(this.col, 0.4));
                 break;
-            case CRESCENT_ENUM:
-                this.shape = createShape(RECT, 0, 0, 1, 1);
+            case HEART_ENUM:
+                this.shape = createShape();
+                this.shape.beginShape();
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.15)); 
+                this.shape.bezierVertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * -0.05), (int)(this.BLOCK_SIZE * 0.90), (int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.40)); 
+                this.shape.vertex(50, 15); 
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.15)); 
+                this.shape.bezierVertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * -0.05), (int)(this.BLOCK_SIZE * 0.10), (int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.40)); 
+                this.shape.endShape();
+                this.shape.setFill(lighten(this.col, 0.4));
                 break;
             default :
-                this.shape = createShape(RECT, 0, 0, 1, 1);
+                this.shape = createShape();
                 break;
         }
     }
