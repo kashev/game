@@ -253,8 +253,8 @@ public class Block {
             stroke(0);
         }
         rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE
-            ,this.BLOCK_SIZE * 0.15); // curved edges
-            // );
+            // ,this.BLOCK_SIZE * 0.15); // curved edges
+            );
         shape(this.shape, 0, 0);
     }
 

@@ -16,6 +16,15 @@
  */
 public class GameState {
     /*
+     * STATICS
+     */
+    private final static color bg = 0xfffffff;
+    /* STATES */
+    private final static byte START_STATE = 0;
+    private final static byte PLAY_STATE  = 1;
+    private final static byte END_STATE   = 2;
+    
+    /*
      * DATA
      */
     /*
@@ -29,12 +38,13 @@ public class GameState {
      * [0,6] [1,6] [2,6] [3,6] [4,6] [5,6]
      * [0,7] [1,7] [2,7] [3,7] [4,7] [5,7]
      */
+    
     public Block [][] blocks;
     private int BLOCKS_ACROSS, BLOCKS_HIGH;
     private int BLOCK_SIZE;
     private int score;
+    private byte state;
 
-    private final static color bg = 0xfffffff;
 
     /*
      * CONSTRUCTOR
@@ -64,7 +74,8 @@ public class GameState {
             }
         }
 
-        score = 0;
+        this.score = 0;
+        this.state = PLAY_STATE;
     }
 
     /*
@@ -113,13 +124,25 @@ public class GameState {
     render()
     {
         background(bg);
-
-        for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
+        switch (this.state)
         {
-            for(int i = 0; i < this.BLOCKS_ACROSS; i++)
-            {
-                this.drawBlock(this.blocks[i][j], i, j);
-            }
+            case START_STATE:
+                /* DRAW START SCREEN */
+                break;
+
+            case PLAY_STATE:
+                /* DRAW GAME SCREEN */
+                for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
+                {
+                    for(int i = 0; i < this.BLOCKS_ACROSS; i++)
+                    {
+                        this.drawBlock(this.blocks[i][j], i, j);
+                    }
+                }
+                break;
+
+            case END_STATE:
+                break;
         }
     }
 
