@@ -61,7 +61,7 @@ setup ()
     strokeWeight(2);
     frameRate(200); // need to run faster than 60 if possible?
 
-    // gs.printState();
+    gs.printState();
     gs.render();
 
 }
