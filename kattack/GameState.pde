@@ -189,11 +189,11 @@ public class GameState {
         PShape HEART_SHAPE = createShape();
         HEART_SHAPE.beginShape();
         HEART_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); 
-        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 0.35), (int)(this.BLOCK_SIZE * -0.25), // ctrl 1
-                                 (int)(this.BLOCK_SIZE * -0.25), (int)(this.BLOCK_SIZE * 0.40), // ctrl 2
+        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 0.35), (int)(this.BLOCK_SIZE * 0.00),  // ctrl 1
+                                 (int)(this.BLOCK_SIZE * 0.00), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 2
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.9));  // anchor
-        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 1.25), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 1
-                                 (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * -0.25), // ctrl 2
+        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 1.00), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 1
+                                 (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * 0.00),  // ctrl 2
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); // anchor
         HEART_SHAPE.endShape();
         HEART_SHAPE.setFill(lighten(HEART_COLOR, 0.4));
@@ -233,7 +233,6 @@ public class GameState {
     private Block
     randomBlock ()
     {
-        
         return getBlock((byte) random(1, 6)); // don't return no block, 0
     }
 
@@ -314,6 +313,17 @@ public class GameState {
     handleGravity ()
     {
         // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
+    }
+
+    private void
+    deleteBlock (int i, int j)
+    {
+        this.blocks[i][j] = NULL;
+        this.blocks[i][j] = new Block(NONE_ENUM,
+                                      NONE_COLOR,
+                                      NONE_STR,
+                                      NONE_GRAPHIC,
+                                      BLOCK_SIZE);
     }
     
     /*
