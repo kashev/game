@@ -244,7 +244,17 @@ public class Block {
     draw ()
     {
         fill(this.col);
-        rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        if (this.type == NONE_ENUM)
+        {
+            noStroke();
+        }
+        else
+        {
+            stroke(0);
+        }
+        rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE
+            ,this.BLOCK_SIZE * 0.15); // curved edges
+            // );
         shape(this.shape, 0, 0);
     }
 

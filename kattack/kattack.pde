@@ -55,8 +55,15 @@ setup ()
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
 
-    gs.printState();
+    /*
+     * DEFAULT DRAWING SETTINGS
+     */
+    strokeWeight(2);
+    frameRate(200); // need to run faster than 60 if possible?
+
+    // gs.printState();
     gs.render();
+
 }
 
 void

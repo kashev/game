@@ -32,6 +32,7 @@ public class GameState {
     public Block [][] blocks;
     private int BLOCKS_ACROSS, BLOCKS_HIGH;
     private int BLOCK_SIZE;
+    private int score;
 
     private final static color bg = 0xfffffff;
 
@@ -52,9 +53,18 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH; j++)
             {
-                this.blocks[i][j] = this.randomBlock();
+                if (j < (int)(BLOCKS_HIGH * 0.5))
+                {
+                    this.blocks[i][j] = this.noneBlock();
+                }
+                else
+                {
+                    this.blocks[i][j] = this.randomBlock();
+                }
             }
         }
+
+        score = 0;
     }
 
     /*
@@ -64,6 +74,12 @@ public class GameState {
     randomBlock ()
     {
         return new Block(BLOCK_SIZE); // don't return no block, 0
+    }
+
+    private Block
+    noneBlock ()
+    {
+        return new Block((byte)0, BLOCK_SIZE);
     }
 
     private void
