@@ -183,11 +183,14 @@ public class Block {
             case HEART_ENUM:
                 this.shape = createShape();
                 this.shape.beginShape();
-                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.15)); 
-                this.shape.bezierVertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * -0.05), (int)(this.BLOCK_SIZE * 0.90), (int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.40)); 
-                this.shape.vertex(50, 15); 
-                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.15)); 
-                this.shape.bezierVertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * -0.05), (int)(this.BLOCK_SIZE * 0.10), (int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.40)); 
+                this.shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); 
+                this.shape.bezierVertex((int)(this.BLOCK_SIZE * 0.35), (int)(this.BLOCK_SIZE * -0.25), // ctrl 1
+                                        (int)(this.BLOCK_SIZE * -0.25), (int)(this.BLOCK_SIZE * 0.40), // ctrl 2
+                                        (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.9));  // anchor
+                this.shape.bezierVertex((int)(this.BLOCK_SIZE * 1.25), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 1
+                                        (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * -0.25), // ctrl 2
+                                        (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); // anchor
+
                 this.shape.endShape();
                 this.shape.setFill(lighten(this.col, 0.4));
                 break;
