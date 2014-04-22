@@ -27,11 +27,18 @@ public class GameState {
     private final static byte END_STATE   = 2;
 
     /*
-     * GAME SPEEDS
+     * STRINGS
+     */
+    private final static String START_STRING = "kattack - press any key to play.";
+    private final static String END_STRING = "game over.";
+
+    /*
+     * GAME VARIABLES
      */
     
     private final static int SPEED_INCREMENT      = 1;
-    private final static int FRAMES_PER_INCREMENT = 20;
+    private final static int FRAMES_PER_INCREMENT = 500;
+    private final static int TEXT_SIZE            = 32;
 
     /*
      * BLOCKS CONSTANTS
@@ -82,25 +89,31 @@ public class GameState {
      */
     
     public Block [][] blocks;
+    public Block []   nblocks;
     private int BLOCKS_ACROSS, BLOCKS_HIGH;
     private int BLOCK_SIZE;
-    private byte state  = PLAY_STATE;
-    private int  score  = 0;
-    private int  speed  = 0;
-    private int  frames = 0;
+    private int SIDE_BAR;
+    private byte state       = PLAY_STATE;
+    private int  score       = 0;
+    private int  speed       = 0;
+    private int  frames_past = 0;
 
 
     /*
      * CONSTRUCTOR
      */
     public
-    GameState (int across, int high, int blocksize)
+    GameState (int across, int high, int blocksize, int sidebar)
     {
         this.BLOCKS_ACROSS = across;
         this.BLOCKS_HIGH   = high;
         this.BLOCK_SIZE    = blocksize;
+        this.SIDE_BAR      = sidebar;
 
-        this.blocks = new Block[across][high];
+        initTextDrawing();
+
+        this.blocks  = new Block[across][high];
+        this.nblocks = new Block[across];
 
         /*
          * INITIALIZE PGRAPHICS BLOCKS
@@ -230,8 +243,10 @@ public class GameState {
                     this.blocks[i][j] = this.randomBlock();
                 }
             }
+
+            this.nblocks[i] = this.randomBlock();
         }
-    }
+    } /* END CONSTRUCTOR */
 
     /*
      * PRIVATE
@@ -239,13 +254,13 @@ public class GameState {
     private Block
     randomBlock ()
     {
-        return getBlock((byte) random(1, 6)); // don't return no block, 0
+        return this.getBlock((byte) random(1, 6)); // don't return no block, 0
     }
 
     private Block
     noneBlock ()
     {
-        return getBlock(NONE_ENUM);
+        return this.getBlock(NONE_ENUM);
     }
 
     private Block
@@ -310,6 +325,19 @@ public class GameState {
     }
 
     private void
+    initTextDrawing ()
+    {
+        textSize(TEXT_SIZE);
+    }
+
+    private void
+    drawScore ()
+    {
+        fill(0);
+        text(str(this.score), this.BLOCK_SIZE * this.BLOCKS_ACROSS * 1.1, TEXT_SIZE);
+    }
+
+    private void
     findMatches ()
     {
         // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
@@ -322,14 +350,51 @@ public class GameState {
     }
 
     private void
+    copyNewBlocks ()
+    {
+        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+        {
+            for (int j = 0; j < this.BLOCKS_HIGH; j++)
+            {
+                if(j == 0 && this.blocks[i][j].getType() != NONE_ENUM) // top row and block exists
+                {
+                    this.state = END_STATE; // Game Over!
+                }
+                else if (j == this.BLOCKS_HIGH - 1) // bottom row
+                {
+                    this.blocks[i][j] = this.nblocks[i];
+                }
+                else
+                {
+                    this.blocks[i][j] = this.blocks[i][j + 1];
+                }
+            }
+        }
+    }
+
+    private void
+    newBlocks ()
+    {
+        this.frames_past++;
+        if (this.frames_past > FRAMES_PER_INCREMENT)
+        {
+            this.frames_past = 0;
+            this.speed++;
+            this.copyNewBlocks();
+
+            // create new offscreen blocks
+            for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+            {
+                this.nblocks[i] = randomBlock();
+            }
+        }
+    }
+
+    private void
     deleteBlock (int i, int j)
     {
         this.blocks[i][j] = null;
-        this.blocks[i][j] = new Block(NONE_ENUM,
-                                      NONE_COLOR,
-                                      NONE_STR,
-                                      NONE_GRAPHIC,
-                                      BLOCK_SIZE);
+        this.blocks[i][j] = noneBlock();
     }
     
     /*
@@ -344,9 +409,13 @@ public class GameState {
         {
             case START_STATE:
                 /* DRAW START SCREEN */
+                fill(0);
+                text(START_STRING, 200, 200);
                 break;
 
             case PLAY_STATE:
+                /* DRAW SCORE */
+                this.drawScore();
                 /* DRAW GAME SCREEN */
                 for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
                 {
@@ -359,6 +428,8 @@ public class GameState {
 
             case END_STATE:
                 /* DRAW END SCREEN */
+                fill(0);
+                text(END_STRING, 200, 200);
                 break;
         }
     }
@@ -366,8 +437,12 @@ public class GameState {
     public void
     update()
     {
-        findMatches();
-        handleGravity();
+        if (this.state == PLAY_STATE)
+        {
+            this.findMatches();
+            this.handleGravity();
+            this.newBlocks();
+        }
     }
 
     /*

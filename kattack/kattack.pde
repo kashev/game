@@ -22,7 +22,8 @@ final String GAME_NAME = "kattack";
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
 final int BLOCK_SIZE    = 80;
-final int CANVAS_WIDTH  = BLOCK_SIZE * BLOCKS_ACROSS;
+final int SIDE_BAR      = 200;
+final int CANVAS_WIDTH  = (BLOCK_SIZE * BLOCKS_ACROSS) + SIDE_BAR;
 final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
 
 GameState gs;
@@ -50,7 +51,7 @@ setup ()
 {
     size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some PShapes
     
-    gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH, BLOCK_SIZE);  
+    gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH, BLOCK_SIZE, SIDE_BAR);  
 
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
