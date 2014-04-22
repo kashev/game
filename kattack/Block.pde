@@ -29,11 +29,13 @@ public class Block {
      */
     /* PUBLIC */
     /* PRIVATE */
+    /* FINAL */
     private final byte   type;
     private final color  col;
     private final String str;
-    // private final PShape shape;
     private final PGraphics pg;
+    /* NOT FINAL */
+    private boolean marked = false;
 
     /*
      * PRIVATE METHODS
@@ -72,6 +74,13 @@ public class Block {
         return this.str;
     }
 
+    public boolean
+    isMarked ()
+    {
+        return this.marked;
+    }
+
+
     /* RENDERING */
     public void
     draw ()
@@ -85,17 +94,22 @@ public class Block {
         {
             stroke(0);
         }
-        // rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE
-            // ,this.BLOCK_SIZE * 0.15 // curved edges
-            // );
+        if (this.isMarked())
+        {
+            tint(255, 0, 0, 50);
+        }
+        else
+        {
+            noTint();
+        }
         image(this.pg, 0, 0);
     }
 
     /* UPDATING */
     public void
-    markForDeletion ()
+    mark ()
     {
-        //stub
+        this.marked = true;
     }
 
 }
