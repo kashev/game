@@ -27,6 +27,13 @@ public class GameState {
     private final static byte END_STATE   = 2;
 
     /*
+     * GAME SPEEDS
+     */
+    
+    private final static int SPEED_INCREMENT      = 1;
+    private final static int FRAMES_PER_INCREMENT = 20;
+
+    /*
      * BLOCKS CONSTANTS
      *     Enums aren't supported in Processing.
      */
@@ -77,8 +84,10 @@ public class GameState {
     public Block [][] blocks;
     private int BLOCKS_ACROSS, BLOCKS_HIGH;
     private int BLOCK_SIZE;
-    private int score;
-    private byte state;
+    private byte state  = PLAY_STATE;
+    private int  score  = 0;
+    private int  speed  = 0;
+    private int  frames = 0;
 
 
     /*
@@ -222,9 +231,6 @@ public class GameState {
                 }
             }
         }
-
-        this.score = 0;
-        this.state = PLAY_STATE;
     }
 
     /*
@@ -318,7 +324,7 @@ public class GameState {
     private void
     deleteBlock (int i, int j)
     {
-        this.blocks[i][j] = NULL;
+        this.blocks[i][j] = null;
         this.blocks[i][j] = new Block(NONE_ENUM,
                                       NONE_COLOR,
                                       NONE_STR,
