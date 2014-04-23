@@ -51,13 +51,38 @@ public class GameState {
     private final static byte CIRCLE_ENUM   = 3;
     private final static byte STAR_ENUM     = 4;
     private final static byte HEART_ENUM    = 5;
-    /* Colors - Courtesy of http://flatuicolors.com/ */
-    private final static color NONE_COLOR     = #ffffff;
-    private final static color DIAMOND_COLOR  = #8e44ad; // wisteria
-    private final static color TRIANGLE_COLOR = #2980b9; // belize hole
-    private final static color CIRCLE_COLOR   = #27ae60; // nephritis
-    private final static color STAR_COLOR     = #f1c40f; // sunflower
-    private final static color HEART_COLOR    = #c0392b; // pomegranite
+    
+    /*
+     * Colors - Courtesy of http://flatuicolors.com/
+     *     Colors don't need to be static, this allows us to use lighten();
+     */
+    private final color NONE_COLOR          = #ffffff;
+    private final color BLOCK_GREY          = #34495e; // wet asphalt
+    
+    private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
+    private final color TRIANGLE_COLOR_DARK = #2980b9; // belize hole
+    private final color CIRCLE_COLOR_DARK   = #27ae60; // nephritis
+    private final color STAR_COLOR_DARK     = #f1c40f; // sunflower
+    private final color HEART_COLOR_DARK    = #c0392b; // pomegranite
+
+    private final color DIAMOND_COLOR_LIGHT  = lighten(color(#8e44ad), 0.4); // wisteria
+    private final color TRIANGLE_COLOR_LIGHT = lighten(color(#2980b9), 0.4); // belize hole
+    private final color CIRCLE_COLOR_LIGHT   = lighten(color(#27ae60), 0.4); // nephritis
+    private final color STAR_COLOR_LIGHT     = lighten(color(#f1c40f), 0.4); // sunflower
+    private final color HEART_COLOR_LIGHT    = lighten(color(#c0392b), 0.4); // pomegranite
+
+    private final color DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
+    private final color TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
+    private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
+    private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
+    private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
+
+    private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
+    private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
+    private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
+    private final color STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
+    private final color HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
+
     /* Graphics */
     private PGraphics NONE_GRAPHIC;
     private PGraphics DIAMOND_GRAPHIC;
@@ -134,9 +159,9 @@ public class GameState {
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.5));
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         DIAMOND_SHAPE.endShape();
-        DIAMOND_SHAPE.setFill(lighten(DIAMOND_COLOR, 0.4));
+        DIAMOND_SHAPE.setFill(DIAMOND_COLOR_FILL);
         this.DIAMOND_GRAPHIC.beginDraw();
-        this.DIAMOND_GRAPHIC.fill(DIAMOND_COLOR);
+        this.DIAMOND_GRAPHIC.fill(DIAMOND_COLOR_BLOCK);
         this.DIAMOND_GRAPHIC.rect(0, 0,
                                   this.BLOCK_SIZE, this.BLOCK_SIZE,
                                   this.BLOCK_SIZE * 0.15);
@@ -153,10 +178,10 @@ public class GameState {
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.9));
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         TRIANGLE_SHAPE.endShape();
-        TRIANGLE_SHAPE.setFill(lighten(TRIANGLE_COLOR, 0.4));
+        TRIANGLE_SHAPE.setFill(TRIANGLE_COLOR_FILL);
 
         this.TRIANGLE_GRAPHIC.beginDraw();
-        this.TRIANGLE_GRAPHIC.fill(TRIANGLE_COLOR);
+        this.TRIANGLE_GRAPHIC.fill(TRIANGLE_COLOR_BLOCK);
         this.TRIANGLE_GRAPHIC.rect(0, 0,
                                    this.BLOCK_SIZE, this.BLOCK_SIZE,
                                    this.BLOCK_SIZE * 0.15);
@@ -170,9 +195,9 @@ public class GameState {
                                                    (int)(this.BLOCK_SIZE * 0.1),
                                                    (int)(this.BLOCK_SIZE * 0.8),
                                                    (int)(this.BLOCK_SIZE * 0.8));
-        CIRCLE_SHAPE.setFill(lighten(CIRCLE_COLOR, 0.4));
+        CIRCLE_SHAPE.setFill(CIRCLE_COLOR_FILL);
         this.CIRCLE_GRAPHIC.beginDraw();
-        this.CIRCLE_GRAPHIC.fill(CIRCLE_COLOR);
+        this.CIRCLE_GRAPHIC.fill(CIRCLE_COLOR_BLOCK);
         this.CIRCLE_GRAPHIC.rect(0, 0,
                                  this.BLOCK_SIZE, this.BLOCK_SIZE,
                                  this.BLOCK_SIZE * 0.15);
@@ -196,9 +221,9 @@ public class GameState {
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.36), (int)(this.BLOCK_SIZE * 0.33));
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05));
         STAR_SHAPE.endShape();
-        STAR_SHAPE.setFill(lighten(STAR_COLOR, 0.4));
+        STAR_SHAPE.setFill(STAR_COLOR_FILL);
         this.STAR_GRAPHIC.beginDraw();
-        this.STAR_GRAPHIC.fill(STAR_COLOR);
+        this.STAR_GRAPHIC.fill(STAR_COLOR_BLOCK);
         this.STAR_GRAPHIC.rect(0, 0,
                                this.BLOCK_SIZE, this.BLOCK_SIZE,
                                this.BLOCK_SIZE * 0.15);
@@ -218,9 +243,9 @@ public class GameState {
                                  (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * 0.00),  // ctrl 2
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); // anchor
         HEART_SHAPE.endShape();
-        HEART_SHAPE.setFill(lighten(HEART_COLOR, 0.4));
+        HEART_SHAPE.setFill(HEART_COLOR_FILL);
         this.HEART_GRAPHIC.beginDraw();
-        this.HEART_GRAPHIC.fill(HEART_COLOR);
+        this.HEART_GRAPHIC.fill(HEART_COLOR_BLOCK);
         this.HEART_GRAPHIC.rect(0, 0,
                                 this.BLOCK_SIZE, this.BLOCK_SIZE,
                                 this.BLOCK_SIZE * 0.15);
@@ -270,43 +295,36 @@ public class GameState {
         {
             case NONE_ENUM:
                 return new Block(NONE_ENUM,
-                                 NONE_COLOR,
                                  NONE_STR,
                                  NONE_GRAPHIC,
                                  BLOCK_SIZE);
             case DIAMOND_ENUM:
                 return new Block(DIAMOND_ENUM,
-                                 DIAMOND_COLOR,
                                  DIAMOND_STR,
                                  DIAMOND_GRAPHIC,
                                  BLOCK_SIZE);
             case TRIANGLE_ENUM:
                 return new Block(TRIANGLE_ENUM,
-                                 TRIANGLE_COLOR,
                                  TRIANGLE_STR,
                                  TRIANGLE_GRAPHIC,
                                  BLOCK_SIZE);
             case CIRCLE_ENUM:
                 return new Block(CIRCLE_ENUM,
-                                 CIRCLE_COLOR,
                                  CIRCLE_STR,
                                  CIRCLE_GRAPHIC,
                                  BLOCK_SIZE);
             case STAR_ENUM:
                 return new Block(STAR_ENUM,
-                                 STAR_COLOR,
                                  STAR_STR,
                                  STAR_GRAPHIC,
                                  BLOCK_SIZE);
             case HEART_ENUM:
                 return new Block(HEART_ENUM,
-                                 HEART_COLOR,
                                  HEART_STR,
                                  HEART_GRAPHIC,
                                  BLOCK_SIZE);
             default :
                 return new Block(NONE_ENUM,
-                                 NONE_COLOR,
                                  NONE_STR,
                                  NONE_GRAPHIC,
                                  BLOCK_SIZE);
@@ -386,7 +404,7 @@ public class GameState {
                     this.blocks[i+2][j].mark();
 
                     int ii = i+3;
-                    while (ii < this.BLOCKS_HIGH && this.blocks[ii][j].getType() == t0)
+                    while (ii < this.BLOCKS_ACROSS && this.blocks[ii][j].getType() == t0)
                     {
                         this.blocks[ii][j].mark();
                         ii++;
@@ -397,9 +415,39 @@ public class GameState {
     }
 
     private void
+    cleanUp ()
+    {
+        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+        {
+            for (int j = 0; j < this.BLOCKS_HIGH; j++)
+            {
+                if (this.blocks[i][j].shouldDelete())
+                {
+                    this.deleteBlock(i, j);
+                }
+            }
+        }
+    }
+
+    private void
     handleGravity ()
     {
-        // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
+        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+        {
+            for (int j = 0; j < this.BLOCKS_HIGH - 1; j++)
+            {
+                if (!this.blocks[i][j].isFalling() && this.blocks[i][j+1].getType() == NONE_ENUM)
+                {
+                    this.blocks[i][j].fall();
+                }
+                else if (this.blocks[i][j].doneFalling() && this.blocks[i][j+1].getType() == NONE_ENUM)
+                {
+                    this.blocks[i][j].finishFalling();
+                    this.blocks[i][j + 1 ] = this.blocks[i][j];
+                    this.deleteBlock(i, j);
+                }
+            }
+        }
     }
 
     private void
@@ -493,6 +541,7 @@ public class GameState {
         if (this.state == PLAY_STATE)
         {
             this.findMatches();
+            this.cleanUp();
             this.handleGravity();
             this.newBlocks();
         }
