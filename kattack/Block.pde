@@ -22,7 +22,7 @@ public class Block {
     private int BLOCK_SIZE;
     private final static byte NONE_ENUM    = 0;
     private final static int TIMER_COUNT   = 200;
-    private final static int FALLING_COUNT = 200;
+    private final static int FALLING_COUNT = 20;
     
     private final color DISAPPEARING_SHADE = color(50, 50 , 50 , 50);
     /*

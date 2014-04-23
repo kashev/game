@@ -529,7 +529,7 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH - 1; j++)
             {
-                if (!this.blocks[i][j].isFalling() && this.blocks[i][j+1].getType() == NONE_ENUM)
+                if (!this.blocks[i][j].isFalling() && ((this.blocks[i][j+1].getType() == NONE_ENUM) || this.blocks[i][j+1].isFalling()))
                 {
                     this.blocks[i][j].fall();
                 }
