@@ -51,13 +51,19 @@ public class GameState {
     private final static byte CIRCLE_ENUM   = 3;
     private final static byte STAR_ENUM     = 4;
     private final static byte HEART_ENUM    = 5;
+    /*
+     * UI CONSTANTS
+     *     Modifying / commenting / uncommenting these will change the appearance of the game.
+     */
     
+    private final boolean stroke_on = true;
+    private final int stroke_weight = 1;
     /*
      * Colors - Courtesy of http://flatuicolors.com/
      *     Colors don't need to be static, this allows us to use lighten();
      */
     private final color NONE_COLOR          = #ffffff;
-    private final color BLOCK_GREY          = #34495e; // wet asphalt
+    private final color BLOCK_GREY          = #a0a0a0;
     
     private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
     private final color TRIANGLE_COLOR_DARK = #2980b9; // belize hole
@@ -70,18 +76,43 @@ public class GameState {
     private final color CIRCLE_COLOR_LIGHT   = lighten(color(#27ae60), 0.4); // nephritis
     private final color STAR_COLOR_LIGHT     = lighten(color(#f1c40f), 0.4); // sunflower
     private final color HEART_COLOR_LIGHT    = lighten(color(#c0392b), 0.4); // pomegranite
+    /* Inspired by https://cottonbureau.com/products/sos, http://bitelabs.org, https://cottonbureau.com/products/macaw/*/
+    private final color DIAMOND_COLOR_SOS  = #5edaf6;
+    private final color TRIANGLE_COLOR_SOS = lighten(color(#30A848), 0.2);
+    private final color CIRCLE_COLOR_SOS   = #e066ff;
+    private final color STAR_COLOR_SOS     = #ffff6D;
+    private final color HEART_COLOR_SOS    = #f45f72;
 
-    private final color DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
-    private final color TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
-    private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
-    private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
-    private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
 
-    private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
-    private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
-    private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
-    private final color STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
-    private final color HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
+    /*
+     * LIGHT THEME
+     */
+    // private final color DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
+    // private final color TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
+    // private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
+    // private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
+    // private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
+    //
+    // private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
+    // private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
+    // private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
+    // private final color STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
+    // private final color HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
+    
+    /*
+     * DARK THEME
+     */
+    private final color DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
+    private final color TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
+    private final color CIRCLE_COLOR_BLOCK   = BLOCK_GREY;
+    private final color STAR_COLOR_BLOCK     = BLOCK_GREY;
+    private final color HEART_COLOR_BLOCK    = BLOCK_GREY;
+
+    private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_SOS;
+    private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_SOS;
+    private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_SOS;
+    private final color STAR_COLOR_FILL     = STAR_COLOR_SOS;
+    private final color HEART_COLOR_FILL    = HEART_COLOR_SOS;
 
     /* Graphics */
     private PGraphics NONE_GRAPHIC;
@@ -160,7 +191,17 @@ public class GameState {
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         DIAMOND_SHAPE.endShape();
         DIAMOND_SHAPE.setFill(DIAMOND_COLOR_FILL);
+        DIAMOND_SHAPE.setStroke(this.stroke_on);
+        
         this.DIAMOND_GRAPHIC.beginDraw();
+        if (this.stroke_on)
+        {
+            this.DIAMOND_GRAPHIC.strokeWeight(this.stroke_weight);
+        }
+        else
+        {
+            this.DIAMOND_GRAPHIC.noStroke();    
+        }
         this.DIAMOND_GRAPHIC.fill(DIAMOND_COLOR_BLOCK);
         this.DIAMOND_GRAPHIC.rect(0, 0,
                                   this.BLOCK_SIZE, this.BLOCK_SIZE,
@@ -179,8 +220,17 @@ public class GameState {
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         TRIANGLE_SHAPE.endShape();
         TRIANGLE_SHAPE.setFill(TRIANGLE_COLOR_FILL);
+        TRIANGLE_SHAPE.setStroke(this.stroke_on);
 
         this.TRIANGLE_GRAPHIC.beginDraw();
+        if (this.stroke_on)
+        {
+            this.TRIANGLE_GRAPHIC.strokeWeight(this.stroke_weight);
+        }
+        else
+        {
+            this.TRIANGLE_GRAPHIC.noStroke();    
+        }
         this.TRIANGLE_GRAPHIC.fill(TRIANGLE_COLOR_BLOCK);
         this.TRIANGLE_GRAPHIC.rect(0, 0,
                                    this.BLOCK_SIZE, this.BLOCK_SIZE,
@@ -196,7 +246,17 @@ public class GameState {
                                                    (int)(this.BLOCK_SIZE * 0.8),
                                                    (int)(this.BLOCK_SIZE * 0.8));
         CIRCLE_SHAPE.setFill(CIRCLE_COLOR_FILL);
+        CIRCLE_SHAPE.setStroke(this.stroke_on);
+
         this.CIRCLE_GRAPHIC.beginDraw();
+        if (this.stroke_on)
+        {
+            this.CIRCLE_GRAPHIC.strokeWeight(this.stroke_weight);
+        }
+        else
+        {
+            this.CIRCLE_GRAPHIC.noStroke();    
+        }
         this.CIRCLE_GRAPHIC.fill(CIRCLE_COLOR_BLOCK);
         this.CIRCLE_GRAPHIC.rect(0, 0,
                                  this.BLOCK_SIZE, this.BLOCK_SIZE,
@@ -222,7 +282,17 @@ public class GameState {
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05));
         STAR_SHAPE.endShape();
         STAR_SHAPE.setFill(STAR_COLOR_FILL);
+        STAR_SHAPE.setStroke(this.stroke_on);
+
         this.STAR_GRAPHIC.beginDraw();
+        if (this.stroke_on)
+        {
+            this.STAR_GRAPHIC.strokeWeight(this.stroke_weight);
+        }
+        else
+        {
+            this.STAR_GRAPHIC.noStroke();    
+        }
         this.STAR_GRAPHIC.fill(STAR_COLOR_BLOCK);
         this.STAR_GRAPHIC.rect(0, 0,
                                this.BLOCK_SIZE, this.BLOCK_SIZE,
@@ -244,8 +314,18 @@ public class GameState {
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); // anchor
         HEART_SHAPE.endShape();
         HEART_SHAPE.setFill(HEART_COLOR_FILL);
+        HEART_SHAPE.setStroke(this.stroke_on);
+
         this.HEART_GRAPHIC.beginDraw();
         this.HEART_GRAPHIC.fill(HEART_COLOR_BLOCK);
+        if (this.stroke_on)
+        {
+            this.HEART_GRAPHIC.strokeWeight(this.stroke_weight);
+        }
+        else
+        {
+            this.HEART_GRAPHIC.noStroke();    
+        }
         this.HEART_GRAPHIC.rect(0, 0,
                                 this.BLOCK_SIZE, this.BLOCK_SIZE,
                                 this.BLOCK_SIZE * 0.15);
@@ -365,12 +445,13 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH - 2; j++)
             {
-                boolean marked = this.blocks[i][j].isMarked();
+                boolean marked  = this.blocks[i][j].isMarked();
+                boolean falling = this.blocks[i][j].isFalling();
                 byte t0 = this.blocks[i][j].getType();
                 byte t1 = this.blocks[i][j+1].getType();
                 byte t2 = this.blocks[i][j+2].getType();
 
-                if (!marked && (t0 != NONE_ENUM) && (t0 == t1) && (t0 == t2))
+                if (!marked && !falling && (t0 != NONE_ENUM) && (t0 == t1) && (t0 == t2))
                 {
                     // a match!
                     this.blocks[i][j].mark();
