@@ -63,3 +63,7 @@ Because the game learns, the motivation to play this game is very much the strug
 
 ## Research for My Game
 - [ClosureScript Implementation of Tetris Attack](http://jamie.ly/wordpress/programming/software/clojurescript-tetris-attack/)
+
+## TODO
+- [ ] Lighting
+- [ ] Stroke and Stuff
