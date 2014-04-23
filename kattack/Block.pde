@@ -24,6 +24,7 @@ public class Block {
     private final static int TIMER_COUNT   = 200;
     private final static int FALLING_COUNT = 200;
     
+    private final color DISAPPEARING_SHADE = color(50, 50 , 50 , 50);
     /*
      * MEMBER VARIABLES
      */
@@ -113,7 +114,7 @@ public class Block {
         
         if (this.isMarked())
         {
-            tint(255, 0, 0, 50);
+            tint(this.DISAPPEARING_SHADE);
             this.timer++;
         }
         else

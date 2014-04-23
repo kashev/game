@@ -56,8 +56,8 @@ public class GameState {
      *     Modifying / commenting / uncommenting these will change the appearance of the game.
      */
     
-    private final boolean stroke_on = true;
-    private final int stroke_weight = 1;
+    private final boolean stroke_on = false;
+    private final int stroke_weight = 2;
     /*
      * Colors - Courtesy of http://flatuicolors.com/
      *     Colors don't need to be static, this allows us to use lighten();
@@ -78,7 +78,7 @@ public class GameState {
     private final color HEART_COLOR_LIGHT    = lighten(color(#c0392b), 0.4); // pomegranite
     /* Inspired by https://cottonbureau.com/products/sos, http://bitelabs.org, https://cottonbureau.com/products/macaw/*/
     private final color DIAMOND_COLOR_SOS  = #5edaf6;
-    private final color TRIANGLE_COLOR_SOS = lighten(color(#30A848), 0.2);
+    private final color TRIANGLE_COLOR_SOS = lighten(color(#30A848), 0.2); // bitelabs
     private final color CIRCLE_COLOR_SOS   = #e066ff;
     private final color STAR_COLOR_SOS     = #ffff6D;
     private final color HEART_COLOR_SOS    = #f45f72;
@@ -92,7 +92,7 @@ public class GameState {
     // private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
     // private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
     // private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
-    //
+    
     // private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
     // private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
     // private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
@@ -176,12 +176,14 @@ public class GameState {
          */
         /* NONE BLOCK */
         this.NONE_GRAPHIC = createGraphics(this.BLOCK_SIZE,
-                                           this.BLOCK_SIZE);
+                                           this.BLOCK_SIZE,
+                                           P2D);
         /* Intentionally Empty */
         
         /* DIAMOND BLOCK */
         this.DIAMOND_GRAPHIC = createGraphics(this.BLOCK_SIZE,
-                                              this.BLOCK_SIZE);
+                                              this.BLOCK_SIZE,
+                                              P2D);
         PShape DIAMOND_SHAPE = createShape();
         DIAMOND_SHAPE.beginShape();
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
@@ -189,7 +191,7 @@ public class GameState {
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.9));
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.5));
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
-        DIAMOND_SHAPE.endShape();
+        DIAMOND_SHAPE.endShape(CLOSE);
         DIAMOND_SHAPE.setFill(DIAMOND_COLOR_FILL);
         DIAMOND_SHAPE.setStroke(this.stroke_on);
         
@@ -211,14 +213,15 @@ public class GameState {
         
         /* TRIANGLE BLOCK */
         this.TRIANGLE_GRAPHIC = createGraphics(this.BLOCK_SIZE,
-                                               this.BLOCK_SIZE);
+                                               this.BLOCK_SIZE,
+                                               P2D);
         PShape TRIANGLE_SHAPE = createShape();
         TRIANGLE_SHAPE.beginShape();
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.1), (int)(this.BLOCK_SIZE * 0.9));
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.9));
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
-        TRIANGLE_SHAPE.endShape();
+        TRIANGLE_SHAPE.endShape(CLOSE);
         TRIANGLE_SHAPE.setFill(TRIANGLE_COLOR_FILL);
         TRIANGLE_SHAPE.setStroke(this.stroke_on);
 
@@ -240,7 +243,8 @@ public class GameState {
         
         /* CIRCLE BLOCK */
         this.CIRCLE_GRAPHIC = createGraphics(this.BLOCK_SIZE,
-                                             this.BLOCK_SIZE);
+                                             this.BLOCK_SIZE,
+                                             P2D);
         PShape CIRCLE_SHAPE = createShape(ELLIPSE, (int)(this.BLOCK_SIZE * 0.1),
                                                    (int)(this.BLOCK_SIZE * 0.1),
                                                    (int)(this.BLOCK_SIZE * 0.8),
@@ -266,21 +270,28 @@ public class GameState {
         
         /* STAR BLOCK */
         this.STAR_GRAPHIC = createGraphics(this.BLOCK_SIZE,
-                                           this.BLOCK_SIZE);
+                                           this.BLOCK_SIZE,
+                                           P2D);
         PShape STAR_SHAPE = createShape();
         STAR_SHAPE.beginShape();
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.63), (int)(this.BLOCK_SIZE * 0.33));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.95), (int)(this.BLOCK_SIZE * 0.38));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.71), (int)(this.BLOCK_SIZE * 0.59));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.77), (int)(this.BLOCK_SIZE * 0.90));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.76));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.21), (int)(this.BLOCK_SIZE * 0.90));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.27), (int)(this.BLOCK_SIZE * 0.59));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.38));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.36), (int)(this.BLOCK_SIZE * 0.33));
-        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05));
-        STAR_SHAPE.endShape();
+        /*       1
+         *    _10'2__      
+         *   9-8   4-3
+         *     /.6.\
+         *    7     5
+         */
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05)); // 1
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.63), (int)(this.BLOCK_SIZE * 0.33)); // 2
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.95), (int)(this.BLOCK_SIZE * 0.38)); // 3
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.71), (int)(this.BLOCK_SIZE * 0.59)); // 4
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.77), (int)(this.BLOCK_SIZE * 0.90)); // 5
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.76)); // 6
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.23), (int)(this.BLOCK_SIZE * 0.90)); // 7
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.29), (int)(this.BLOCK_SIZE * 0.59)); // 8
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.05), (int)(this.BLOCK_SIZE * 0.38)); // 9
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.37), (int)(this.BLOCK_SIZE * 0.33)); // 10
+        STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05)); // 1
+        STAR_SHAPE.endShape(CLOSE);
         STAR_SHAPE.setFill(STAR_COLOR_FILL);
         STAR_SHAPE.setStroke(this.stroke_on);
 
@@ -302,17 +313,18 @@ public class GameState {
         
         /* HEART BLOCK */
         this.HEART_GRAPHIC = createGraphics(this.BLOCK_SIZE,
-                                            this.BLOCK_SIZE);
+                                            this.BLOCK_SIZE,
+                                            P2D);
         PShape HEART_SHAPE = createShape();
         HEART_SHAPE.beginShape();
-        HEART_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); 
-        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 0.35), (int)(this.BLOCK_SIZE * 0.00),  // ctrl 1
-                                 (int)(this.BLOCK_SIZE * 0.00), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 2
-                                 (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.9));  // anchor
-        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 1.00), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 1
-                                 (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * 0.00),  // ctrl 2
-                                 (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30)); // anchor
-        HEART_SHAPE.endShape();
+        HEART_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30));
+        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 0.35), (int)(this.BLOCK_SIZE * -0.25),  // ctrl 1
+                                 (int)(this.BLOCK_SIZE * -0.25), (int)(this.BLOCK_SIZE * 0.40),  // ctrl 2
+                                 (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.90));  // anchor
+        HEART_SHAPE.bezierVertex((int)(this.BLOCK_SIZE * 1.25), (int)(this.BLOCK_SIZE * 0.40),   // ctrl 1
+                                 (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * -0.25),  // ctrl 2
+                                 (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30));  // anchor
+        HEART_SHAPE.endShape(CLOSE);
         HEART_SHAPE.setFill(HEART_COLOR_FILL);
         HEART_SHAPE.setStroke(this.stroke_on);
 
