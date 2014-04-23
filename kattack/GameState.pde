@@ -121,6 +121,8 @@ public class GameState {
     private PGraphics CIRCLE_GRAPHIC;
     private PGraphics STAR_GRAPHIC;
     private PGraphics HEART_GRAPHIC;
+
+    private PGraphics CURSOR_GRAPHIC;
     /* Block Strings -  for debugging */
     private final static String NONE_STR     = "  ";
     private final static String DIAMOND_STR  = "<>";
@@ -149,6 +151,7 @@ public class GameState {
     private int BLOCKS_ACROSS, BLOCKS_HIGH;
     private int BLOCK_SIZE;
     private int SIDE_BAR;
+    private int cursor_x, cursor_y;
     private byte state       = PLAY_STATE;
     private int  score       = 0;
     private int  speed       = 0;
@@ -165,8 +168,11 @@ public class GameState {
         this.BLOCKS_HIGH   = high;
         this.BLOCK_SIZE    = blocksize;
         this.SIDE_BAR      = sidebar;
+        this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
+        this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
 
         initTextDrawing();
+        initCursor();
 
         this.blocks  = new Block[across][high];
         this.nblocks = new Block[across];
@@ -590,6 +596,31 @@ public class GameState {
         this.blocks[i][j] = null;
         this.blocks[i][j] = noneBlock();
     }
+
+    private void
+    initCursor ()
+    {
+        this.CURSOR_GRAPHIC = createGraphics(2 * this.BLOCK_SIZE,
+                                             this.BLOCK_SIZE,
+                                             P2D);
+        this.CURSOR_GRAPHIC.beginDraw();
+        this.CURSOR_GRAPHIC.fill(255, 0);
+        this.CURSOR_GRAPHIC.strokeWeight(5);
+        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.endDraw();
+    }
+
+    private void
+    drawCursor ()
+    {
+        pushMatrix();
+        translate(this.cursor_x * this.BLOCK_SIZE, this.cursor_y * this.BLOCK_SIZE);
+
+        image(this.CURSOR_GRAPHIC, 0, 0);
+
+        popMatrix();
+    }
     
     /*
      * PUBLIC METHODS
@@ -618,6 +649,7 @@ public class GameState {
                         this.drawBlock(this.blocks[i][j], i, j);
                     }
                 }
+                this.drawCursor();
                 break;
 
             case END_STATE:
