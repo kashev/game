@@ -1,6 +1,6 @@
 /*
  * game
- * 'A Simple Game made with ProcessingJS'
+ * 'A Game made with Processing'
  * 
  * Kashev Dalmia
  * kashev.dalmia@gmail.com

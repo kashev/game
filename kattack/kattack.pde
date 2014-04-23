@@ -1,6 +1,6 @@
 /*
  * game
- * 'A Simple Game made with ProcessingJS'
+ * 'A Game made with Processing'
  * 
  * Kashev Dalmia
  * kashev.dalmia@gmail.com
@@ -49,21 +49,17 @@ keyReleased()
 void
 setup ()
 {
-    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some PShapes
+    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some reason
     
     gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH, BLOCK_SIZE, SIDE_BAR);  
 
     /* PRINT TEXT TO CONSOLE */
     println(GAME_NAME);
 
-    /*
-     * DEFAULT DRAWING SETTINGS
-     */
     frameRate(200); // need to run faster than 60 if possible?
 
-    gs.printState();
-    gs.render();
-
+    gs.render(); // render for the first time.
+    frame.setTitle(GAME_NAME + " : " + int(frameRate) + " fps");
 }
 
 void
