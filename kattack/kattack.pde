@@ -32,15 +32,37 @@ GameState gs;
  * KEYBOARD HANDLERS
  */
 void
-keyTyped()
+keyPressed()
 {
-  println("typed " + int(key) + " " + keyCode);
+    if (key == CODED)
+    {
+        if (keyCode == UP)
+        {
+            gs.deliverKey(gs.GAME_UP);
+        }
+        else if (keyCode == DOWN)
+        {
+            gs.deliverKey(gs.GAME_DOWN);
+        }
+        else if (keyCode == LEFT)
+        {
+            gs.deliverKey(gs.GAME_LEFT);
+        }
+        else if (keyCode == RIGHT)
+        {
+            gs.deliverKey(gs.GAME_RIGHT);
+        }
+    }
+    else if (key == ' ')
+    {
+        gs.deliverKey(gs.GAME_SWAP);
+    }
 }
 
 void
 keyReleased()
 {
-  println("released " + int(key) + " " + keyCode);
+    println("released " + int(key) + " " + keyCode);
 }
 
 /*

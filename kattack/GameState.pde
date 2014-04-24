@@ -18,6 +18,20 @@ public class GameState {
     /*
      * STATICS
      */
+    
+     /*
+      * PUBLIC STATICS
+      *     for enumerating possible game actions
+      */
+     public final static byte GAME_UP    = 0;
+     public final static byte GAME_DOWN  = 1;
+     public final static byte GAME_LEFT  = 2;
+     public final static byte GAME_RIGHT = 3;
+     public final static byte GAME_SWAP  = 4;
+
+    /*
+     * PRIVATE STATICS
+     */
     private final static color bg = 0xfffffff;
     /*
      * GAME STATES
@@ -669,6 +683,58 @@ public class GameState {
             this.cleanUp();
             this.handleGravity();
             this.newBlocks();
+        }
+    }
+
+    public void
+    deliverKey (byte action)
+    {
+        switch (this.state)
+        {
+            case PLAY_STATE:
+                switch (action)
+                {
+                    case GAME_UP: // up is down in blockspace.
+                        if (this.cursor_y > 0)
+                        {
+                            this.cursor_y--;
+                        }
+                        break;
+                    case GAME_DOWN: // down is up in blockspace.
+                        if (this.cursor_y < this.BLOCKS_HIGH - 1)
+                        {
+                            this.cursor_y++;
+                        }
+                        break;
+                    case GAME_LEFT:
+                        if (this.cursor_x > 0)
+                        {
+                            this.cursor_x--;
+                        }
+                        break;
+                    case GAME_RIGHT:
+                        if (this.cursor_x < this.BLOCKS_ACROSS - 2)
+                        {
+                            this.cursor_x++;
+                        }
+                        break;
+                    case GAME_SWAP:
+                        // swap blocks under cursor.
+                        Block temp = this.blocks[this.cursor_x][this.cursor_y];
+                        this.blocks[this.cursor_x][this.cursor_y] = this.blocks[this.cursor_x + 1][this.cursor_y];
+                        this.blocks[this.cursor_x + 1][this.cursor_y] = temp;
+                        temp = null;
+                        break;
+                    default :
+                        break;    
+                }
+                break;
+            case START_STATE:
+                break;
+            case END_STATE:
+                break;
+            default:   
+                break;
         }
     }
 
