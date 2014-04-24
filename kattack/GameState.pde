@@ -15,10 +15,30 @@
  * GameState Class
  */
 public class GameState {
+    /***
+     *     #     #  #######  #     #  ######   #######  ######    #####  
+     *     ##   ##  #        ##   ##  #     #  #        #     #  #     # 
+     *     # # # #  #        # # # #  #     #  #        #     #  #       
+     *     #  #  #  #####    #  #  #  ######   #####    ######    #####  
+     *     #     #  #        #     #  #     #  #        #   #          # 
+     *     #     #  #        #     #  #     #  #        #    #   #     # 
+     *     #     #  #######  #     #  ######   #######  #     #   #####  
+     *                                                                   
+     */
+    
+    /***
+     *      #####   #######  #     #   #####   #######     #     #     #  #######   #####  
+     *     #     #  #     #  ##    #  #     #     #       # #    ##    #     #     #     # 
+     *     #        #     #  # #   #  #           #      #   #   # #   #     #     #       
+     *     #        #     #  #  #  #   #####      #     #     #  #  #  #     #      #####  
+     *     #        #     #  #   # #        #     #     #######  #   # #     #           # 
+     *     #     #  #     #  #    ##  #     #     #     #     #  #    ##     #     #     # 
+     *      #####   #######  #     #   #####      #     #     #  #     #     #      #####  
+     *                                                                                     
+     */
     /*
      * STATICS
      */
-    
      /*
       * PUBLIC STATICS
       *     for enumerating possible game actions
@@ -65,6 +85,26 @@ public class GameState {
     private final static byte CIRCLE_ENUM   = 3;
     private final static byte STAR_ENUM     = 4;
     private final static byte HEART_ENUM    = 5;
+
+    /* Block Strings -  for debugging */
+    private final static String NONE_STR     = "  ";
+    private final static String DIAMOND_STR  = "<>";
+    private final static String TRIANGLE_STR = "^ ";
+    private final static String CIRCLE_STR   = "O ";
+    private final static String STAR_STR     = "* ";
+    private final static String HEART_STR    = "<3";
+
+
+    /***
+     *      #####   #######  #        #######  ######         ##         #     #  ### 
+     *     #     #  #     #  #        #     #  #     #       #  #        #     #   #  
+     *     #        #     #  #        #     #  #     #        ##         #     #   #  
+     *     #        #     #  #        #     #  ######        ###         #     #   #  
+     *     #        #     #  #        #     #  #   #        #   # #      #     #   #  
+     *     #     #  #     #  #        #     #  #    #       #    #       #     #   #  
+     *      #####   #######  #######  #######  #     #       ###  #       #####   ### 
+     *                                                                                
+     */
     /*
      * UI CONSTANTS
      *     Modifying / commenting / uncommenting these will change the appearance of the game.
@@ -72,6 +112,7 @@ public class GameState {
     
     private final boolean stroke_on = false;
     private final int stroke_weight = 2;
+    
     /*
      * Colors - Courtesy of http://flatuicolors.com/
      *     Colors don't need to be static, this allows us to use lighten();
@@ -101,32 +142,44 @@ public class GameState {
     /*
      * LIGHT THEME
      */
-    // private final color DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
-    // private final color TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
-    // private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
-    // private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
-    // private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
+    private final color DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
+    private final color TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
+    private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
+    private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
+    private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
     
-    // private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
-    // private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
-    // private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
-    // private final color STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
-    // private final color HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
+    private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
+    private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
+    private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
+    private final color STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
+    private final color HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
     
     /*
      * DARK THEME
      */
-    private final color DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
-    private final color TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
-    private final color CIRCLE_COLOR_BLOCK   = BLOCK_GREY;
-    private final color STAR_COLOR_BLOCK     = BLOCK_GREY;
-    private final color HEART_COLOR_BLOCK    = BLOCK_GREY;
+    // private final color DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
+    // private final color TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
+    // private final color CIRCLE_COLOR_BLOCK   = BLOCK_GREY;
+    // private final color STAR_COLOR_BLOCK     = BLOCK_GREY;
+    // private final color HEART_COLOR_BLOCK    = BLOCK_GREY;
 
-    private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_SOS;
-    private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_SOS;
-    private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_SOS;
-    private final color STAR_COLOR_FILL     = STAR_COLOR_SOS;
-    private final color HEART_COLOR_FILL    = HEART_COLOR_SOS;
+    // private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_SOS;
+    // private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_SOS;
+    // private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_SOS;
+    // private final color STAR_COLOR_FILL     = STAR_COLOR_SOS;
+    // private final color HEART_COLOR_FILL    = HEART_COLOR_SOS;
+    
+
+    /***
+     *     #     #     #     ######   ###     #     ######   #        #######   #####  
+     *     #     #    # #    #     #   #     # #    #     #  #        #        #     # 
+     *     #     #   #   #   #     #   #    #   #   #     #  #        #        #       
+     *     #     #  #     #  ######    #   #     #  ######   #        #####     #####  
+     *      #   #   #######  #   #     #   #######  #     #  #        #              # 
+     *       # #    #     #  #    #    #   #     #  #     #  #        #        #     # 
+     *        #     #     #  #     #  ###  #     #  ######   #######  #######   #####  
+     *                                                                                 
+     */
 
     /* Graphics */
     private PGraphics NONE_GRAPHIC;
@@ -137,13 +190,7 @@ public class GameState {
     private PGraphics HEART_GRAPHIC;
 
     private PGraphics CURSOR_GRAPHIC;
-    /* Block Strings -  for debugging */
-    private final static String NONE_STR     = "  ";
-    private final static String DIAMOND_STR  = "<>";
-    private final static String TRIANGLE_STR = "^ ";
-    private final static String CIRCLE_STR   = "O ";
-    private final static String STAR_STR     = "* ";
-    private final static String HEART_STR    = "<3";
+    private PGraphics BOARD_GRAPHIC;
     
     /*
      * DATA
@@ -166,14 +213,22 @@ public class GameState {
     private int BLOCK_SIZE;
     private int SIDE_BAR;
     private int cursor_x, cursor_y;
+    /* members with initial values */
     private byte state       = PLAY_STATE;
     private int  score       = 0;
     private int  speed       = 0;
     private int  frames_past = 0;
 
 
-    /*
-     * CONSTRUCTOR
+    /***
+     *      #####   #######  #     #   #####   #######  ######   #     #   #####   #######  #######  ######  
+     *     #     #  #     #  ##    #  #     #     #     #     #  #     #  #     #     #     #     #  #     # 
+     *     #        #     #  # #   #  #           #     #     #  #     #  #           #     #     #  #     # 
+     *     #        #     #  #  #  #   #####      #     ######   #     #  #           #     #     #  ######  
+     *     #        #     #  #   # #        #     #     #   #    #     #  #           #     #     #  #   #   
+     *     #     #  #     #  #    ##  #     #     #     #    #   #     #  #     #     #     #     #  #    #  
+     *      #####   #######  #     #   #####      #     #     #   #####    #####      #     #######  #     # 
+     *                                                                                                       
      */
     public
     GameState (int across, int high, int blocksize, int sidebar)
@@ -185,8 +240,9 @@ public class GameState {
         this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
         this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
 
-        initTextDrawing();
-        initCursor();
+        this.initTextDrawing();
+        this.initCursor();
+        // this.initBlockGraphics();
 
         this.blocks  = new Block[across][high];
         this.nblocks = new Block[across];
@@ -385,8 +441,58 @@ public class GameState {
         }
     } /* END CONSTRUCTOR */
 
-    /*
-     * PRIVATE
+    /***
+     *     ###  #     #  ###  #######  ###     #     #        ###  #######     #     #######  ###  #######  #     #   #####  
+     *      #   ##    #   #      #      #     # #    #         #        #     # #       #      #   #     #  ##    #  #     # 
+     *      #   # #   #   #      #      #    #   #   #         #       #     #   #      #      #   #     #  # #   #  #       
+     *      #   #  #  #   #      #      #   #     #  #         #      #     #     #     #      #   #     #  #  #  #   #####  
+     *      #   #   # #   #      #      #   #######  #         #     #      #######     #      #   #     #  #   # #        # 
+     *      #   #    ##   #      #      #   #     #  #         #    #       #     #     #      #   #     #  #    ##  #     # 
+     *     ###  #     #  ###     #     ###  #     #  #######  ###  #######  #     #     #     ###  #######  #     #   #####  
+     *                                                                                                                       
+     */
+    private void
+    initTextDrawing ()
+    {
+        textSize(TEXT_SIZE);
+    }
+
+    private void
+    initCursor ()
+    {
+        this.CURSOR_GRAPHIC = createGraphics(2 * this.BLOCK_SIZE,
+                                             this.BLOCK_SIZE,
+                                             P2D);
+        this.CURSOR_GRAPHIC.beginDraw();
+        this.CURSOR_GRAPHIC.fill(255, 0);
+        this.CURSOR_GRAPHIC.strokeWeight(5);
+        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.endDraw();
+    }
+
+
+
+    /***
+     *     #     #  #######  #######  #     #  #######  ######    #####  
+     *     ##   ##  #           #     #     #  #     #  #     #  #     # 
+     *     # # # #  #           #     #     #  #     #  #     #  #       
+     *     #  #  #  #####       #     #######  #     #  #     #   #####  
+     *     #     #  #           #     #     #  #     #  #     #        # 
+     *     #     #  #           #     #     #  #     #  #     #  #     # 
+     *     #     #  #######     #     #     #  #######  ######    #####  
+     *                                                                   
+     */
+    
+    /***
+     *     ######   #        #######   #####   #    #      #     #  #######  #######  #     #  #######  ######    #####  
+     *     #     #  #        #     #  #     #  #   #       ##   ##  #           #     #     #  #     #  #     #  #     # 
+     *     #     #  #        #     #  #        #  #        # # # #  #           #     #     #  #     #  #     #  #       
+     *     ######   #        #     #  #        ###         #  #  #  #####       #     #######  #     #  #     #   #####  
+     *     #     #  #        #     #  #        #  #        #     #  #           #     #     #  #     #  #     #        # 
+     *     #     #  #        #     #  #     #  #   #       #     #  #           #     #     #  #     #  #     #  #     # 
+     *     ######   #######  #######   #####   #    #      #     #  #######     #     #     #  #######  ######    #####  
+     *                                                                                                                   
      */
     private Block
     randomBlock ()
@@ -398,6 +504,13 @@ public class GameState {
     noneBlock ()
     {
         return this.getBlock(NONE_ENUM);
+    }
+
+    private void
+    deleteBlock (int i, int j)
+    {
+        this.blocks[i][j] = null;
+        this.blocks[i][j] = noneBlock();
     }
 
     private Block
@@ -443,33 +556,43 @@ public class GameState {
         }
     }
 
-    private void
-    drawBlock (Block b, int block_x, int block_y)
+
+
+    /***
+     *      #####      #     #     #  #######      #        #######   #####   ###   #####  
+     *     #     #    # #    ##   ##  #            #        #     #  #     #   #   #     # 
+     *     #         #   #   # # # #  #            #        #     #  #         #   #       
+     *     #  ####  #     #  #  #  #  #####        #        #     #  #  ####   #   #       
+     *     #     #  #######  #     #  #            #        #     #  #     #   #   #       
+     *     #     #  #     #  #     #  #            #        #     #  #     #   #   #     # 
+     *      #####   #     #  #     #  #######      #######  #######   #####   ###   #####  
+     *                                                                                     
+     */
+    
+    public void
+    update()
     {
-        pushMatrix();
-        translate(block_x * b.BLOCK_SIZE, block_y * b.BLOCK_SIZE);
-
-        b.draw();
-
-        popMatrix();
-    }
-
-    private void
-    initTextDrawing ()
-    {
-        textSize(TEXT_SIZE);
-    }
-
-    private void
-    drawScore ()
-    {
-        fill(0);
-        text(str(this.score), this.BLOCK_SIZE * this.BLOCKS_ACROSS * 1.1, TEXT_SIZE);
+        if (this.state == PLAY_STATE)
+        {
+            this.findMatches();
+            this.cleanUp();
+            this.handleGravity();
+            this.handleNewBlocks();
+        }
+        else if (this.state == START_STATE)
+        {
+            // TODO
+        }
+        else if (this.state == END_STATE)
+        {
+            // TODO
+        }
     }
 
     private void
     findMatches ()
     {
+        // Resources
         // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
         // http://androidgamify.blogspot.com/2013/10/match-3-game-algorithm-part-2-how-to.html
         /* VERTICAL MATCHING */
@@ -484,8 +607,7 @@ public class GameState {
                 byte t2 = this.blocks[i][j+2].getType();
 
                 if (!marked && !falling && (t0 != NONE_ENUM) && (t0 == t1) && (t0 == t2))
-                {
-                    // a match!
+                {   // a match!
                     this.blocks[i][j].mark();
                     this.blocks[i][j+1].mark();
                     this.blocks[i][j+2].mark();
@@ -499,6 +621,7 @@ public class GameState {
                 }
             }
         }
+
         /* HORIZONTAL MATCHING */
         for (int i = 0; i < this.BLOCKS_ACROSS - 2; i++)
         {
@@ -510,8 +633,7 @@ public class GameState {
                 byte t2 = this.blocks[i+2][j].getType();
 
                 if (!marked && (t0 != NONE_ENUM) && (t0 == t1) && (t0 == t2))
-                {
-                    // a match!
+                {   // a match!
                     this.blocks[i][j].mark();
                     this.blocks[i+1][j].mark();
                     this.blocks[i+2][j].mark();
@@ -564,6 +686,25 @@ public class GameState {
     }
 
     private void
+    handleNewBlocks ()
+    {
+        this.frames_past++;
+        if (this.frames_past > FRAMES_PER_INCREMENT)
+        {
+            this.frames_past = 0;
+            this.speed++;
+
+            this.copyNewBlocks();
+
+            // create new offscreen blocks
+            for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+            {
+                this.nblocks[i] = randomBlock();
+            }
+        }
+    }
+
+    private void
     copyNewBlocks ()
     {
         for (int i = 0; i < this.BLOCKS_ACROSS; i++)
@@ -586,60 +727,19 @@ public class GameState {
         }
     }
 
-    private void
-    newBlocks ()
-    {
-        this.frames_past++;
-        if (this.frames_past > FRAMES_PER_INCREMENT)
-        {
-            this.frames_past = 0;
-            this.speed++;
-            this.copyNewBlocks();
 
-            // create new offscreen blocks
-            for (int i = 0; i < this.BLOCKS_ACROSS; i++)
-            {
-                this.nblocks[i] = randomBlock();
-            }
-        }
-    }
 
-    private void
-    deleteBlock (int i, int j)
-    {
-        this.blocks[i][j] = null;
-        this.blocks[i][j] = noneBlock();
-    }
-
-    private void
-    initCursor ()
-    {
-        this.CURSOR_GRAPHIC = createGraphics(2 * this.BLOCK_SIZE,
-                                             this.BLOCK_SIZE,
-                                             P2D);
-        this.CURSOR_GRAPHIC.beginDraw();
-        this.CURSOR_GRAPHIC.fill(255, 0);
-        this.CURSOR_GRAPHIC.strokeWeight(5);
-        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
-        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
-        this.CURSOR_GRAPHIC.endDraw();
-    }
-
-    private void
-    drawCursor ()
-    {
-        pushMatrix();
-        translate(this.cursor_x * this.BLOCK_SIZE, this.cursor_y * this.BLOCK_SIZE);
-
-        image(this.CURSOR_GRAPHIC, 0, 0);
-
-        popMatrix();
-    }
-    
-    /*
-     * PUBLIC METHODS
+    /***
+     *     ######   #######  #     #  ######   #######  ######   ###  #     #   #####  
+     *     #     #  #        ##    #  #     #  #        #     #   #   ##    #  #     # 
+     *     #     #  #        # #   #  #     #  #        #     #   #   # #   #  #       
+     *     ######   #####    #  #  #  #     #  #####    ######    #   #  #  #  #  #### 
+     *     #   #    #        #   # #  #     #  #        #   #     #   #   # #  #     # 
+     *     #    #   #        #    ##  #     #  #        #    #    #   #    ##  #     # 
+     *     #     #  #######  #     #  ######   #######  #     #  ###  #     #   #####  
+     *                                                                                 
      */
-    
+
     public void
     render ()
     {
@@ -674,18 +774,47 @@ public class GameState {
         }
     }
 
-    public void
-    update()
+    private void
+    drawCursor ()
     {
-        if (this.state == PLAY_STATE)
-        {
-            this.findMatches();
-            this.cleanUp();
-            this.handleGravity();
-            this.newBlocks();
-        }
+        pushMatrix();
+        translate(this.cursor_x * this.BLOCK_SIZE, this.cursor_y * this.BLOCK_SIZE);
+
+        image(this.CURSOR_GRAPHIC, 0, 0);
+
+        popMatrix();
     }
 
+    private void
+    drawScore ()
+    {
+        fill(0);
+        text(str(this.score), this.BLOCK_SIZE * this.BLOCKS_ACROSS * 1.1, TEXT_SIZE);
+    }
+    
+    private void
+    drawBlock (Block b, int block_x, int block_y)
+    {
+        pushMatrix();
+        translate(block_x * b.BLOCK_SIZE, block_y * b.BLOCK_SIZE);
+
+        b.draw();
+
+        popMatrix();
+    }
+
+
+
+    /***
+     *      #####      #     #     #  #######         #      #####   #######  ###  #######  #     #   #####  
+     *     #     #    # #    ##   ##  #              # #    #     #     #      #   #     #  ##    #  #     # 
+     *     #         #   #   # # # #  #             #   #   #           #      #   #     #  # #   #  #       
+     *     #  ####  #     #  #  #  #  #####        #     #  #           #      #   #     #  #  #  #   #####  
+     *     #     #  #######  #     #  #            #######  #           #      #   #     #  #   # #        # 
+     *     #     #  #     #  #     #  #            #     #  #     #     #      #   #     #  #    ##  #     # 
+     *      #####   #     #  #     #  #######      #     #   #####      #     ###  #######  #     #   #####  
+     *                                                                                                       
+     */
     public void
     deliverKey (byte action)
     {
@@ -738,8 +867,15 @@ public class GameState {
         }
     }
 
-    /*
-     * DEBUGGING
+    /***
+     *     ######   #######  ######   #     #   #####  
+     *     #     #  #        #     #  #     #  #     # 
+     *     #     #  #        #     #  #     #  #       
+     *     #     #  #####    ######   #     #  #  #### 
+     *     #     #  #        #     #  #     #  #     # 
+     *     #     #  #        #     #  #     #  #     # 
+     *     ######   #######  ######    #####    #####  
+     *                                                 
      */
     public void
     printState ()
