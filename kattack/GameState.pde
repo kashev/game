@@ -823,10 +823,7 @@ public class GameState {
                         break;
                     case GAME_SWAP:
                         // swap blocks under cursor.
-                        Block temp = this.blocks[this.cursor_x][this.cursor_y];
-                        this.blocks[this.cursor_x][this.cursor_y] = this.blocks[this.cursor_x + 1][this.cursor_y];
-                        this.blocks[this.cursor_x + 1][this.cursor_y] = temp;
-                        temp = null;
+                        this.swapBlocks(this.cursor_x, this.cursor_y, this.cursor_x + 1, this.cursor_y);
                         break;
                     case GAME_INC:
                         this.copyNewBlocks();
@@ -847,6 +844,7 @@ public class GameState {
                 switch (action)
                 {
                     case GAME_SWAP:
+                        // start a new game. reinit the board, speed, score.
                         this.initGameBoard();
                         this.initDefaultValues();
                         this.state = PLAY_STATE;
@@ -857,6 +855,21 @@ public class GameState {
             default:   
                 break;
         }
+    }
+
+    /*
+     * swapBlocks()
+     *     given two indexes, swaps the blocks.
+     *     note that no bounds checking is performed; if a swap is attempted
+     *     on blocks that don't exist, something else is wrong.
+     */
+    private void
+    swapBlocks (int x1, int y1, int x2, int y2)
+    {
+        Block temp = this.blocks[x1][y1];
+        this.blocks[x1][y1] = this.blocks[x2][y2];
+        this.blocks[x2][y2] = temp;
+        temp = null;
     }
 
     /***
