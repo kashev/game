@@ -582,20 +582,27 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH - 2; j++)
             {
-                boolean marked  = this.blocks[i][j].isMarked();
-                boolean falling = this.blocks[i][j].isFalling();
-                byte t0 = this.blocks[i][j].getType();
-                byte t1 = this.blocks[i][j+1].getType();
-                byte t2 = this.blocks[i][j+2].getType();
+                byte t = this.blocks[i][j].getType();
 
-                if (!marked && !falling && (t0 != NONE_ENUM) && (t0 == t1) && (t0 == t2))
+                if (!this.blocks[i][j].isMarked()    &&
+                    !this.blocks[i][j+1].isMarked()  &&
+                    !this.blocks[i][j+2].isMarked()  && 
+                    !this.blocks[i][j].isFalling()   &&
+                    !this.blocks[i][j+1].isFalling() &&
+                    !this.blocks[i][j+2].isFalling() &&
+                    (t != NONE_ENUM) &&
+                    (t == this.blocks[i][j+1].getType()) &&
+                    (t == this.blocks[i][j+2].getType()) )
                 {   // a match!
                     this.blocks[i][j].mark();
                     this.blocks[i][j+1].mark();
                     this.blocks[i][j+2].mark();
 
                     int jj = j+3;
-                    while (jj < this.BLOCKS_HIGH && this.blocks[i][jj].getType() == t0)
+                    while (jj < this.BLOCKS_HIGH               &&
+                           (this.blocks[i][jj].getType() == t) &&
+                           !this.blocks[i][jj].isMarked()      &&
+                           !this.blocks[i][jj].isFalling())
                     {
                         this.blocks[i][jj].mark();
                         jj++;
@@ -609,19 +616,27 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH; j++)
             {
-                boolean marked = this.blocks[i][j].isMarked();
-                byte t0 = this.blocks[i][j].getType();
-                byte t1 = this.blocks[i+1][j].getType();
-                byte t2 = this.blocks[i+2][j].getType();
-
-                if (!marked && (t0 != NONE_ENUM) && (t0 == t1) && (t0 == t2))
+                byte t = this.blocks[i][j].getType();
+                
+                if (!this.blocks[i][j].isMarked()    &&
+                    !this.blocks[i+1][j].isMarked()  &&
+                    !this.blocks[i+2][j].isMarked()  && 
+                    !this.blocks[i][j].isFalling()   &&
+                    !this.blocks[i+1][j].isFalling() &&
+                    !this.blocks[i+2][j].isFalling() &&
+                    (t != NONE_ENUM) &&
+                    (t == this.blocks[i+1][j].getType()) &&
+                    (t == this.blocks[i+2][j].getType()) )
                 {   // a match!
                     this.blocks[i][j].mark();
                     this.blocks[i+1][j].mark();
                     this.blocks[i+2][j].mark();
-
-                    int ii = i+3;
-                    while (ii < this.BLOCKS_ACROSS && this.blocks[ii][j].getType() == t0)
+                    
+                    int ii = j+3;
+                    while (ii < this.BLOCKS_ACROSS             &&
+                           (this.blocks[ii][j].getType() == t) &&
+                           !this.blocks[ii][j].isMarked()      &&
+                           !this.blocks[ii][j].isFalling())
                     {
                         this.blocks[ii][j].mark();
                         ii++;
