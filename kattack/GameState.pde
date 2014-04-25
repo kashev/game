@@ -185,7 +185,8 @@ public class GameState {
         this.BLOCK_SIZE    = blocksize;
         this.SIDE_BAR      = sidebar;
 
-        this.cp = new ColorPalette(ColorPalette.LIGHT); // must be called before initBlockGraphics.
+        this.cp = new ColorPalette(ColorPalette.LIGHT_THEME); // must be called before initBlockGraphics.
+                                                              // change the argument to change the color scheme.
 
         this.initDefaultValues();
         this.initTextDrawing();

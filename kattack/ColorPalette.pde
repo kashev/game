@@ -17,8 +17,8 @@ public class ColorPalette {
      * COLOR PALETTE KEYWORDS
      *     used to switch the color scheme upon construction of the color palette object.
      */
-    public final static byte LIGHT = 0;
-    public final static byte SOS   = 1;
+    public final static byte LIGHT_THEME = 0;
+    public final static byte SOS_THEME   = 1;
 
     /*
      * Colors - Courtesy of http://flatuicolors.com/
@@ -74,7 +74,7 @@ public class ColorPalette {
     public
     ColorPalette ()
     {
-        changePalette(this.LIGHT);
+        changePalette(this.LIGHT_THEME);
     }
 
     /*
@@ -86,10 +86,7 @@ public class ColorPalette {
     {
         switch (p)
         {
-            case LIGHT:
-                /*
-                 * LIGHT THEME
-                 */
+            case LIGHT_THEME:
                 this.DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
                 this.TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
                 this.CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
@@ -102,11 +99,8 @@ public class ColorPalette {
                 this.STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
                 this.HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
                 break;
-            case SOS:
+            case SOS_THEME:
             default:
-                /*
-                 * SOS inspired.
-                 */
                 this.DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
                 this.TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
                 this.CIRCLE_COLOR_BLOCK   = BLOCK_GREY;
