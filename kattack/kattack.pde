@@ -22,7 +22,7 @@ final String GAME_NAME = "kattack";
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
 final int BLOCK_SIZE    = 80;
-final int SIDE_BAR     = 200;
+final int SIDE_BAR      = 200;
 final int CANVAS_WIDTH  = (BLOCK_SIZE * BLOCKS_ACROSS) + SIDE_BAR;
 final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
 
@@ -57,12 +57,6 @@ keyPressed()
     {
         gs.deliverAction(gs.GAME_SWAP);
     }
-    // else if (  (key == 'x') || (key == 'X')
-    //         || (key == 'c') || (key == 'C')
-    //         || (key == 'v') || (key == 'V')
-    //         || (key == 'b') || (key == 'N')
-    //         || (key == 'm') || (key == 'M')
-    //         )
     else if ("zxcvbnmZXCVBNM".indexOf(key) > -1)
     { // something on the bottom row of the keyboard.
         gs.deliverAction(gs.GAME_INC);
@@ -72,7 +66,10 @@ keyPressed()
 void
 keyReleased()
 {
-    println("released " + int(key) + " " + keyCode);
+    /* Intentionally Empty */
+    /*
+     * For now, OS key repeats are okay. Perhaps, someday,
+     */
 }
 
 /*
@@ -81,7 +78,7 @@ keyReleased()
 void
 setup ()
 {
-    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for some reason
+    size(CANVAS_WIDTH, CANVAS_HEIGHT, P2D); // P2D is required for pShapes
     
     gs = new GameState(BLOCKS_ACROSS, BLOCKS_HIGH, BLOCK_SIZE, SIDE_BAR);  
 

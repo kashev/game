@@ -66,8 +66,8 @@ public class GameState {
      * STRINGS
      */
     private final static int TEXT_SIZE       = 32;
-    private final static String START_STRING = "kattack - press any key to play.";
-    private final static String END_STRING   = "game over.";
+    private final static String START_STRING = "kattack - press the space key to play.";
+    private final static String END_STRING   = "game over. press the space key to play again.";
 
     /*
      * GAME CONSTANTS
@@ -161,7 +161,7 @@ public class GameState {
     private int SIDE_BAR;
     private int cursor_x, cursor_y;
     /* members with initial values */
-    private byte  state       = PLAY_STATE;
+    private byte  state       = START_STATE;
     private int   score       = 0;
     private float speed       = 15.0; // seconds.
     private int   frames_past = 0;
@@ -184,9 +184,8 @@ public class GameState {
         this.BLOCKS_HIGH   = high;
         this.BLOCK_SIZE    = blocksize;
         this.SIDE_BAR      = sidebar;
-        this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
-        this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
 
+        this.initDefaultValues();
         this.initTextDrawing();
         this.initCursor();
         // this.initBlockGraphics();
@@ -372,22 +371,8 @@ public class GameState {
         /*
          * INITIALIZE GAME BOAD
          */
-        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
-        {
-            for (int j = 0; j < this.BLOCKS_HIGH; j++)
-            {
-                if (j < (int)(this.BLOCKS_HIGH * 0.5))
-                {
-                    this.blocks[i][j] = this.noneBlock();
-                }
-                else
-                {
-                    this.blocks[i][j] = this.randomBlock();
-                }
-            }
+        this.initGameBoard();
 
-            this.nblocks[i] = this.randomBlock();
-        }
     } /* END CONSTRUCTOR */
 
     /***
@@ -400,6 +385,20 @@ public class GameState {
      *     ###  #     #  ###     #     ###  #     #  #######  ###  #######  #     #     #     ###  #######  #     #   #####  
      *                                                                                                                       
      */
+
+    /*
+     * initDefaultValues()
+     *     resets the game for another play.
+     */
+    private void
+    initDefaultValues ()
+    {
+        this.score = 0;
+        this.speed = 15.0;
+        this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
+        this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
+    }
+
     private void
     initTextDrawing ()
     {
@@ -418,6 +417,33 @@ public class GameState {
         this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
         this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
         this.CURSOR_GRAPHIC.endDraw();
+    }
+
+
+    /*
+     * initGameBoard()
+     *     initializes blocks on the board to the state they
+     *     should be in for the beginning of a new game.
+     */
+    private void
+    initGameBoard ()
+    {
+        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+        {
+            for (int j = 0; j < this.BLOCKS_HIGH; j++)
+            {
+                if (j < (int)(this.BLOCKS_HIGH * 0.5))
+                {
+                    this.blocks[i][j] = this.noneBlock();
+                }
+                else
+                {
+                    this.blocks[i][j] = this.randomBlock();
+                }
+            }
+
+            this.nblocks[i] = this.randomBlock();
+        }
     }
 
 
@@ -804,14 +830,30 @@ public class GameState {
                         break;
                     case GAME_INC:
                         this.copyNewBlocks();
-                    default :
+                    default:
                         break;    
                 }
                 break;
             case START_STATE:
-                break;
+                switch (action)
+                {
+                    case GAME_SWAP:
+                        this.state = PLAY_STATE;
+                        break;
+                    default:
+                        break;
+                }
             case END_STATE:
-                break;
+                switch (action)
+                {
+                    case GAME_SWAP:
+                        this.initGameBoard();
+                        this.initDefaultValues();
+                        this.state = PLAY_STATE;
+                        break;
+                    default:
+                        break;    
+                }
             default:   
                 break;
         }
