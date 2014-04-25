@@ -107,68 +107,14 @@ public class GameState {
      */
     /*
      * UI CONSTANTS
-     *     Modifying / commenting / uncommenting these will change the appearance of the game.
+     *     Modifying these will change the appearance of the game.
      */
     
     private final boolean stroke_on = false;
     private final int stroke_weight = 2;
-    
-    /*
-     * Colors - Courtesy of http://flatuicolors.com/
-     *     Colors don't need to be static, this allows us to use lighten();
-     */
-    private final color NONE_COLOR          = #ffffff;
-    private final color BLOCK_GREY          = #a0a0a0;
-    
-    private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
-    private final color TRIANGLE_COLOR_DARK = #2980b9; // belize hole
-    private final color CIRCLE_COLOR_DARK   = #27ae60; // nephritis
-    private final color STAR_COLOR_DARK     = #f1c40f; // sunflower
-    private final color HEART_COLOR_DARK    = #c0392b; // pomegranite
 
-    private final color DIAMOND_COLOR_LIGHT  = lighten(color(#8e44ad), 0.4); // wisteria
-    private final color TRIANGLE_COLOR_LIGHT = lighten(color(#2980b9), 0.4); // belize hole
-    private final color CIRCLE_COLOR_LIGHT   = lighten(color(#27ae60), 0.4); // nephritis
-    private final color STAR_COLOR_LIGHT     = lighten(color(#f1c40f), 0.4); // sunflower
-    private final color HEART_COLOR_LIGHT    = lighten(color(#c0392b), 0.4); // pomegranite
-    /* Inspired by https://cottonbureau.com/products/sos, http://bitelabs.org, https://cottonbureau.com/products/macaw/*/
-    private final color DIAMOND_COLOR_SOS  = #5edaf6;
-    private final color TRIANGLE_COLOR_SOS = lighten(color(#30A848), 0.2); // bitelabs
-    private final color CIRCLE_COLOR_SOS   = #e066ff;
-    private final color STAR_COLOR_SOS     = #ffff6D;
-    private final color HEART_COLOR_SOS    = #f45f72;
-
-
-    /*
-     * LIGHT THEME
-     */
-    private final color DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
-    private final color TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
-    private final color CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
-    private final color STAR_COLOR_BLOCK     = STAR_COLOR_DARK;
-    private final color HEART_COLOR_BLOCK    = HEART_COLOR_DARK;
-    
-    private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_LIGHT;
-    private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_LIGHT;
-    private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_LIGHT;
-    private final color STAR_COLOR_FILL     = STAR_COLOR_LIGHT;
-    private final color HEART_COLOR_FILL    = HEART_COLOR_LIGHT;
-    
-    /*
-     * DARK THEME
-     */
-    // private final color DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
-    // private final color TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
-    // private final color CIRCLE_COLOR_BLOCK   = BLOCK_GREY;
-    // private final color STAR_COLOR_BLOCK     = BLOCK_GREY;
-    // private final color HEART_COLOR_BLOCK    = BLOCK_GREY;
-
-    // private final color DIAMOND_COLOR_FILL  = DIAMOND_COLOR_SOS;
-    // private final color TRIANGLE_COLOR_FILL = TRIANGLE_COLOR_SOS;
-    // private final color CIRCLE_COLOR_FILL   = CIRCLE_COLOR_SOS;
-    // private final color STAR_COLOR_FILL     = STAR_COLOR_SOS;
-    // private final color HEART_COLOR_FILL    = HEART_COLOR_SOS;
-    
+    /* ColorPalette is used to determine color scheme for game */
+    private ColorPalette cp;    
 
     /***
      *     #     #     #     ######   ###     #     ######   #        #######   #####  
@@ -244,6 +190,8 @@ public class GameState {
         this.initCursor();
         // this.initBlockGraphics();
 
+        this.cp = new ColorPalette(ColorPalette.LIGHT);
+
         this.blocks  = new Block[across][high];
         this.nblocks = new Block[across];
 
@@ -268,7 +216,7 @@ public class GameState {
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.5));
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         DIAMOND_SHAPE.endShape(CLOSE);
-        DIAMOND_SHAPE.setFill(DIAMOND_COLOR_FILL);
+        DIAMOND_SHAPE.setFill(this.cp.DIAMOND_COLOR_FILL);
         DIAMOND_SHAPE.setStroke(this.stroke_on);
         
         this.DIAMOND_GRAPHIC.beginDraw();
@@ -280,7 +228,7 @@ public class GameState {
         {
             this.DIAMOND_GRAPHIC.noStroke();    
         }
-        this.DIAMOND_GRAPHIC.fill(DIAMOND_COLOR_BLOCK);
+        this.DIAMOND_GRAPHIC.fill(this.cp.DIAMOND_COLOR_BLOCK);
         this.DIAMOND_GRAPHIC.rect(0, 0,
                                   this.BLOCK_SIZE, this.BLOCK_SIZE,
                                   this.BLOCK_SIZE * 0.15);
@@ -298,7 +246,7 @@ public class GameState {
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.9));
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         TRIANGLE_SHAPE.endShape(CLOSE);
-        TRIANGLE_SHAPE.setFill(TRIANGLE_COLOR_FILL);
+        TRIANGLE_SHAPE.setFill(this.cp.TRIANGLE_COLOR_FILL);
         TRIANGLE_SHAPE.setStroke(this.stroke_on);
 
         this.TRIANGLE_GRAPHIC.beginDraw();
@@ -310,7 +258,7 @@ public class GameState {
         {
             this.TRIANGLE_GRAPHIC.noStroke();    
         }
-        this.TRIANGLE_GRAPHIC.fill(TRIANGLE_COLOR_BLOCK);
+        this.TRIANGLE_GRAPHIC.fill(this.cp.TRIANGLE_COLOR_BLOCK);
         this.TRIANGLE_GRAPHIC.rect(0, 0,
                                    this.BLOCK_SIZE, this.BLOCK_SIZE,
                                    this.BLOCK_SIZE * 0.15);
@@ -325,7 +273,7 @@ public class GameState {
                                                    (int)(this.BLOCK_SIZE * 0.1),
                                                    (int)(this.BLOCK_SIZE * 0.8),
                                                    (int)(this.BLOCK_SIZE * 0.8));
-        CIRCLE_SHAPE.setFill(CIRCLE_COLOR_FILL);
+        CIRCLE_SHAPE.setFill(this.cp.CIRCLE_COLOR_FILL);
         CIRCLE_SHAPE.setStroke(this.stroke_on);
 
         this.CIRCLE_GRAPHIC.beginDraw();
@@ -337,7 +285,7 @@ public class GameState {
         {
             this.CIRCLE_GRAPHIC.noStroke();    
         }
-        this.CIRCLE_GRAPHIC.fill(CIRCLE_COLOR_BLOCK);
+        this.CIRCLE_GRAPHIC.fill(this.cp.CIRCLE_COLOR_BLOCK);
         this.CIRCLE_GRAPHIC.rect(0, 0,
                                  this.BLOCK_SIZE, this.BLOCK_SIZE,
                                  this.BLOCK_SIZE * 0.15);
@@ -368,7 +316,7 @@ public class GameState {
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.37), (int)(this.BLOCK_SIZE * 0.33)); // 10
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05)); // 1
         STAR_SHAPE.endShape(CLOSE);
-        STAR_SHAPE.setFill(STAR_COLOR_FILL);
+        STAR_SHAPE.setFill(this.cp.STAR_COLOR_FILL);
         STAR_SHAPE.setStroke(this.stroke_on);
 
         this.STAR_GRAPHIC.beginDraw();
@@ -380,7 +328,7 @@ public class GameState {
         {
             this.STAR_GRAPHIC.noStroke();    
         }
-        this.STAR_GRAPHIC.fill(STAR_COLOR_BLOCK);
+        this.STAR_GRAPHIC.fill(this.cp.STAR_COLOR_BLOCK);
         this.STAR_GRAPHIC.rect(0, 0,
                                this.BLOCK_SIZE, this.BLOCK_SIZE,
                                this.BLOCK_SIZE * 0.15);
@@ -401,11 +349,11 @@ public class GameState {
                                  (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * -0.25),  // ctrl 2
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30));  // anchor
         HEART_SHAPE.endShape(CLOSE);
-        HEART_SHAPE.setFill(HEART_COLOR_FILL);
+        HEART_SHAPE.setFill(this.cp.HEART_COLOR_FILL);
         HEART_SHAPE.setStroke(this.stroke_on);
 
         this.HEART_GRAPHIC.beginDraw();
-        this.HEART_GRAPHIC.fill(HEART_COLOR_BLOCK);
+        this.HEART_GRAPHIC.fill(this.cp.HEART_COLOR_BLOCK);
         if (this.stroke_on)
         {
             this.HEART_GRAPHIC.strokeWeight(this.stroke_weight);
@@ -470,7 +418,6 @@ public class GameState {
         this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
         this.CURSOR_GRAPHIC.endDraw();
     }
-
 
 
     /***

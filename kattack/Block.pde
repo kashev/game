@@ -25,10 +25,10 @@ public class Block {
     private final static int FALLING_COUNT = 20;
     
     private final color DISAPPEARING_SHADE = color(50, 50 , 50 , 50);
+    
     /*
      * MEMBER VARIABLES
      */
-    /* PUBLIC */
     /* PRIVATE */
     /* FINAL */
     private final byte   type;
@@ -37,11 +37,7 @@ public class Block {
     /* NOT FINAL */
     private boolean marked  = false;
     private boolean falling = false;
-    private int timer = 0;
-
-    /*
-     * PRIVATE METHODS
-     */
+    private int     timer   = 0;
 
     /*
      * CONSTRUCTORS
