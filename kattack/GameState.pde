@@ -74,6 +74,8 @@ public class GameState {
      */
     
     private final static float SPEED_INCREMENT = 0.0001; // seconds
+    private final static int   BLOCK_SCORE     = 10;     // points
+    private final static int   LINE_SCORE      = 1;      // point
     
     /*
      * BLOCKS CONSTANTS
@@ -563,11 +565,11 @@ public class GameState {
         }
         else if (this.state == START_STATE)
         {
-            // TODO
+            /* Intentionally Empty */
         }
         else if (this.state == END_STATE)
         {
-            // TODO
+            /* Intentionally Empty */
         }
     }
 
@@ -584,9 +586,10 @@ public class GameState {
             {
                 byte t = this.blocks[i][j].getType();
 
-                if (!this.blocks[i][j].isMarked()    &&
-                    !this.blocks[i][j+1].isMarked()  &&
-                    !this.blocks[i][j+2].isMarked()  && 
+                if (
+                    // !this.blocks[i][j].isMarked()    &&
+                    // !this.blocks[i][j+1].isMarked()  &&
+                    // !this.blocks[i][j+2].isMarked()  && 
                     !this.blocks[i][j].isFalling()   &&
                     !this.blocks[i][j+1].isFalling() &&
                     !this.blocks[i][j+2].isFalling() &&
@@ -618,9 +621,10 @@ public class GameState {
             {
                 byte t = this.blocks[i][j].getType();
                 
-                if (!this.blocks[i][j].isMarked()    &&
-                    !this.blocks[i+1][j].isMarked()  &&
-                    !this.blocks[i+2][j].isMarked()  && 
+                if (
+                    // !this.blocks[i][j].isMarked()    &&
+                    // !this.blocks[i+1][j].isMarked()  &&
+                    // !this.blocks[i+2][j].isMarked()  && 
                     !this.blocks[i][j].isFalling()   &&
                     !this.blocks[i+1][j].isFalling() &&
                     !this.blocks[i+2][j].isFalling() &&
@@ -656,6 +660,7 @@ public class GameState {
                 if (this.blocks[i][j].shouldDelete())
                 {
                     this.deleteBlock(i, j);
+                    this.score += BLOCK_SCORE;
                 }
             }
         }
@@ -850,6 +855,7 @@ public class GameState {
                         break;
                     case GAME_INC:
                         this.copyNewBlocks();
+                        this.score += this.LINE_SCORE;
                     default:
                         break;    
                 }
