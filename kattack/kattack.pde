@@ -22,7 +22,7 @@ final String GAME_NAME = "kattack";
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
 final int BLOCK_SIZE    = 80;
-final int SIDE_BAR      = 200;
+final int SIDE_BAR     = 200;
 final int CANVAS_WIDTH  = (BLOCK_SIZE * BLOCKS_ACROSS) + SIDE_BAR;
 final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
 
@@ -38,24 +38,34 @@ keyPressed()
     {
         if (keyCode == UP)
         {
-            gs.deliverKey(gs.GAME_UP);
+            gs.deliverAction(gs.GAME_UP);
         }
         else if (keyCode == DOWN)
         {
-            gs.deliverKey(gs.GAME_DOWN);
+            gs.deliverAction(gs.GAME_DOWN);
         }
         else if (keyCode == LEFT)
         {
-            gs.deliverKey(gs.GAME_LEFT);
+            gs.deliverAction(gs.GAME_LEFT);
         }
         else if (keyCode == RIGHT)
         {
-            gs.deliverKey(gs.GAME_RIGHT);
+            gs.deliverAction(gs.GAME_RIGHT);
         }
     }
     else if (key == ' ')
     {
-        gs.deliverKey(gs.GAME_SWAP);
+        gs.deliverAction(gs.GAME_SWAP);
+    }
+    // else if (  (key == 'x') || (key == 'X')
+    //         || (key == 'c') || (key == 'C')
+    //         || (key == 'v') || (key == 'V')
+    //         || (key == 'b') || (key == 'N')
+    //         || (key == 'm') || (key == 'M')
+    //         )
+    else if ("zxcvbnmZXCVBNM".indexOf(key) > -1)
+    { // something on the bottom row of the keyboard.
+        gs.deliverAction(gs.GAME_INC);
     }
 }
 

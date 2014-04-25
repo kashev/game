@@ -43,16 +43,18 @@ public class GameState {
       * PUBLIC STATICS
       *     for enumerating possible game actions
       */
-     public final static byte GAME_UP    = 0;
-     public final static byte GAME_DOWN  = 1;
-     public final static byte GAME_LEFT  = 2;
-     public final static byte GAME_RIGHT = 3;
-     public final static byte GAME_SWAP  = 4;
+    public final static byte GAME_UP    = 0;
+    public final static byte GAME_DOWN  = 1;
+    public final static byte GAME_LEFT  = 2;
+    public final static byte GAME_RIGHT = 3;
+    public final static byte GAME_SWAP  = 4;
+    public final static byte GAME_INC   = 5;
 
     /*
      * PRIVATE STATICS
      */
     private final static color bg = 0xfffffff;
+
     /*
      * GAME STATES
      */
@@ -63,17 +65,16 @@ public class GameState {
     /*
      * STRINGS
      */
+    private final static int TEXT_SIZE       = 32;
     private final static String START_STRING = "kattack - press any key to play.";
-    private final static String END_STRING = "game over.";
+    private final static String END_STRING   = "game over.";
 
     /*
-     * GAME VARIABLES
+     * GAME CONSTANTS
      */
     
-    private final static int SPEED_INCREMENT      = 1;
-    private final static int FRAMES_PER_INCREMENT = 500;
-    private final static int TEXT_SIZE            = 32;
-
+    private final static float SPEED_INCREMENT = 0.0001; // seconds
+    
     /*
      * BLOCKS CONSTANTS
      *     Enums aren't supported in Processing.
@@ -160,10 +161,10 @@ public class GameState {
     private int SIDE_BAR;
     private int cursor_x, cursor_y;
     /* members with initial values */
-    private byte state       = PLAY_STATE;
-    private int  score       = 0;
-    private int  speed       = 0;
-    private int  frames_past = 0;
+    private byte  state       = PLAY_STATE;
+    private int   score       = 0;
+    private float speed       = 15.0; // seconds.
+    private int   frames_past = 0;
 
 
     /***
@@ -636,18 +637,12 @@ public class GameState {
     handleNewBlocks ()
     {
         this.frames_past++;
-        if (this.frames_past > FRAMES_PER_INCREMENT)
+        if (this.frames_past > (this.speed * frameRate)) // speed[s] * frameRate[frames/s] = # of frames to wait
         {
             this.frames_past = 0;
-            this.speed++;
+            this.speed -= SPEED_INCREMENT;
 
             this.copyNewBlocks();
-
-            // create new offscreen blocks
-            for (int i = 0; i < this.BLOCKS_ACROSS; i++)
-            {
-                this.nblocks[i] = randomBlock();
-            }
         }
     }
 
@@ -671,6 +666,12 @@ public class GameState {
                     this.blocks[i][j] = this.blocks[i][j + 1];
                 }
             }
+        }
+
+        // create new offscreen blocks
+        for (int i = 0; i < this.BLOCKS_ACROSS; i++)
+        {
+            this.nblocks[i] = randomBlock();
         }
     }
 
@@ -763,7 +764,7 @@ public class GameState {
      *                                                                                                       
      */
     public void
-    deliverKey (byte action)
+    deliverAction (byte action)
     {
         switch (this.state)
         {
@@ -801,6 +802,8 @@ public class GameState {
                         this.blocks[this.cursor_x + 1][this.cursor_y] = temp;
                         temp = null;
                         break;
+                    case GAME_INC:
+                        this.copyNewBlocks();
                     default :
                         break;    
                 }
