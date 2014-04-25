@@ -187,17 +187,75 @@ public class GameState {
 
         this.initDefaultValues();
         this.initTextDrawing();
-        this.initCursor();
-        // this.initBlockGraphics();
+        this.initCursorGraphics();
+        this.initBlockGraphics(); // must be called before initGameBoard.
 
         this.cp = new ColorPalette(ColorPalette.LIGHT);
 
         this.blocks  = new Block[across][high];
         this.nblocks = new Block[across];
 
-        /*
-         * INITIALIZE PGRAPHICS BLOCKS
-         */
+        this.initGameBoard();
+
+    } /* END CONSTRUCTOR */
+
+    /***
+     *     ###  #     #  ###  #######  ###     #     #        ###  #######  #######  ######    #####  
+     *      #   ##    #   #      #      #     # #    #         #        #   #        #     #  #     # 
+     *      #   # #   #   #      #      #    #   #   #         #       #    #        #     #  #       
+     *      #   #  #  #   #      #      #   #     #  #         #      #     #####    ######    #####  
+     *      #   #   # #   #      #      #   #######  #         #     #      #        #   #          # 
+     *      #   #    ##   #      #      #   #     #  #         #    #       #        #    #   #     # 
+     *     ###  #     #  ###     #     ###  #     #  #######  ###  #######  #######  #     #   #####  
+     *                                                                                                
+     */
+
+    /*
+     * initDefaultValues()
+     *     resets the game for another play.
+     */
+    private void
+    initDefaultValues ()
+    {
+        this.score = 0;
+        this.speed = 15.0;
+        this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
+        this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
+    }
+
+    private void
+    initTextDrawing ()
+    {
+        textSize(TEXT_SIZE);
+    }
+
+    /*
+     * initCursorGraphics()
+     *     creates the graphics buffer the cursor is drawn from. Must be called
+     *     before trying to draw the cursor.
+     */
+    private void
+    initCursorGraphics ()
+    {
+        this.CURSOR_GRAPHIC = createGraphics(2 * this.BLOCK_SIZE,
+                                             this.BLOCK_SIZE,
+                                             P2D);
+        this.CURSOR_GRAPHIC.beginDraw();
+        this.CURSOR_GRAPHIC.fill(255, 0);
+        this.CURSOR_GRAPHIC.strokeWeight(5);
+        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.endDraw();
+    }
+
+    /*
+     * initBlockGraphics()
+     *     initializes internal PGraphics buffers to draw blocks from. Must be called
+     *     before instantiating any blocks.
+     */
+    private void
+    initBlockGraphics ()
+    {
         /* NONE BLOCK */
         this.NONE_GRAPHIC = createGraphics(this.BLOCK_SIZE,
                                            this.BLOCK_SIZE,
@@ -367,58 +425,7 @@ public class GameState {
                                 this.BLOCK_SIZE * 0.15);
         this.HEART_GRAPHIC.shape(HEART_SHAPE, 0, 0);
         this.HEART_GRAPHIC.endDraw();
-
-        /*
-         * INITIALIZE GAME BOAD
-         */
-        this.initGameBoard();
-
-    } /* END CONSTRUCTOR */
-
-    /***
-     *     ###  #     #  ###  #######  ###     #     #        ###  #######     #     #######  ###  #######  #     #   #####  
-     *      #   ##    #   #      #      #     # #    #         #        #     # #       #      #   #     #  ##    #  #     # 
-     *      #   # #   #   #      #      #    #   #   #         #       #     #   #      #      #   #     #  # #   #  #       
-     *      #   #  #  #   #      #      #   #     #  #         #      #     #     #     #      #   #     #  #  #  #   #####  
-     *      #   #   # #   #      #      #   #######  #         #     #      #######     #      #   #     #  #   # #        # 
-     *      #   #    ##   #      #      #   #     #  #         #    #       #     #     #      #   #     #  #    ##  #     # 
-     *     ###  #     #  ###     #     ###  #     #  #######  ###  #######  #     #     #     ###  #######  #     #   #####  
-     *                                                                                                                       
-     */
-
-    /*
-     * initDefaultValues()
-     *     resets the game for another play.
-     */
-    private void
-    initDefaultValues ()
-    {
-        this.score = 0;
-        this.speed = 15.0;
-        this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
-        this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
     }
-
-    private void
-    initTextDrawing ()
-    {
-        textSize(TEXT_SIZE);
-    }
-
-    private void
-    initCursor ()
-    {
-        this.CURSOR_GRAPHIC = createGraphics(2 * this.BLOCK_SIZE,
-                                             this.BLOCK_SIZE,
-                                             P2D);
-        this.CURSOR_GRAPHIC.beginDraw();
-        this.CURSOR_GRAPHIC.fill(255, 0);
-        this.CURSOR_GRAPHIC.strokeWeight(5);
-        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
-        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
-        this.CURSOR_GRAPHIC.endDraw();
-    }
-
 
     /*
      * initGameBoard()
