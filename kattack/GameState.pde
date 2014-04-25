@@ -573,6 +573,10 @@ public class GameState {
         }
     }
 
+    /*
+     * findMatches()
+     *     finds all blocks that are currently matched. 
+     */
     private void
     findMatches ()
     {
