@@ -24,8 +24,8 @@ public class ColorPalette {
      * Colors - Courtesy of http://flatuicolors.com/
      *     Colors don't need to be static, this allows us to use lighten();
      */
-    private final color NONE_COLOR          = #ffffff;
-    private final color BLOCK_GREY          = #a0a0a0;
+    private final color NONE_COLOR = #ffffff;
+    private final color BLOCK_GREY = #a0a0a0;
     
     private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
     private final color TRIANGLE_COLOR_DARK = #2980b9; // belize hole
@@ -51,23 +51,38 @@ public class ColorPalette {
      * EXPORTED COLORS
      *     these are used to color the game.
      */
-    public final color DIAMOND_COLOR_BLOCK;
-    public final color TRIANGLE_COLOR_BLOCK;
-    public final color CIRCLE_COLOR_BLOCK;
-    public final color STAR_COLOR_BLOCK;
-    public final color HEART_COLOR_BLOCK;
+    private color DIAMOND_COLOR_BLOCK;
+    private color TRIANGLE_COLOR_BLOCK;
+    private color CIRCLE_COLOR_BLOCK;
+    private color STAR_COLOR_BLOCK;
+    private color HEART_COLOR_BLOCK;
     
-    public final color DIAMOND_COLOR_FILL;
-    public final color TRIANGLE_COLOR_FILL;
-    public final color CIRCLE_COLOR_FILL;
-    public final color STAR_COLOR_FILL;
-    public final color HEART_COLOR_FILL;
+    private color DIAMOND_COLOR_FILL;
+    private color TRIANGLE_COLOR_FILL;
+    private color CIRCLE_COLOR_FILL;
+    private color STAR_COLOR_FILL;
+    private color HEART_COLOR_FILL;
 
     /*
-     * CONSTRUCTOR
+     * CONSTRUCTORS
      */
     public
     ColorPalette (byte p)
+    {
+        changePalette(p);
+    }
+    public
+    ColorPalette ()
+    {
+        changePalette(this.LIGHT);
+    }
+
+    /*
+     * changePalette() - changes the current color palette.
+     *     note: must redraw block graphics to see changes.
+     */
+    public void
+    changePalette (byte p)
     {
         switch (p)
         {
@@ -106,6 +121,23 @@ public class ColorPalette {
                 break;
         }
     }
+
+    /*
+     * GETTERS
+     */
+    
+    public color getDiamondColorBlock  () { return this.DIAMOND_COLOR_BLOCK;  }
+    public color getTriangleColorBlock () { return this.TRIANGLE_COLOR_BLOCK; }
+    public color getCircleColorBlock   () { return this.CIRCLE_COLOR_BLOCK;   }
+    public color getStarColorBlock     () { return this.STAR_COLOR_BLOCK;     }
+    public color getHeartColorBlock    () { return this.HEART_COLOR_BLOCK;    }
+
+    public color getDiamondColorFill  () { return this.DIAMOND_COLOR_FILL;  }
+    public color getTriangleColorFill () { return this.TRIANGLE_COLOR_FILL; }
+    public color getCircleColorFill   () { return this.CIRCLE_COLOR_FILL;   }
+    public color getStarColorFill     () { return this.STAR_COLOR_FILL;     }
+    public color getHeartColorFill    () { return this.HEART_COLOR_FILL;    }
+
 
     /*
      * PRIVATE METHODS

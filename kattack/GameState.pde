@@ -185,12 +185,12 @@ public class GameState {
         this.BLOCK_SIZE    = blocksize;
         this.SIDE_BAR      = sidebar;
 
+        this.cp = new ColorPalette(ColorPalette.LIGHT); // must be called before initBlockGraphics.
+
         this.initDefaultValues();
         this.initTextDrawing();
         this.initCursorGraphics();
         this.initBlockGraphics(); // must be called before initGameBoard.
-
-        this.cp = new ColorPalette(ColorPalette.LIGHT);
 
         this.blocks  = new Block[across][high];
         this.nblocks = new Block[across];
@@ -274,7 +274,7 @@ public class GameState {
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.5));
         DIAMOND_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         DIAMOND_SHAPE.endShape(CLOSE);
-        DIAMOND_SHAPE.setFill(this.cp.DIAMOND_COLOR_FILL);
+        DIAMOND_SHAPE.setFill(this.cp.getDiamondColorFill());
         DIAMOND_SHAPE.setStroke(this.stroke_on);
         
         this.DIAMOND_GRAPHIC.beginDraw();
@@ -286,7 +286,7 @@ public class GameState {
         {
             this.DIAMOND_GRAPHIC.noStroke();    
         }
-        this.DIAMOND_GRAPHIC.fill(this.cp.DIAMOND_COLOR_BLOCK);
+        this.DIAMOND_GRAPHIC.fill(this.cp.getDiamondColorBlock());
         this.DIAMOND_GRAPHIC.rect(0, 0,
                                   this.BLOCK_SIZE, this.BLOCK_SIZE,
                                   this.BLOCK_SIZE * 0.15);
@@ -304,7 +304,7 @@ public class GameState {
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.9), (int)(this.BLOCK_SIZE * 0.9));
         TRIANGLE_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         TRIANGLE_SHAPE.endShape(CLOSE);
-        TRIANGLE_SHAPE.setFill(this.cp.TRIANGLE_COLOR_FILL);
+        TRIANGLE_SHAPE.setFill(this.cp.getTriangleColorFill());
         TRIANGLE_SHAPE.setStroke(this.stroke_on);
 
         this.TRIANGLE_GRAPHIC.beginDraw();
@@ -316,7 +316,7 @@ public class GameState {
         {
             this.TRIANGLE_GRAPHIC.noStroke();    
         }
-        this.TRIANGLE_GRAPHIC.fill(this.cp.TRIANGLE_COLOR_BLOCK);
+        this.TRIANGLE_GRAPHIC.fill(this.cp.getTriangleColorBlock());
         this.TRIANGLE_GRAPHIC.rect(0, 0,
                                    this.BLOCK_SIZE, this.BLOCK_SIZE,
                                    this.BLOCK_SIZE * 0.15);
@@ -331,7 +331,7 @@ public class GameState {
                                                    (int)(this.BLOCK_SIZE * 0.1),
                                                    (int)(this.BLOCK_SIZE * 0.8),
                                                    (int)(this.BLOCK_SIZE * 0.8));
-        CIRCLE_SHAPE.setFill(this.cp.CIRCLE_COLOR_FILL);
+        CIRCLE_SHAPE.setFill(this.cp.getCircleColorFill());
         CIRCLE_SHAPE.setStroke(this.stroke_on);
 
         this.CIRCLE_GRAPHIC.beginDraw();
@@ -343,7 +343,7 @@ public class GameState {
         {
             this.CIRCLE_GRAPHIC.noStroke();    
         }
-        this.CIRCLE_GRAPHIC.fill(this.cp.CIRCLE_COLOR_BLOCK);
+        this.CIRCLE_GRAPHIC.fill(this.cp.getCircleColorBlock());
         this.CIRCLE_GRAPHIC.rect(0, 0,
                                  this.BLOCK_SIZE, this.BLOCK_SIZE,
                                  this.BLOCK_SIZE * 0.15);
@@ -374,7 +374,7 @@ public class GameState {
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.37), (int)(this.BLOCK_SIZE * 0.33)); // 10
         STAR_SHAPE.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05)); // 1
         STAR_SHAPE.endShape(CLOSE);
-        STAR_SHAPE.setFill(this.cp.STAR_COLOR_FILL);
+        STAR_SHAPE.setFill(this.cp.getStarColorFill());
         STAR_SHAPE.setStroke(this.stroke_on);
 
         this.STAR_GRAPHIC.beginDraw();
@@ -386,7 +386,7 @@ public class GameState {
         {
             this.STAR_GRAPHIC.noStroke();    
         }
-        this.STAR_GRAPHIC.fill(this.cp.STAR_COLOR_BLOCK);
+        this.STAR_GRAPHIC.fill(this.cp.getStarColorBlock());
         this.STAR_GRAPHIC.rect(0, 0,
                                this.BLOCK_SIZE, this.BLOCK_SIZE,
                                this.BLOCK_SIZE * 0.15);
@@ -407,11 +407,11 @@ public class GameState {
                                  (int)(this.BLOCK_SIZE * 0.65), (int)(this.BLOCK_SIZE * -0.25),  // ctrl 2
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30));  // anchor
         HEART_SHAPE.endShape(CLOSE);
-        HEART_SHAPE.setFill(this.cp.HEART_COLOR_FILL);
+        HEART_SHAPE.setFill(this.cp.getHeartColorFill());
         HEART_SHAPE.setStroke(this.stroke_on);
 
         this.HEART_GRAPHIC.beginDraw();
-        this.HEART_GRAPHIC.fill(this.cp.HEART_COLOR_BLOCK);
+        this.HEART_GRAPHIC.fill(this.cp.getHeartColorBlock());
         if (this.stroke_on)
         {
             this.HEART_GRAPHIC.strokeWeight(this.stroke_weight);
