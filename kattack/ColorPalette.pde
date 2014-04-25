@@ -15,9 +15,8 @@ public class ColorPalette {
 
     /*
      * COLOR PALETTE KEYWORDS
-     *     used to switch the color scheme upon construction.
+     *     used to switch the color scheme upon construction of the color palette object.
      */
-
     public final static byte LIGHT = 0;
     public final static byte SOS   = 1;
 
@@ -67,7 +66,6 @@ public class ColorPalette {
     /*
      * CONSTRUCTOR
      */
-    
     public
     ColorPalette (byte p)
     {
@@ -109,6 +107,9 @@ public class ColorPalette {
         }
     }
 
+    /*
+     * PRIVATE METHODS
+     */
     private color
     addAlpha (color c, int a)
     {
