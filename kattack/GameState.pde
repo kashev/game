@@ -76,6 +76,7 @@ public class GameState {
     private final static float SPEED_INCREMENT = 0.0001; // seconds
     private final static int   BLOCK_SCORE     = 10;     // points
     private final static int   LINE_SCORE      = 1;      // point
+    private final static int   MATCH_BONUS     = 20;     // points
     
     /*
      * BLOCKS CONSTANTS
@@ -613,6 +614,7 @@ public class GameState {
                     {
                         this.blocks[i][jj].mark();
                         jj++;
+                        this.score += this.MATCH_BONUS;
                     }
                 }
             }
@@ -640,7 +642,7 @@ public class GameState {
                     this.blocks[i+1][j].mark();
                     this.blocks[i+2][j].mark();
                     
-                    int ii = j+3;
+                    int ii = i+3;
                     while (ii < this.BLOCKS_ACROSS             &&
                            (this.blocks[ii][j].getType() == t) &&
                            !this.blocks[ii][j].isMarked()      &&
@@ -648,6 +650,7 @@ public class GameState {
                     {
                         this.blocks[ii][j].mark();
                         ii++;
+                        this.score += this.MATCH_BONUS;
                     }
                 }
             }
