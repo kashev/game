@@ -97,25 +97,25 @@ public class Block {
 
     /* RENDERING */
     public void
-    draw ()
+    draw (PGraphics pg)
     {
         if (this.type == NONE_ENUM)
         {
-            noStroke();
+            pg.noStroke();
         }
         else
         {
-            stroke(0);
+            pg.stroke(0);
         }
         
         if (this.isMarked())
         {
-            tint(this.DISAPPEARING_SHADE);
+            pg.tint(this.DISAPPEARING_SHADE);
             this.timer++;
         }
         else
         {
-            noTint();
+            pg.noTint();
         }
 
         if (this.isFalling())
@@ -128,7 +128,7 @@ public class Block {
             // don't animate falling
         }
 
-        image(this.pg, 0, 0);
+        pg.image(this.pg, 0, 0);
     }
 
     /* UPDATING */

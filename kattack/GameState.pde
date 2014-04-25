@@ -194,6 +194,7 @@ public class GameState {
         this.initDefaultValues();
         this.initTextDrawing();
         this.initCursorGraphics();
+        this.initBoardGraphics();
         this.initBlockGraphics(); // must be called before initGameBoard.
 
         this.blocks  = new Block[across][high];
@@ -223,8 +224,8 @@ public class GameState {
     {
         this.score = 0;
         this.speed = 15.0;
-        this.cursor_x      = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
-        this.cursor_y      = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
+        this.cursor_x = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
+        this.cursor_y = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
     }
 
     private void
@@ -250,6 +251,19 @@ public class GameState {
         this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
         this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
         this.CURSOR_GRAPHIC.endDraw();
+    }
+
+    /*
+     * initBoardGraphics()
+     *     creates the PGraphics buffer that all blocks are drawn into.
+     *     must be called before trying to draw any blocks.
+     */
+    private void
+    initBoardGraphics ()
+    {
+        this.BOARD_GRAPHIC = createGraphics((this.BLOCK_SIZE * this.BLOCKS_ACROSS),
+                                            (this.BLOCK_SIZE * this.BLOCKS_HIGH),
+                                            P2D);
     }
 
     /*
@@ -765,13 +779,17 @@ public class GameState {
                 /* DRAW SCORE */
                 this.drawScore();
                 /* DRAW GAME SCREEN */
+                this.BOARD_GRAPHIC.beginDraw();
+                this.BOARD_GRAPHIC.background(bg);
                 for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
                 {
                     for(int i = 0; i < this.BLOCKS_ACROSS; i++)
                     {
-                        this.drawBlock(this.blocks[i][j], i, j);
+                        this.drawBlock(this.blocks[i][j], this.BOARD_GRAPHIC, i, j);
                     }
                 }
+                this.BOARD_GRAPHIC.endDraw();
+                this.drawBoard();
                 this.drawCursor();
                 break;
 
@@ -802,14 +820,20 @@ public class GameState {
     }
     
     private void
-    drawBlock (Block b, int block_x, int block_y)
+    drawBlock (Block b, PGraphics pg, int block_x, int block_y)
     {
-        pushMatrix();
-        translate(block_x * b.BLOCK_SIZE, block_y * b.BLOCK_SIZE);
+        pg.pushMatrix();
+        pg.translate(block_x * b.BLOCK_SIZE, block_y * b.BLOCK_SIZE);
 
-        b.draw();
+        b.draw(pg);
 
-        popMatrix();
+        pg.popMatrix();
+    }
+
+    private void
+    drawBoard ()
+    {
+        image(this.BOARD_GRAPHIC, 0, 0);
     }
 
 
