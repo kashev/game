@@ -884,15 +884,20 @@ public class GameState {
      * swapBlocks()
      *     given two indexes, swaps the blocks.
      *     note that no bounds checking is performed; if a swap is attempted
-     *     on blocks that don't exist, something else is wrong.
+     *     on blocks that don't exist, something else is wrong. However, checking
+     *     that the blocks are not matched is checked.
      */
     private void
     swapBlocks (int x1, int y1, int x2, int y2)
     {
-        Block temp = this.blocks[x1][y1];
-        this.blocks[x1][y1] = this.blocks[x2][y2];
-        this.blocks[x2][y2] = temp;
-        temp = null;
+        if(!this.blocks[x1][y1].isMarked() &&
+           !this.blocks[x2][y2].isMarked())
+        {
+            Block temp = this.blocks[x1][y1];
+            this.blocks[x1][y1] = this.blocks[x2][y2];
+            this.blocks[x2][y2] = temp;
+            temp = null;
+        }
     }
 
     /***
