@@ -247,9 +247,9 @@ public class GameState {
                                              P2D);
         this.CURSOR_GRAPHIC.beginDraw();
         this.CURSOR_GRAPHIC.fill(255, 0);
-        this.CURSOR_GRAPHIC.strokeWeight(5);
-        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
-        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.CURSOR_GRAPHIC.strokeWeight(10);
+        this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE, this.BLOCK_SIZE * 0.15);
+        this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE, this.BLOCK_SIZE * 0.15);
         this.CURSOR_GRAPHIC.endDraw();
     }
 
@@ -278,7 +278,13 @@ public class GameState {
         this.NONE_GRAPHIC = createGraphics(this.BLOCK_SIZE,
                                            this.BLOCK_SIZE,
                                            P2D);
-        /* Intentionally Empty */
+        this.NONE_GRAPHIC.fill(this.cp.getNoneColor());
+        this.NONE_GRAPHIC.beginDraw();
+        this.NONE_GRAPHIC.noStroke();
+
+        this.NONE_GRAPHIC.rect(0, 0,
+                               this.BLOCK_SIZE, this.BLOCK_SIZE);
+        this.NONE_GRAPHIC.endDraw();
         
         /* DIAMOND BLOCK */
         this.DIAMOND_GRAPHIC = createGraphics(this.BLOCK_SIZE,
@@ -605,11 +611,7 @@ public class GameState {
             {
                 byte t = this.blocks[i][j].getType();
 
-                if (
-                    // !this.blocks[i][j].isMarked()    &&
-                    // !this.blocks[i][j+1].isMarked()  &&
-                    // !this.blocks[i][j+2].isMarked()  && 
-                    !this.blocks[i][j].isFalling()   &&
+                if (!this.blocks[i][j].isFalling()   &&
                     !this.blocks[i][j+1].isFalling() &&
                     !this.blocks[i][j+2].isFalling() &&
                     (t != NONE_ENUM) &&
@@ -641,11 +643,7 @@ public class GameState {
             {
                 byte t = this.blocks[i][j].getType();
                 
-                if (
-                    // !this.blocks[i][j].isMarked()    &&
-                    // !this.blocks[i+1][j].isMarked()  &&
-                    // !this.blocks[i+2][j].isMarked()  && 
-                    !this.blocks[i][j].isFalling()   &&
+                if (!this.blocks[i][j].isFalling()   &&
                     !this.blocks[i+1][j].isFalling() &&
                     !this.blocks[i+2][j].isFalling() &&
                     (t != NONE_ENUM) &&
@@ -779,8 +777,8 @@ public class GameState {
                 /* DRAW SCORE */
                 this.drawScore();
                 /* DRAW GAME SCREEN */
-                this.BOARD_GRAPHIC.beginDraw();
-                this.BOARD_GRAPHIC.background(bg);
+                this.BOARD_GRAPHIC.beginDraw(); // drawing blocks draws into board graphic.
+
                 for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
                 {
                     for(int i = 0; i < this.BLOCKS_ACROSS; i++)
@@ -788,9 +786,15 @@ public class GameState {
                         this.drawBlock(this.blocks[i][j], this.BOARD_GRAPHIC, i, j);
                     }
                 }
+
                 this.BOARD_GRAPHIC.endDraw();
+
+                pushMatrix();
+                translate(this.SIDE_BAR, 0);
                 this.drawBoard();
                 this.drawCursor();
+                popMatrix();
+
                 break;
 
             case END_STATE:
@@ -816,7 +820,7 @@ public class GameState {
     drawScore ()
     {
         fill(0);
-        text(str(this.score), this.BLOCK_SIZE * this.BLOCKS_ACROSS * 1.1, TEXT_SIZE);
+        text(str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.1, TEXT_SIZE);
     }
     
     private void

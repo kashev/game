@@ -22,8 +22,8 @@ final String GAME_NAME = "kattack";
 final int BLOCKS_ACROSS = 6;
 final int BLOCKS_HIGH   = 11;
 final int BLOCK_SIZE    = 80;
-final int SIDE_BAR      = 200;
-final int CANVAS_WIDTH  = (BLOCK_SIZE * BLOCKS_ACROSS) + SIDE_BAR;
+final int SIDE_BAR      = 400;
+final int CANVAS_WIDTH  = (BLOCK_SIZE * BLOCKS_ACROSS) + 2 * SIDE_BAR;
 final int CANVAS_HEIGHT = BLOCK_SIZE * BLOCKS_HIGH;
 
 GameState gs;

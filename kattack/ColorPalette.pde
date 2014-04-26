@@ -24,7 +24,7 @@ public class ColorPalette {
      * Colors - Courtesy of http://flatuicolors.com/
      *     Colors don't need to be static, this allows us to use lighten();
      */
-    private final color NONE_COLOR = #ffffff;
+    private final color NONE_COLOR_WHITE = #ffffff;
     private final color BLOCK_GREY = #a0a0a0;
     
     private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
@@ -51,6 +51,8 @@ public class ColorPalette {
      * EXPORTED COLORS
      *     these are used to color the game.
      */
+    private color NONE_COLOR;
+
     private color DIAMOND_COLOR_BLOCK;
     private color TRIANGLE_COLOR_BLOCK;
     private color CIRCLE_COLOR_BLOCK;
@@ -87,6 +89,8 @@ public class ColorPalette {
         switch (p)
         {
             case LIGHT_THEME:
+                this.NONE_COLOR           = NONE_COLOR_WHITE;
+
                 this.DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
                 this.TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
                 this.CIRCLE_COLOR_BLOCK   = CIRCLE_COLOR_DARK;
@@ -101,6 +105,8 @@ public class ColorPalette {
                 break;
             case SOS_THEME:
             default:
+                this.NONE_COLOR           = NONE_COLOR_WHITE;
+
                 this.DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
                 this.TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
                 this.CIRCLE_COLOR_BLOCK   = BLOCK_GREY;
@@ -119,7 +125,8 @@ public class ColorPalette {
     /*
      * GETTERS
      */
-    
+    public color getNoneColor () { return this.NONE_COLOR; }
+
     public color getDiamondColorBlock  () { return this.DIAMOND_COLOR_BLOCK;  }
     public color getTriangleColorBlock () { return this.TRIANGLE_COLOR_BLOCK; }
     public color getCircleColorBlock   () { return this.CIRCLE_COLOR_BLOCK;   }
