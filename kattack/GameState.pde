@@ -143,6 +143,7 @@ public class GameState {
 
     private PGraphics CURSOR_GRAPHIC;
     private PGraphics BOARD_GRAPHIC;
+    private PGraphics PAUSE_GRAPHIC;
     
     /*
      * DATA
@@ -196,6 +197,7 @@ public class GameState {
         this.initDefaultValues();
         this.initTextDrawing();
         this.initCursorGraphics();
+        this.initPauseGraphics();
         this.initBoardGraphics();
         this.initBlockGraphics(); // must be called before initGameBoard.
 
@@ -230,6 +232,10 @@ public class GameState {
         this.cursor_y = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
     }
 
+    /*
+     * initTextDrawing()
+     *     initializes settings for drawing text (like the score) on the screen.
+     */
     private void
     initTextDrawing ()
     {
@@ -238,7 +244,7 @@ public class GameState {
 
     /*
      * initCursorGraphics()
-     *     creates the graphics buffer the cursor is drawn from. Must be called
+     *     creates the PGraphics buffer the cursor is drawn from. Must be called
      *     before trying to draw the cursor.
      */
     private void
@@ -253,6 +259,26 @@ public class GameState {
         this.CURSOR_GRAPHIC.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE, this.BLOCK_SIZE * 0.15);
         this.CURSOR_GRAPHIC.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE, this.BLOCK_SIZE * 0.15);
         this.CURSOR_GRAPHIC.endDraw();
+    }
+    
+    /*
+     * initPauseGraphics()
+     *     creates the PGraphics buffer which stores the game paused shade. 
+     */
+    private void
+    initPauseGraphics ()
+    {
+        this.PAUSE_GRAPHIC = createGraphics(this.BLOCK_SIZE * this.BLOCKS_ACROSS,
+                                            this.BLOCK_SIZE * this.BLOCKS_HIGH,
+                                            P2D);
+        this.PAUSE_GRAPHIC.beginDraw();
+        this.PAUSE_GRAPHIC.noStroke();
+        this.PAUSE_GRAPHIC.fill(this.cp.addAlpha(this.cp.getTextColor(), 200));
+        this.PAUSE_GRAPHIC.rect(0, 0,
+                                this.BLOCK_SIZE * this.BLOCKS_ACROSS,
+                                this.BLOCK_SIZE * this.BLOCKS_HIGH);
+        this.PAUSE_GRAPHIC.fill(this.cp.getTextColor());
+        this.PAUSE_GRAPHIC.endDraw();
     }
 
     /*
@@ -775,12 +801,12 @@ public class GameState {
         {
             case START_STATE:
                 /* DRAW START SCREEN */
-                fill(0);
+                fill(this.cp.getTextColor());
                 text(START_STRING, 200, 200);
                 break;
 
-            case PLAY_STATE:
             case PAUSE_STATE:
+            case PLAY_STATE:
                 /* DRAW SCORE */
                 this.drawScore();
                 /* DRAW GAME SCREEN */
@@ -800,12 +826,19 @@ public class GameState {
                 translate(this.SIDE_BAR, 0);
                 this.drawBoard();
                 this.drawCursor();
+
+                if (this.state == PAUSE_STATE)
+                {
+                    this.drawPauseScreen();
+                }
+
                 popMatrix();
+
 
                 break;
             case END_STATE:
                 /* DRAW END SCREEN */
-                fill(0);
+                fill(this.cp.getTextColor());
                 text(END_STRING, 200, 200);
                 break;
         }
@@ -825,7 +858,7 @@ public class GameState {
     private void
     drawScore ()
     {
-        fill(0);
+        fill(this.cp.getTextColor());
         text(str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.1, TEXT_SIZE);
     }
     
@@ -844,6 +877,16 @@ public class GameState {
     drawBoard ()
     {
         image(this.BOARD_GRAPHIC, 0, 0);
+    }
+
+    /*
+     * drawPauseScreen ()
+     *     draws the screen the covers the game board when the game is paused.
+     */
+    private void
+    drawPauseScreen ()
+    {
+        image(this.PAUSE_GRAPHIC, 0, 0);
     }
 
 

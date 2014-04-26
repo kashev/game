@@ -25,7 +25,8 @@ public class ColorPalette {
      *     Colors don't need to be static, this allows us to use lighten();
      */
     private final color NONE_COLOR_WHITE = #ffffff;
-    private final color BLOCK_GREY = #a0a0a0;
+    private final color TEXT_COLOR_BLACK = #000000;
+    private final color BLOCK_GREY       = #a0a0a0;
     
     private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
     private final color TRIANGLE_COLOR_DARK = #2980b9; // belize hole
@@ -52,6 +53,7 @@ public class ColorPalette {
      *     these are used to color the game.
      */
     private color NONE_COLOR;
+    private color TEXT_COLOR;
 
     private color DIAMOND_COLOR_BLOCK;
     private color TRIANGLE_COLOR_BLOCK;
@@ -89,7 +91,8 @@ public class ColorPalette {
         switch (p)
         {
             case LIGHT_THEME:
-                this.NONE_COLOR           = NONE_COLOR_WHITE;
+                this.NONE_COLOR = NONE_COLOR_WHITE;
+                this.TEXT_COLOR = TEXT_COLOR_BLACK;
 
                 this.DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
                 this.TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
@@ -105,7 +108,8 @@ public class ColorPalette {
                 break;
             case SOS_THEME:
             default:
-                this.NONE_COLOR           = NONE_COLOR_WHITE;
+                this.NONE_COLOR = NONE_COLOR_WHITE;
+                this.TEXT_COLOR = TEXT_COLOR_BLACK;
 
                 this.DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
                 this.TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
@@ -126,6 +130,7 @@ public class ColorPalette {
      * GETTERS
      */
     public color getNoneColor () { return this.NONE_COLOR; }
+    public color getTextColor () { return this.TEXT_COLOR; }
 
     public color getDiamondColorBlock  () { return this.DIAMOND_COLOR_BLOCK;  }
     public color getTriangleColorBlock () { return this.TRIANGLE_COLOR_BLOCK; }
@@ -139,16 +144,18 @@ public class ColorPalette {
     public color getStarColorFill     () { return this.STAR_COLOR_FILL;     }
     public color getHeartColorFill    () { return this.HEART_COLOR_FILL;    }
 
-
     /*
-     * PRIVATE METHODS
+     * PUBLIC METHODS
      */
-    private color
+    public color
     addAlpha (color c, int a)
     {
         return (c & 0xffffff) | (a << 24);
     }
     
+    /*
+     * PRIVATE METHODS
+     */
     private color
     darken (color c, float p)
     {
@@ -159,7 +166,7 @@ public class ColorPalette {
         return color(r, g, b);
     }
     
-    public color
+    private color
     lighten (color c, float p)
     {
         int change = (int)(constrain(p, 0.0, 1.0) * (float)0xFF);
