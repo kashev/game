@@ -35,9 +35,10 @@ public class Block {
     private final String str;
     private final PGraphics pg;
     /* NOT FINAL */
-    private boolean marked  = false;
-    private boolean falling = false;
-    private int     timer   = 0;
+    private boolean marked     = false;
+    private boolean falling    = false;
+    private int     mark_timer = 0;
+    private int     fall_timer = 0;
 
     /*
      * CONSTRUCTORS
@@ -79,7 +80,7 @@ public class Block {
     public boolean
     shouldDelete ()
     {
-        return this.isMarked() && (this.timer > TIMER_COUNT);
+        return this.isMarked() && (this.mark_timer > TIMER_COUNT);
     }
 
     public boolean
@@ -91,7 +92,7 @@ public class Block {
     public boolean
     doneFalling ()
     {
-        return (this.timer > FALLING_COUNT);
+        return (this.fall_timer > FALLING_COUNT);
     }
 
 
@@ -102,7 +103,7 @@ public class Block {
         if (this.isMarked())
         {
             pg.tint(this.DISAPPEARING_SHADE);
-            this.timer++;
+            this.mark_timer++;
         }
         else
         {
@@ -112,7 +113,7 @@ public class Block {
         if (this.isFalling())
         {
             // animate falling
-            this.timer++;
+            this.fall_timer++;
         }
         else
         {
@@ -139,7 +140,7 @@ public class Block {
     finishFalling ()
     {
         this.falling = false;
-        this.timer = 0;
+        this.fall_timer = 0;
     }
 
 }

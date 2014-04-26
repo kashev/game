@@ -743,12 +743,34 @@ public class GameState {
                 {
                     this.blocks[i][j].fall();
                 }
-                else if (this.blocks[i][j].doneFalling() && this.blocks[i][j+1].getType() == NONE_ENUM)
+                else if (this.blocks[i][j].doneFalling())
                 {
                     this.blocks[i][j].finishFalling();
-                    this.blocks[i][j + 1 ] = this.blocks[i][j];
-                    this.deleteBlock(i, j);
-                    this.findMatches();
+                    /*
+                     * if a block is done falling, one of two things can happen after doneFalling() it
+                     *     1. if the block below it is NONE, then move it down, then:
+                     *         1.a. if the block below *that* is none, fall() it again.
+                     *         1.b. otherwise, it's done; find matches.
+                     *     2. if the block below it is NONE, then start it falling again.
+                     */
+                    if (this.blocks[i][j+1].getType() == NONE_ENUM)
+                    { // block below is none.
+                        this.blocks[i][j+1] = this.blocks[i][j];
+                        this.deleteBlock(i, j);
+                        
+                        if (((j + 2) < this.BLOCKS_HIGH) && this.blocks[i][j+2].getType() == NONE_ENUM)
+                        {
+                            this.blocks[i][j+1].fall();
+                        }
+                        else
+                        {
+                            this.findMatches(); // done falling.
+                        }
+                    }
+                    else
+                    {
+                        this.findMatches();
+                    }
                 }
             }
         }
