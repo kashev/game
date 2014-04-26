@@ -14,7 +14,9 @@
 /*
  * CONSTANTS
  */
-final String GAME_NAME = "kattack";
+final String GAME_NAME      = "kattack";
+final String INCREMENT_KEYS = "zxcvbnmZXCVBNM";
+final String PAUSE_KEYS     = "asdfghjklASDFGHJKLqwertyuiopQWERTYUIOP";
 
 /*
  * VARIABLES
@@ -32,7 +34,7 @@ GameState gs;
  * KEYBOARD HANDLERS
  */
 void
-keyPressed()
+keyPressed ()
 {
     if (key == CODED)
     {
@@ -57,14 +59,18 @@ keyPressed()
     {
         gs.deliverAction(gs.GAME_SWAP);
     }
-    else if ("zxcvbnmZXCVBNM".indexOf(key) > -1)
+    else if (INCREMENT_KEYS.indexOf(key) > -1)
     { // something on the bottom row of the keyboard.
-        gs.deliverAction(gs.GAME_INC);
+        gs.deliverAction(gs.GAME_INCREMENT);
+    }
+    else if (PAUSE_KEYS.indexOf(key) > -1)
+    { // some other letter on the keyboard.
+        gs.deliverAction(gs.GAME_PAUSE);
     }
 }
 
 void
-keyReleased()
+keyReleased ()
 {
     /* Intentionally Empty */
     /*

@@ -43,12 +43,13 @@ public class GameState {
       * PUBLIC STATICS
       *     for enumerating possible game actions
       */
-    public final static byte GAME_UP    = 0;
-    public final static byte GAME_DOWN  = 1;
-    public final static byte GAME_LEFT  = 2;
-    public final static byte GAME_RIGHT = 3;
-    public final static byte GAME_SWAP  = 4;
-    public final static byte GAME_INC   = 5;
+    public final static byte GAME_UP        = 0;
+    public final static byte GAME_DOWN      = 1;
+    public final static byte GAME_LEFT      = 2;
+    public final static byte GAME_RIGHT     = 3;
+    public final static byte GAME_SWAP      = 4;
+    public final static byte GAME_INCREMENT = 5;
+    public final static byte GAME_PAUSE     = 6;
 
     /*
      * PRIVATE STATICS
@@ -61,6 +62,7 @@ public class GameState {
     private final static byte START_STATE = 0;
     private final static byte PLAY_STATE  = 1;
     private final static byte END_STATE   = 2;
+    private final static byte PAUSE_STATE = 3;
 
     /*
      * STRINGS
@@ -575,7 +577,7 @@ public class GameState {
      */
     
     public void
-    update()
+    update ()
     {
         if (this.state == PLAY_STATE)
         {
@@ -589,6 +591,10 @@ public class GameState {
             /* Intentionally Empty */
         }
         else if (this.state == END_STATE)
+        {
+            /* Intentionally Empty */
+        }
+        else if (this.state == PAUSE_STATE)
         {
             /* Intentionally Empty */
         }
@@ -774,6 +780,7 @@ public class GameState {
                 break;
 
             case PLAY_STATE:
+            case PAUSE_STATE:
                 /* DRAW SCORE */
                 this.drawScore();
                 /* DRAW GAME SCREEN */
@@ -796,7 +803,6 @@ public class GameState {
                 popMatrix();
 
                 break;
-
             case END_STATE:
                 /* DRAW END SCREEN */
                 fill(0);
@@ -888,9 +894,12 @@ public class GameState {
                         // swap blocks under cursor.
                         this.swapBlocks(this.cursor_x, this.cursor_y, this.cursor_x + 1, this.cursor_y);
                         break;
-                    case GAME_INC:
+                    case GAME_INCREMENT:
                         this.copyNewBlocks();
                         this.score += this.LINE_SCORE;
+                        break;
+                    case GAME_PAUSE:
+                        this.state = PAUSE_STATE;
                     default:
                         break;    
                 }
@@ -915,6 +924,15 @@ public class GameState {
                         break;
                     default:
                         break;    
+                }
+            case PAUSE_STATE:
+                switch (action)
+                {
+                    case GAME_PAUSE:
+                        this.state = PLAY_STATE;
+                        break;
+                    default: 
+                        break;        
                 }
             default:   
                 break;
