@@ -74,7 +74,7 @@ keyReleased ()
 {
     /* Intentionally Empty */
     /*
-     * For now, OS key repeats are okay. Perhaps, someday,
+     * For now, OS key repeats are okay.
      */
 }
 

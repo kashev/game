@@ -12,9 +12,9 @@
  */
 
 /*
- * Block Class
+ * Block
+ *     Class that represents a single block.
  */
-
 public class Block {
     /*
      * BLOCK SIZE - should be the same for all blocks
@@ -98,16 +98,7 @@ public class Block {
     /* RENDERING */
     public void
     draw (PGraphics pg)
-    {
-        if (this.type == NONE_ENUM)
-        {
-            pg.noStroke();
-        }
-        else
-        {
-            pg.stroke(0);
-        }
-        
+    {    
         if (this.isMarked())
         {
             pg.tint(this.DISAPPEARING_SHADE);

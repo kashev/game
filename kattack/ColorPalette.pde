@@ -91,7 +91,7 @@ public class ColorPalette {
         switch (p)
         {
             case LIGHT_THEME:
-                this.NONE_COLOR = NONE_COLOR_WHITE;
+                this.NONE_COLOR = BLOCK_GREY;
                 this.TEXT_COLOR = TEXT_COLOR_BLACK;
 
                 this.DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;

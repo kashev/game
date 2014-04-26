@@ -54,7 +54,6 @@ public class GameState {
     /*
      * PRIVATE STATICS
      */
-    private final static color bg = 0xfffffff;
 
     /*
      * GAME STATES
@@ -306,8 +305,8 @@ public class GameState {
         this.NONE_GRAPHIC = createGraphics(this.BLOCK_SIZE,
                                            this.BLOCK_SIZE,
                                            P2D);
-        this.NONE_GRAPHIC.fill(this.cp.getNoneColor());
         this.NONE_GRAPHIC.beginDraw();
+        this.NONE_GRAPHIC.fill(this.cp.getNoneColor());
         this.NONE_GRAPHIC.noStroke();
 
         this.NONE_GRAPHIC.rect(0, 0,
@@ -339,6 +338,7 @@ public class GameState {
             this.DIAMOND_GRAPHIC.noStroke();    
         }
         this.DIAMOND_GRAPHIC.fill(this.cp.getDiamondColorBlock());
+        this.DIAMOND_GRAPHIC.background(this.cp.getNoneColor());
         this.DIAMOND_GRAPHIC.rect(0, 0,
                                   this.BLOCK_SIZE, this.BLOCK_SIZE,
                                   this.BLOCK_SIZE * 0.15);
@@ -369,6 +369,7 @@ public class GameState {
             this.TRIANGLE_GRAPHIC.noStroke();    
         }
         this.TRIANGLE_GRAPHIC.fill(this.cp.getTriangleColorBlock());
+        this.TRIANGLE_GRAPHIC.background(this.cp.getNoneColor());
         this.TRIANGLE_GRAPHIC.rect(0, 0,
                                    this.BLOCK_SIZE, this.BLOCK_SIZE,
                                    this.BLOCK_SIZE * 0.15);
@@ -396,6 +397,7 @@ public class GameState {
             this.CIRCLE_GRAPHIC.noStroke();    
         }
         this.CIRCLE_GRAPHIC.fill(this.cp.getCircleColorBlock());
+        this.CIRCLE_GRAPHIC.background(this.cp.getNoneColor());
         this.CIRCLE_GRAPHIC.rect(0, 0,
                                  this.BLOCK_SIZE, this.BLOCK_SIZE,
                                  this.BLOCK_SIZE * 0.15);
@@ -439,6 +441,7 @@ public class GameState {
             this.STAR_GRAPHIC.noStroke();    
         }
         this.STAR_GRAPHIC.fill(this.cp.getStarColorBlock());
+        this.STAR_GRAPHIC.background(this.cp.getNoneColor());
         this.STAR_GRAPHIC.rect(0, 0,
                                this.BLOCK_SIZE, this.BLOCK_SIZE,
                                this.BLOCK_SIZE * 0.15);
@@ -463,7 +466,6 @@ public class GameState {
         HEART_SHAPE.setStroke(this.stroke_on);
 
         this.HEART_GRAPHIC.beginDraw();
-        this.HEART_GRAPHIC.fill(this.cp.getHeartColorBlock());
         if (this.stroke_on)
         {
             this.HEART_GRAPHIC.strokeWeight(this.stroke_weight);
@@ -472,6 +474,8 @@ public class GameState {
         {
             this.HEART_GRAPHIC.noStroke();    
         }
+        this.HEART_GRAPHIC.fill(this.cp.getHeartColorBlock());
+        this.HEART_GRAPHIC.background(this.cp.getNoneColor());
         this.HEART_GRAPHIC.rect(0, 0,
                                 this.BLOCK_SIZE, this.BLOCK_SIZE,
                                 this.BLOCK_SIZE * 0.15);
@@ -602,12 +606,15 @@ public class GameState {
      *                                                                                     
      */
     
+    /*
+     * update()
+     *     public function used to update the game state every frame.
+     */
     public void
     update ()
     {
         if (this.state == PLAY_STATE)
         {
-            this.findMatches();
             this.cleanUp();
             this.handleGravity();
             this.handleNewBlocks();
@@ -700,7 +707,11 @@ public class GameState {
             }
         }
     }
-
+    
+    /*
+     * cleanUp()
+     *     deletes all blocks that need deleting.
+     */
     private void
     cleanUp ()
     {
@@ -717,6 +728,10 @@ public class GameState {
         }
     }
 
+    /*
+     * handleGravity()
+     *     make all the blocks fall.
+     */
     private void
     handleGravity ()
     {
@@ -733,11 +748,16 @@ public class GameState {
                     this.blocks[i][j].finishFalling();
                     this.blocks[i][j + 1 ] = this.blocks[i][j];
                     this.deleteBlock(i, j);
+                    this.findMatches();
                 }
             }
         }
     }
-
+    
+    /*
+     * handleNewBlocks()
+     *     funtion that handles auto advancing of new lines of blocks.
+     */
     private void
     handleNewBlocks ()
     {
@@ -745,7 +765,12 @@ public class GameState {
         if (this.frames_past > (this.speed * frameRate)) // speed[s] * frameRate[frames/s] = # of frames to wait
         {
             this.frames_past = 0;
-            this.speed -= SPEED_INCREMENT;
+            this.speed -= SPEED_INCREMENT; // seconds till next line
+
+            if (this.cursor_y > 0)
+            {
+                this.cursor_y--;
+            }
 
             this.copyNewBlocks();
         }
@@ -796,7 +821,7 @@ public class GameState {
     public void
     render ()
     {
-        background(bg);
+        background(this.cp.getNoneColor());
         switch (this.state)
         {
             case START_STATE:
@@ -936,6 +961,7 @@ public class GameState {
                     case GAME_SWAP:
                         // swap blocks under cursor.
                         this.swapBlocks(this.cursor_x, this.cursor_y, this.cursor_x + 1, this.cursor_y);
+                        this.findMatches();
                         break;
                     case GAME_INCREMENT:
                         this.copyNewBlocks();
