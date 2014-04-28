@@ -16,8 +16,8 @@ Exercises
 linear animation.
 */
 
-final int CANVAS_SIZE  = 700;
 final int NUM_FRAMES   = 73;
+
 /*
  * Processing Required
  */
