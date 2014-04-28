@@ -73,11 +73,11 @@ public class GameState {
     /*
      * GAME CONSTANTS
      */
-    
-    private final static float SPEED_INCREMENT = 0.0001; // seconds
-    private final static int   BLOCK_SCORE     = 10;     // points
-    private final static int   LINE_SCORE      = 1;      // point
-    private final static int   MATCH_BONUS     = 20;     // points
+    private final static float START_SPEED     = 10;    // seconds
+    private final static float SPEED_INCREMENT = 0.001; // seconds
+    private final static int   BLOCK_SCORE     = 10;    // points
+    private final static int   LINE_SCORE      = 1;     // point
+    private final static int   MATCH_BONUS     = 20;    // points
     
     /*
      * BLOCKS CONSTANTS
@@ -168,7 +168,7 @@ public class GameState {
     /* members with initial values */
     private byte  state       = START_STATE;
     private int   score       = 0;
-    private float speed       = 15.0; // seconds.
+    private float speed       = START_SPEED; // seconds.
     private int   frames_past = 0;
 
 
@@ -534,7 +534,7 @@ public class GameState {
     private Block
     randomBlock ()
     {
-        return this.getBlock((byte) random(1, 6)); // don't return no block, 0
+        return this.getBlock((byte) random(1, 6)); // don't return a NONE block.
     }
 
     private Block
@@ -640,9 +640,12 @@ public class GameState {
     private void
     findMatches ()
     {
-        // Resources
-        // https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
-        // http://androidgamify.blogspot.com/2013/10/match-3-game-algorithm-part-2-how-to.html
+        /*
+         * Resources:
+         *     https://github.com/volrath/tetris-attack/blob/master/static/js/modules/board.js
+         *     http://androidgamify.blogspot.com/2013/10/match-3-game-algorithm-part-2-how-to.html
+         */
+        
         /* VERTICAL MATCHING */
         for (int i = 0; i < this.BLOCKS_ACROSS; i++)
         {
@@ -651,9 +654,9 @@ public class GameState {
                 byte t = this.blocks[i][j].getType();
 
                 if (!this.blocks[i][j].isFalling()   &&
-                    !this.blocks[i][j].isMarked()   &&
+                    !this.blocks[i][j].isMarked()    &&
                     !this.blocks[i][j+1].isFalling() &&
-                    !this.blocks[i][j+1].isMarked() &&
+                    !this.blocks[i][j+1].isMarked()  &&
                     !this.blocks[i][j+2].isFalling() &&
                     // !this.blocks[i][j+2].isMarked() && // third block can be marked for T combos
                     (t != NONE_ENUM) &&
@@ -686,9 +689,9 @@ public class GameState {
                 byte t = this.blocks[i][j].getType();
                 
                 if (!this.blocks[i][j].isFalling()   &&
-                    !this.blocks[i][j].isMarked()   &&
+                    !this.blocks[i][j].isMarked()    &&
                     !this.blocks[i+1][j].isFalling() &&
-                    !this.blocks[i+1][j].isMarked() &&
+                    !this.blocks[i+1][j].isMarked()  &&
                     !this.blocks[i+2][j].isFalling() &&
                     // !this.blocks[i+2][j].isMarked() && // third block can be marked for T combos
                     (t != NONE_ENUM) &&
