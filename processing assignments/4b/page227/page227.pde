@@ -1,6 +1,6 @@
 /*
  * Kashev Dalmia    - dalmia3
- * ARTD 313 sp 2014 - Ex 2b
+ * ARTD 313 sp 2014 - Ex 4b
  *
  * 2 on page 215
  * 2 on page 227
