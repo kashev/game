@@ -7,7 +7,7 @@
  * 1 on page 320
  * 2 on page 354
  * 
- * page196.pde
+ * page313.pde
  */
 
 /*
@@ -31,7 +31,7 @@ setup ()
 
     for (int i = 0; i < ys.length; ++i)
     {
-        rect(20, ys[i] + 20 , 50, 50);    
+        rect(20, ys[i] + 20, 50, 50);    
     }
 }
 
