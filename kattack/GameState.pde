@@ -655,7 +655,7 @@ public class GameState {
                     !this.blocks[i][j+1].isFalling() &&
                     !this.blocks[i][j+1].isMarked() &&
                     !this.blocks[i][j+2].isFalling() &&
-                    !this.blocks[i][j+2].isMarked() &&
+                    // !this.blocks[i][j+2].isMarked() && // third block can be marked for T combos
                     (t != NONE_ENUM) &&
                     (t == this.blocks[i][j+1].getType()) &&
                     (t == this.blocks[i][j+2].getType()) )
@@ -690,7 +690,7 @@ public class GameState {
                     !this.blocks[i+1][j].isFalling() &&
                     !this.blocks[i+1][j].isMarked() &&
                     !this.blocks[i+2][j].isFalling() &&
-                    !this.blocks[i+2][j].isMarked() &&
+                    // !this.blocks[i+2][j].isMarked() && // third block can be marked for T combos
                     (t != NONE_ENUM) &&
                     (t == this.blocks[i+1][j].getType()) &&
                     (t == this.blocks[i+2][j].getType()) )
