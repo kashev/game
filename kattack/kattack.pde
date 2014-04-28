@@ -55,6 +55,7 @@ keyPressed ()
             gs.deliverAction(gs.GAME_RIGHT);
         }
     }
+
     else if (key == 'w' || key == 'W')
     {
         gs.deliverAction(gs.GAME_UP);
@@ -71,14 +72,17 @@ keyPressed ()
     {
         gs.deliverAction(gs.GAME_RIGHT);
     }
+    
     else if (key == ' ')
     {
         gs.deliverAction(gs.GAME_SWAP);
     }
+    
     else if (INCREMENT_KEYS.indexOf(key) > -1)
     { // something on the bottom row of the keyboard.
         gs.deliverAction(gs.GAME_INCREMENT);
     }
+    
     else if (PAUSE_KEYS.indexOf(key) > -1)
     { // some other letter on the keyboard.
         gs.deliverAction(gs.GAME_PAUSE);

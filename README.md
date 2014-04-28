@@ -23,3 +23,5 @@ The resultant application is currently live at:
 This project is possible thanks to the work on the following projects:
 
 - [Processing](https://www.processing.org/)
+
+Thanks to [Picky Wallpapers](http://www.pickywallpapers.com/samsung-galaxy-s/miscellaneous/clean-style/minimal-apple-wireless-keyboard-wallpaper/download/) for the keyboard image I modified for the start screen.
