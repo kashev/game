@@ -16,7 +16,7 @@
  */
 final String GAME_NAME      = "kattack";
 final String INCREMENT_KEYS = "zxcvbnmZXCVBNM";
-final String PAUSE_KEYS     = "asdfghjklASDFGHJKLqwertyuiopQWERTYUIOP";
+final String PAUSE_KEYS     = "fghjklFGHJKLqertyuiopQWRTYUIOP";
 
 /*
  * VARIABLES
@@ -54,6 +54,22 @@ keyPressed ()
         {
             gs.deliverAction(gs.GAME_RIGHT);
         }
+    }
+    else if (key == 'w' || key == 'W')
+    {
+        gs.deliverAction(gs.GAME_UP);
+    }
+    else if (key == 'a' || key == 'A')
+    {
+        gs.deliverAction(gs.GAME_LEFT);
+    }
+    else if (key == 's' || key == 'S')
+    {
+        gs.deliverAction(gs.GAME_DOWN);
+    }
+    else if (key == 'd' || key == 'D')
+    {
+        gs.deliverAction(gs.GAME_RIGHT);
     }
     else if (key == ' ')
     {
