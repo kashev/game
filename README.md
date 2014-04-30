@@ -25,3 +25,10 @@ This project is possible thanks to the work on the following projects:
 - [Processing](https://www.processing.org/)
 
 Thanks to [Picky Wallpapers](http://www.pickywallpapers.com/miscellaneous/clean-style/minimal-apple-wireless-keyboard-picture/) for the keyboard image I modified for the start screen.
+
+## TODO
+- [ ] make start and end screen nice
+- [ ] typography, layout
+- [ ] fix cursor
+- [ ] fix matching
+- [ ] use sidebars better
