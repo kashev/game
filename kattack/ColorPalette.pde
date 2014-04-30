@@ -26,7 +26,7 @@ public class ColorPalette {
      */
     private final color NONE_COLOR_WHITE = #ffffff;
     private final color TEXT_COLOR_BLACK = #000000;
-    private final color BLOCK_GREY       = #a0a0a0;
+    private final color BLOCK_GREY       = #c5c5c5;
     
     private final color DIAMOND_COLOR_DARK  = #8e44ad; // wisteria
     private final color TRIANGLE_COLOR_DARK = #2980b9; // belize hole
