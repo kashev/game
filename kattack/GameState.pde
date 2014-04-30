@@ -66,8 +66,9 @@ public class GameState {
     /*
      * STRINGS
      */
-    private final static int TEXT_SIZE       = 32;
-    private final static String START_STRING = "kattack - press the space key to play.";
+    private final static int    TEXT_SIZE    = 48;
+    private final static String FONT_NAME    = "Calibri-Light";
+    private final static String START_STRING = ">attack();\npress the space key to play";
     private final static String END_STRING   = "game over. press the space key to play again.";
 
     /*
@@ -146,6 +147,9 @@ public class GameState {
 
     /* Images */
     private PImage start_screen;
+
+    /* Font */
+    private PFont game_font;
     
     /*
      * DATA
@@ -167,6 +171,7 @@ public class GameState {
     private final int BLOCKS_ACROSS, BLOCKS_HIGH;
     private final int BLOCK_SIZE;
     private final int SIDE_BAR;
+    private final int CANVAS_WIDTH, CANVAS_HEIGHT;
     private int cursor_x, cursor_y;
     /* members with initial values */
     private byte  state       = START_STATE;
@@ -192,21 +197,24 @@ public class GameState {
         this.BLOCKS_HIGH   = high;
         this.BLOCK_SIZE    = blocksize;
         this.SIDE_BAR      = sidebar;
+        this.CANVAS_WIDTH  = (this.BLOCK_SIZE * this.BLOCKS_ACROSS) + (2 * this.SIDE_BAR);
+        this.CANVAS_HEIGHT = (this.BLOCK_SIZE * this.BLOCKS_HIGH);
 
         this.cp = new ColorPalette(ColorPalette.LIGHT_THEME); // must be called before initBlockGraphics.
                                                               // change the argument to change the color scheme.
 
-        this.initDefaultValues();
-        this.initTextDrawing();
-        this.initCursorGraphics();
-        this.initPauseGraphics();
-        this.initBoardGraphics();
-        this.initBlockGraphics(); // must be called before initGameBoard.
+        this.initDefaultValues();  // sets game defaults
+        this.initStartGraphics();  // initializes start screen graphics.
+        this.initTextDrawing();    // sets text size, etc.
+        this.initCursorGraphics(); // initializes cursor graphics buffer
+        this.initPauseGraphics();  // initializes pause screen graphics buffer
+        this.initBoardGraphics();  // initializes game board graphics buffer
+        this.initBlockGraphics();  // initializes block graphics buffers. must be called before initGameBoard.
 
         this.blocks  = new Block[across][high];
         this.nblocks = new Block[across];
 
-        this.initGameBoard();
+        this.initGameBoard(); // puts blocks in game board - game defaults.
 
     } /* END CONSTRUCTOR */
 
@@ -235,13 +243,25 @@ public class GameState {
     }
 
     /*
+     * initStartGraphics()
+     *     loads images displayed on the start screen.
+     */
+    private void
+    initStartGraphics ()
+    {
+        this.start_screen = loadImage("keyboard.png");
+    }
+
+    /*
      * initTextDrawing()
      *     initializes settings for drawing text (like the score) on the screen.
      */
     private void
     initTextDrawing ()
     {
-        textSize(TEXT_SIZE);
+        this.game_font = createFont(FONT_NAME, TEXT_SIZE);
+        textAlign(CENTER, CENTER);
+        textFont(this.game_font, TEXT_SIZE);
     }
 
     /*
@@ -860,8 +880,9 @@ public class GameState {
         {
             case START_STATE:
                 /* DRAW START SCREEN */
+                image(this.start_screen, (this.CANVAS_WIDTH - this.start_screen.width) / 2 , (this.CANVAS_HEIGHT - this.start_screen.height) / 2);
                 fill(this.cp.getTextColor());
-                text(START_STRING, 200, 200);
+                text(START_STRING, 0, 0, this.CANVAS_WIDTH, 200);
                 break;
 
             case PAUSE_STATE:
@@ -898,7 +919,7 @@ public class GameState {
             case END_STATE:
                 /* DRAW END SCREEN */
                 fill(this.cp.getTextColor());
-                text(END_STRING, 200, 200);
+                text(END_STRING, 0, 0, this.CANVAS_WIDTH, 200);
                 break;
         }
     }
