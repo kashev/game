@@ -751,7 +751,21 @@ public class GameState {
                 {
                     switch(this.blocks[i][j].getType())
                     {
-                        //TODO 
+                        case Block.DIAMOND_ENUM:
+                            this.diamond_count++;
+                            break;
+                        case Block.TRIANGLE_ENUM:
+                            this.triangle_count++;
+                            break;
+                        case Block.CIRCLE_ENUM:
+                            this.circle_count++;
+                            break;
+                        case Block.STAR_ENUM:
+                            this.star_count++;
+                            break;
+                        case Block.HEART_ENUM:
+                            this.heart_count++;
+                            break;
                     }
 
                     this.deleteBlock(i, j);
