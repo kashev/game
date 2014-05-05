@@ -66,10 +66,15 @@ public class GameState {
     /*
      * STRINGS
      */
-    private final static int    TEXT_SIZE    = 48;
-    private final static String FONT_NAME    = "Calibri-Light";
-    private final static String START_STRING = ">attack();\npress the space key to play";
-    private final static String END_STRING   = "game over. press the space key to play again.";
+    private final static int    TEXT_SIZE_LG   = 48;
+    private final static int    TEXT_SIZE_SM   = 36;
+    private final static String FONT_NAME      = "Calibri Light";
+    private final static String START_STRING   = "Attack on Tetris\npress the space key to play";
+    private final static String END_STRING     = "game over.\npress the space key to play again.";
+    private final static String SWAP_STRING    = "swap";
+    private final static String MOVE_STRING    = "move";
+    private final static String PAUSE_STRING   = "pause";
+    private final static String ADVANCE_STRING = "advance";
 
     /*
      * GAME CONSTANTS
@@ -259,9 +264,10 @@ public class GameState {
     private void
     initTextDrawing ()
     {
-        this.game_font = createFont(FONT_NAME, TEXT_SIZE);
+        this.game_font = createFont(FONT_NAME, TEXT_SIZE_LG);
         textAlign(CENTER, CENTER);
-        textFont(this.game_font, TEXT_SIZE);
+        textFont(this.game_font);
+        textSize(TEXT_SIZE_LG);
     }
 
     /*
@@ -882,7 +888,15 @@ public class GameState {
                 /* DRAW START SCREEN */
                 image(this.start_screen, (this.CANVAS_WIDTH - this.start_screen.width) / 2 , (this.CANVAS_HEIGHT - this.start_screen.height) / 2);
                 fill(this.cp.getTextColor());
+                textSize(TEXT_SIZE_LG);
                 text(START_STRING, 0, 0, this.CANVAS_WIDTH, 200);
+                textSize(TEXT_SIZE_SM);
+                text(SWAP_STRING, 600, 610);
+                text(MOVE_STRING, 325, 450);
+                text(MOVE_STRING, 1100, 615);
+                text(PAUSE_STRING, 650, 450);
+                text(ADVANCE_STRING, 500, 535);
+
                 break;
 
             case PAUSE_STATE:
@@ -907,6 +921,7 @@ public class GameState {
                 this.drawBoard();
                 this.drawCursor();
 
+                /* Keeping it DRY */
                 if (this.state == PAUSE_STATE)
                 {
                     this.drawPauseScreen();
@@ -919,7 +934,7 @@ public class GameState {
             case END_STATE:
                 /* DRAW END SCREEN */
                 fill(this.cp.getTextColor());
-                text(END_STRING, 0, 0, this.CANVAS_WIDTH, 200);
+                text(END_STRING, 0, this.CANVAS_HEIGHT / 2 - 200, this.CANVAS_WIDTH, 200);
                 break;
         }
     }
@@ -939,7 +954,8 @@ public class GameState {
     drawScore ()
     {
         fill(this.cp.getTextColor());
-        text(str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.1, TEXT_SIZE);
+        textSize(TEXT_SIZE_LG);
+        text(str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.1, TEXT_SIZE_LG);
     }
     
     private void
