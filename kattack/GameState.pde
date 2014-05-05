@@ -325,6 +325,7 @@ public class GameState {
                                            this.BLOCK_SIZE,
                                            P2D);
         this.none_graphic.beginDraw();
+        this.none_graphic.background(0, 0);
         this.none_graphic.fill(this.cp.getNoneColor());
         this.none_graphic.noStroke();
 
@@ -348,6 +349,7 @@ public class GameState {
         diamond_shape.setStroke(this.stroke_on);
         
         this.diamond_graphic.beginDraw();
+        this.diamond_graphic.background(0, 0);
         if (this.stroke_on)
         {
             this.diamond_graphic.strokeWeight(this.stroke_weight);
@@ -357,7 +359,6 @@ public class GameState {
             this.diamond_graphic.noStroke();    
         }
         this.diamond_graphic.fill(this.cp.getDiamondColorBlock());
-        this.diamond_graphic.background(this.cp.getNoneColor());
         this.diamond_graphic.rect(0, 0,
                                   this.BLOCK_SIZE, this.BLOCK_SIZE,
                                   this.BLOCK_SIZE * 0.15);
@@ -379,6 +380,7 @@ public class GameState {
         triangle_shape.setStroke(this.stroke_on);
 
         this.triangle_graphic.beginDraw();
+        this.triangle_graphic.background(0, 0);
         if (this.stroke_on)
         {
             this.triangle_graphic.strokeWeight(this.stroke_weight);
@@ -388,7 +390,6 @@ public class GameState {
             this.triangle_graphic.noStroke();    
         }
         this.triangle_graphic.fill(this.cp.getTriangleColorBlock());
-        this.triangle_graphic.background(this.cp.getNoneColor());
         this.triangle_graphic.rect(0, 0,
                                    this.BLOCK_SIZE, this.BLOCK_SIZE,
                                    this.BLOCK_SIZE * 0.15);
@@ -407,6 +408,7 @@ public class GameState {
         circle_shape.setStroke(this.stroke_on);
 
         this.circle_graphic.beginDraw();
+        this.circle_graphic.background(0, 0);
         if (this.stroke_on)
         {
             this.circle_graphic.strokeWeight(this.stroke_weight);
@@ -416,7 +418,6 @@ public class GameState {
             this.circle_graphic.noStroke();    
         }
         this.circle_graphic.fill(this.cp.getCircleColorBlock());
-        this.circle_graphic.background(this.cp.getNoneColor());
         this.circle_graphic.rect(0, 0,
                                  this.BLOCK_SIZE, this.BLOCK_SIZE,
                                  this.BLOCK_SIZE * 0.15);
@@ -451,6 +452,7 @@ public class GameState {
         star_shape.setStroke(this.stroke_on);
 
         this.star_graphic.beginDraw();
+        this.star_graphic.background(0, 0);
         if (this.stroke_on)
         {
             this.star_graphic.strokeWeight(this.stroke_weight);
@@ -460,7 +462,6 @@ public class GameState {
             this.star_graphic.noStroke();    
         }
         this.star_graphic.fill(this.cp.getStarColorBlock());
-        this.star_graphic.background(this.cp.getNoneColor());
         this.star_graphic.rect(0, 0,
                                this.BLOCK_SIZE, this.BLOCK_SIZE,
                                this.BLOCK_SIZE * 0.15);
@@ -485,6 +486,7 @@ public class GameState {
         heart_shape.setStroke(this.stroke_on);
 
         this.heart_graphic.beginDraw();
+        this.heart_graphic.background(0, 0);
         if (this.stroke_on)
         {
             this.heart_graphic.strokeWeight(this.stroke_weight);
@@ -494,7 +496,6 @@ public class GameState {
             this.heart_graphic.noStroke();    
         }
         this.heart_graphic.fill(this.cp.getHeartColorBlock());
-        this.heart_graphic.background(this.cp.getNoneColor());
         this.heart_graphic.rect(0, 0,
                                 this.BLOCK_SIZE, this.BLOCK_SIZE,
                                 this.BLOCK_SIZE * 0.15);
@@ -912,9 +913,11 @@ public class GameState {
             case PLAY_STATE:
                 /* DRAW SCORE */
                 this.drawScore();
+                /* DRAW SIDEBAR */
+                this.drawSideBar();
                 /* DRAW GAME SCREEN */
                 this.board_graphic.beginDraw(); // drawing blocks draws into board graphic.
-
+                this.board_graphic.background(this.cp.getNoneColor());
                 for(int j = this.BLOCKS_HIGH - 1; j >= 0; j--)
                 {
                     for(int i = 0; i < this.BLOCKS_ACROSS; i++)
@@ -964,7 +967,7 @@ public class GameState {
     {
         fill(this.cp.getTextColor());
         textSize(TEXT_SIZE_LG);
-        text(str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.1, TEXT_SIZE_LG);
+        text("Score : " + str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.2, TEXT_SIZE_LG);
     }
     
     private void
@@ -994,7 +997,42 @@ public class GameState {
         image(this.pause_graphic, 0, 0);
     }
 
+    /*
+     * drawSideBar ()
+     *     draws the sidebar : number of block of each type destroyed.
+     */
+    private void
+    drawSideBar ()
+    {
+        int offset    = (int) (this.CANVAS_HEIGHT * 0.05);
+        int place     = (int) ((this.CANVAS_HEIGHT - (2 * offset)) / 5);
+        int pos_x_img = (int) (SIDE_BAR * 0.2);
+        int pos_x_txt = (int) ((SIDE_BAR * 0.2) + (this.BLOCK_SIZE * 1.1));
+        int pos_0_y   = (int) (offset + (place * 0));
+        int pos_1_y   = (int) (offset + (place * 1));
+        int pos_2_y   = (int) (offset + (place * 2));
+        int pos_3_y   = (int) (offset + (place * 3));
+        int pos_4_y   = (int) (offset + (place * 4));
+        
+        textAlign(CENTER, CENTER);
 
+        image(this.diamond_graphic,    pos_x_img, pos_0_y);
+        text(str(this.diamond_count),  pos_x_txt, pos_0_y, this.BLOCK_SIZE, this.BLOCK_SIZE);
+
+        image(this.triangle_graphic,   pos_x_img, pos_1_y);
+        text(str(this.triangle_count), pos_x_txt, pos_1_y, this.BLOCK_SIZE, this.BLOCK_SIZE);
+
+        image(this.circle_graphic,     pos_x_img, pos_2_y);
+        text(str(this.circle_count),   pos_x_txt, pos_2_y, this.BLOCK_SIZE, this.BLOCK_SIZE);
+
+        image(this.star_graphic,       pos_x_img, pos_3_y);
+        text(str(this.star_count),     pos_x_txt, pos_3_y, this.BLOCK_SIZE, this.BLOCK_SIZE);
+
+        image(this.heart_graphic,      pos_x_img, pos_4_y);
+        text(str(this.heart_count),    pos_x_txt, pos_4_y, this.BLOCK_SIZE, this.BLOCK_SIZE);
+
+
+    }
 
     /***
      *      #####      #     #     #  #######         #      #####   #######  ###  #######  #     #   #####  
