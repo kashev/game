@@ -84,27 +84,6 @@ public class GameState {
     private final static int   BLOCK_SCORE     = 10;    // points
     private final static int   LINE_SCORE      = 1;     // point
     private final static int   MATCH_BONUS     = 20;    // points
-    
-    /*
-     * BLOCKS CONSTANTS
-     *     Enums aren't supported in Processing.
-     */
-    /* BlockTypes are bytes */
-    private final static byte NONE_ENUM     = 0;
-    private final static byte DIAMOND_ENUM  = 1;
-    private final static byte TRIANGLE_ENUM = 2;
-    private final static byte CIRCLE_ENUM   = 3;
-    private final static byte STAR_ENUM     = 4;
-    private final static byte HEART_ENUM    = 5;
-
-    /* Block Strings -  for debugging */
-    private final static String NONE_STR     = "  ";
-    private final static String DIAMOND_STR  = "<>";
-    private final static String TRIANGLE_STR = "^ ";
-    private final static String CIRCLE_STR   = "O ";
-    private final static String STAR_STR     = "* ";
-    private final static String HEART_STR    = "<3";
-
 
     /***
      *      #####   #######  #        #######  ######         ##         #     #  ### 
@@ -179,10 +158,16 @@ public class GameState {
     private final int CANVAS_WIDTH, CANVAS_HEIGHT;
     private int cursor_x, cursor_y;
     /* members with initial values */
-    private byte  state       = START_STATE;
-    private int   score       = 0;
-    private float speed       = START_SPEED; // seconds.
-    private int   frames_past = 0;
+    private byte  state        = START_STATE;
+    private int   score        = 0;
+    private float speed        = START_SPEED; // seconds.
+    private int   frames_past  = 0;
+    private int diamond_count  = 0,
+                triangle_count = 0,
+                circle_count   = 0,
+                star_count     = 0,
+                heart_count    = 0;
+
 
 
     /***
@@ -245,6 +230,11 @@ public class GameState {
         this.speed = 15.0;
         this.cursor_x = (int)(this.BLOCKS_ACROSS * 0.5) - 1;
         this.cursor_y = (int)(this.BLOCKS_HIGH - (this.BLOCKS_HIGH * 0.25));
+        this.diamond_count  = 0;
+        this.triangle_count = 0;
+        this.circle_count   = 0;
+        this.star_count     = 0;
+        this.heart_count    = 0;
     }
 
     /*
@@ -569,7 +559,7 @@ public class GameState {
     private Block
     noneBlock ()
     {
-        return this.getBlock(NONE_ENUM);
+        return this.getBlock(Block.NONE_ENUM);
     }
 
     private void
@@ -584,39 +574,39 @@ public class GameState {
     {
         switch (type) 
         {
-            case NONE_ENUM:
-                return new Block(NONE_ENUM,
-                                 NONE_STR,
+            case Block.NONE_ENUM:
+                return new Block(Block.NONE_ENUM,
+                                 Block.NONE_STR,
                                  none_graphic,
                                  BLOCK_SIZE);
-            case DIAMOND_ENUM:
-                return new Block(DIAMOND_ENUM,
-                                 DIAMOND_STR,
+            case Block.DIAMOND_ENUM:
+                return new Block(Block.DIAMOND_ENUM,
+                                 Block.DIAMOND_STR,
                                  diamond_graphic,
                                  BLOCK_SIZE);
-            case TRIANGLE_ENUM:
-                return new Block(TRIANGLE_ENUM,
-                                 TRIANGLE_STR,
+            case Block.TRIANGLE_ENUM:
+                return new Block(Block.TRIANGLE_ENUM,
+                                 Block.TRIANGLE_STR,
                                  triangle_graphic,
                                  BLOCK_SIZE);
-            case CIRCLE_ENUM:
-                return new Block(CIRCLE_ENUM,
-                                 CIRCLE_STR,
+            case Block.CIRCLE_ENUM:
+                return new Block(Block.CIRCLE_ENUM,
+                                 Block.CIRCLE_STR,
                                  circle_graphic,
                                  BLOCK_SIZE);
-            case STAR_ENUM:
-                return new Block(STAR_ENUM,
-                                 STAR_STR,
+            case Block.STAR_ENUM:
+                return new Block(Block.STAR_ENUM,
+                                 Block.STAR_STR,
                                  star_graphic,
                                  BLOCK_SIZE);
-            case HEART_ENUM:
-                return new Block(HEART_ENUM,
-                                 HEART_STR,
+            case Block.HEART_ENUM:
+                return new Block(Block.HEART_ENUM,
+                                 Block.HEART_STR,
                                  heart_graphic,
                                  BLOCK_SIZE);
             default :
-                return new Block(NONE_ENUM,
-                                 NONE_STR,
+                return new Block(Block.NONE_ENUM,
+                                 Block.NONE_STR,
                                  none_graphic,
                                  BLOCK_SIZE);
         }
@@ -688,7 +678,7 @@ public class GameState {
                     !this.blocks[i][j+1].isMarked()  &&
                     !this.blocks[i][j+2].isFalling() &&
                     // !this.blocks[i][j+2].isMarked() && // third block can be marked for T combos
-                    (t != NONE_ENUM) &&
+                    (t != Block.NONE_ENUM) &&
                     (t == this.blocks[i][j+1].getType()) &&
                     (t == this.blocks[i][j+2].getType()) )
                 {   // a match!
@@ -723,7 +713,7 @@ public class GameState {
                     !this.blocks[i+1][j].isMarked()  &&
                     !this.blocks[i+2][j].isFalling() &&
                     // !this.blocks[i+2][j].isMarked() && // third block can be marked for T combos
-                    (t != NONE_ENUM) &&
+                    (t != Block.NONE_ENUM) &&
                     (t == this.blocks[i+1][j].getType()) &&
                     (t == this.blocks[i+2][j].getType()) )
                 {   // a match!
@@ -759,6 +749,11 @@ public class GameState {
             {
                 if (this.blocks[i][j].shouldDelete())
                 {
+                    switch(this.blocks[i][j].getType())
+                    {
+                        //TODO 
+                    }
+
                     this.deleteBlock(i, j);
                     this.score += BLOCK_SCORE;
                 }
@@ -777,7 +772,7 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH - 1; j++)
             {
-                if (!this.blocks[i][j].isFalling() && ((this.blocks[i][j+1].getType() == NONE_ENUM) || this.blocks[i][j+1].isFalling()))
+                if (!this.blocks[i][j].isFalling() && ((this.blocks[i][j+1].getType() == Block.NONE_ENUM) || this.blocks[i][j+1].isFalling()))
                 {
                     this.blocks[i][j].fall();
                 }
@@ -791,12 +786,12 @@ public class GameState {
                      *         1.b. otherwise, it's done; find matches.
                      *     2. if the block below it is NONE, then start it falling again.
                      */
-                    if (this.blocks[i][j+1].getType() == NONE_ENUM)
+                    if (this.blocks[i][j+1].getType() == Block.NONE_ENUM)
                     { // block below is none.
                         this.blocks[i][j+1] = this.blocks[i][j];
                         this.deleteBlock(i, j);
                         
-                        if (((j + 2) < this.BLOCKS_HIGH) && this.blocks[i][j+2].getType() == NONE_ENUM)
+                        if (((j + 2) < this.BLOCKS_HIGH) && this.blocks[i][j+2].getType() == Block.NONE_ENUM)
                         {
                             this.blocks[i][j+1].fall();
                         }
@@ -843,7 +838,7 @@ public class GameState {
         {
             for (int j = 0; j < this.BLOCKS_HIGH; j++)
             {
-                if(j == 0 && this.blocks[i][j].getType() != NONE_ENUM) // top row and block exists
+                if(j == 0 && this.blocks[i][j].getType() != Block.NONE_ENUM) // top row and block exists
                 {
                     this.state = END_STATE; // Game Over!
                 }

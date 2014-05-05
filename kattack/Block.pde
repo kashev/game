@@ -17,10 +17,29 @@
  */
 public class Block {
     /*
+     * BLOCK TYPES - these are the types that blocks can be
+     */
+    public final static byte NONE_ENUM     = 0;
+    public final static byte DIAMOND_ENUM  = 1;
+    public final static byte TRIANGLE_ENUM = 2;
+    public final static byte CIRCLE_ENUM   = 3;
+    public final static byte STAR_ENUM     = 4;
+    public final static byte HEART_ENUM    = 5;
+
+    /*
+     * BLOCK STRINGS - used for debugging
+     */
+    public final static String NONE_STR     = "  ";
+    public final static String DIAMOND_STR  = "<>";
+    public final static String TRIANGLE_STR = "^ ";
+    public final static String CIRCLE_STR   = "O ";
+    public final static String STAR_STR     = "* ";
+    public final static String HEART_STR    = "<3";
+
+    /*
      * BLOCK SIZE - should be the same for all blocks
      */
     private int BLOCK_SIZE;
-    private final static byte NONE_ENUM    = 0;
     private final static int TIMER_COUNT   = 200;
     private final static int FALLING_COUNT = 20;
     
