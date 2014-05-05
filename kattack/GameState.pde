@@ -1004,15 +1004,15 @@ public class GameState {
     private void
     drawSideBar ()
     {
-        int offset    = (int) (this.CANVAS_HEIGHT * 0.05);
-        int place     = (int) ((this.CANVAS_HEIGHT - (2 * offset)) / 5);
-        int pos_x_img = (int) (SIDE_BAR * 0.2);
-        int pos_x_txt = (int) ((SIDE_BAR * 0.2) + (this.BLOCK_SIZE * 1.1));
-        int pos_0_y   = (int) (offset + (place * 0));
-        int pos_1_y   = (int) (offset + (place * 1));
-        int pos_2_y   = (int) (offset + (place * 2));
-        int pos_3_y   = (int) (offset + (place * 3));
-        int pos_4_y   = (int) (offset + (place * 4));
+        final int offset    = (int) (this.CANVAS_HEIGHT * 0.05);
+        final int place     = (int) ((this.CANVAS_HEIGHT - (2 * offset) + this.BLOCK_SIZE) / 5);
+        final int pos_x_img = (int) (SIDE_BAR * 0.2);
+        final int pos_x_txt = (int) ((SIDE_BAR * 0.2) + (this.BLOCK_SIZE * 1.1));
+        final int pos_0_y   = (int) (offset + (place * 0));
+        final int pos_1_y   = (int) (offset + (place * 1));
+        final int pos_2_y   = (int) (offset + (place * 2));
+        final int pos_3_y   = (int) (offset + (place * 3));
+        final int pos_4_y   = (int) (offset + (place * 4));
         
         textAlign(CENTER, CENTER);
 
