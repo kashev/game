@@ -55,6 +55,8 @@ public class ColorPalette {
     private color NONE_COLOR;
     private color TEXT_COLOR;
 
+    private color BACKGROUND_COLOR;
+
     private color DIAMOND_COLOR_BLOCK;
     private color TRIANGLE_COLOR_BLOCK;
     private color CIRCLE_COLOR_BLOCK;
@@ -91,8 +93,10 @@ public class ColorPalette {
         switch (p)
         {
             case LIGHT_THEME:
-                this.NONE_COLOR = BLOCK_GREY;
+                this.NONE_COLOR = NONE_COLOR_WHITE;
                 this.TEXT_COLOR = TEXT_COLOR_BLACK;
+
+                this.BACKGROUND_COLOR = BLOCK_GREY;
 
                 this.DIAMOND_COLOR_BLOCK  = DIAMOND_COLOR_DARK;
                 this.TRIANGLE_COLOR_BLOCK = TRIANGLE_COLOR_DARK;
@@ -110,6 +114,8 @@ public class ColorPalette {
             default:
                 this.NONE_COLOR = NONE_COLOR_WHITE;
                 this.TEXT_COLOR = TEXT_COLOR_BLACK;
+
+                this.BACKGROUND_COLOR = NONE_COLOR_WHITE;
 
                 this.DIAMOND_COLOR_BLOCK  = BLOCK_GREY;
                 this.TRIANGLE_COLOR_BLOCK = BLOCK_GREY;
@@ -131,6 +137,8 @@ public class ColorPalette {
      */
     public color getNoneColor () { return this.NONE_COLOR; }
     public color getTextColor () { return this.TEXT_COLOR; }
+
+    public color getBackgroundColor () { return this.BACKGROUND_COLOR; } 
 
     public color getDiamondColorBlock  () { return this.DIAMOND_COLOR_BLOCK;  }
     public color getTriangleColorBlock () { return this.TRIANGLE_COLOR_BLOCK; }

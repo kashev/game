@@ -890,7 +890,7 @@ public class GameState {
     public void
     render ()
     {
-        background(this.cp.getNoneColor());
+        background(this.cp.getBackgroundColor());
         switch (this.state)
         {
             case START_STATE:
