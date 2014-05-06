@@ -68,7 +68,7 @@ public class GameState {
      */
     private final static int    TEXT_SIZE_LG   = 48;
     private final static int    TEXT_SIZE_SM   = 36;
-    private final static String FONT_NAME      = "Calibri Light";
+    private final static String FONT_NAME      = "Roboto-Thin.ttf";
     private final static String START_STRING   = "Attack on Tetris\npress the space key to play";
     private final static String END_STRING     = "game over.\npress the space key to play again.";
     private final static String SWAP_STRING    = "swap";
