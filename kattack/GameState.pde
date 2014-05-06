@@ -551,18 +551,32 @@ public class GameState {
      *     ######   #######  #######   #####   #    #      #     #  #######     #     #     #  #######  ######    #####  
      *                                                                                                                   
      */
+    
+     /*
+      * randomBlock()
+      *     returns a random block that is not none.
+      */
     private Block
     randomBlock ()
     {
         return this.getBlock((byte) random(1, 6)); // don't return a NONE block.
     }
 
+    /*
+     * noneBlock()
+     *     returns a none block.
+     */
     private Block
     noneBlock ()
     {
         return this.getBlock(Block.NONE_ENUM);
     }
 
+    /*
+     * deleteBlock()
+     *     deletes the block at the given x and y in this.blocks, and replaces it
+     *     with a new none block.
+     */
     private void
     deleteBlock (int i, int j)
     {
@@ -570,6 +584,10 @@ public class GameState {
         this.blocks[i][j] = noneBlock();
     }
 
+    /*
+     * getBlock()
+     *     instantiates a new block.
+     */
     private Block
     getBlock (byte type)
     {
@@ -846,6 +864,11 @@ public class GameState {
         }
     }
 
+    /*
+     * copyNewBlocks()
+     *     copies the new blocks from the offscreen buffer to the screen. Also handles
+     *     game over condition.
+     */
     private void
     copyNewBlocks ()
     {
@@ -888,6 +911,10 @@ public class GameState {
      *                                                                                 
      */
 
+    /*
+     * render()
+     *     called repeatedly by the top level sketch to draw the game to the Processing screen.
+     */
     public void
     render ()
     {
@@ -951,6 +978,11 @@ public class GameState {
         }
     }
 
+    /*
+     * drawCursor()
+     *     draws the cursor onto the game screen. Does not draw into the game board,
+     *     is drawn over the game board.
+     */
     private void
     drawCursor ()
     {
@@ -962,6 +994,10 @@ public class GameState {
         popMatrix();
     }
 
+    /*
+     * drawScore()
+     *     draws the score onto the screen.
+     */
     private void
     drawScore ()
     {
@@ -970,6 +1006,11 @@ public class GameState {
         text("Score : " + str(this.score), ((this.BLOCK_SIZE * this.BLOCKS_ACROSS) + this.SIDE_BAR) * 1.2, TEXT_SIZE_LG);
     }
     
+    /*
+     * drawBlock()
+     *     draws a given block into the game board. Does translation within board based
+     *     on block_x, block_y.
+     */
     private void
     drawBlock (Block b, PGraphics pg, int block_x, int block_y)
     {
@@ -981,6 +1022,10 @@ public class GameState {
         pg.popMatrix();
     }
 
+    /*
+     * drawBoard()
+     *     draws the board to the screen. Assumes translation has already taken place.
+     */
     private void
     drawBoard ()
     {
@@ -1043,6 +1088,11 @@ public class GameState {
      *     #     #  #     #  #     #  #            #     #  #     #     #      #   #     #  #    ##  #     # 
      *      #####   #     #  #     #  #######      #     #   #####      #     ###  #######  #     #   #####  
      *                                                                                                       
+     */
+    
+    /*
+     * deliverAction()
+     *     sends an action to the game to modify the state.
      */
     public void
     deliverAction (byte action)
@@ -1155,6 +1205,11 @@ public class GameState {
      *     #     #  #        #     #  #     #  #     # 
      *     ######   #######  ######    #####    #####  
      *                                                 
+     */
+    
+    /*
+     * printState()
+     *     prints the state of the game to the Processing Terminal.
      */
     public void
     printState ()
