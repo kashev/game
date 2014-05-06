@@ -8,13 +8,13 @@
  * The Last Project for ARTD 313 @ UIUC, Sp 2014
  * proj2a4b - dalmia3
  *
- * kattack.pde
+ * attack_on_tetris.pde
  */
 
 /*
  * CONSTANTS
  */
-final String GAME_NAME      = "kattack";
+final String GAME_NAME      = "Attack on Tetris";
 final String INCREMENT_KEYS = "zxcvbnmZXCVBNM";
 final String PAUSE_KEYS     = "fghjklFGHJKLqertyuiopQWRTYUIOP";
 
