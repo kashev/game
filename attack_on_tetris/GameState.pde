@@ -273,21 +273,21 @@ public class GameState {
     private void
     initCursorGraphics ()
     {
-        this.cursor_graphic = createGraphics((2 * this.BLOCK_SIZE) + (2 * CURSOR_WIDTH),
-                                             this.BLOCK_SIZE + (2 * CURSOR_WIDTH),
+        this.cursor_graphic = createGraphics((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) + (2 * this.CURSOR_WEIGHT),
+                                             this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) +  (2 * this.CURSOR_WEIGHT),
                                              P2D);
         PShape c_tl = createShape();
         c_tl.beginShape();
         c_tl.strokeWeight(this.CURSOR_WEIGHT);
         c_tl.stroke(0);
         c_tl.fill(255);
-        c_tl.vertex(0, 0);
-        c_tl.vertex(this.CURSOR_LENGTH, 0);
+        c_tl.vertex(this.CURSOR_WEIGHT, this.CURSOR_WEIGHT);
+        c_tl.vertex(this.CURSOR_LENGTH, this.CURSOR_WEIGHT);
         c_tl.vertex(this.CURSOR_LENGTH, this.CURSOR_WIDTH);
         c_tl.vertex(this.CURSOR_WIDTH, this.CURSOR_WIDTH);
         c_tl.vertex(this.CURSOR_WIDTH, this.CURSOR_LENGTH);
-        c_tl.vertex(0, this.CURSOR_LENGTH);
-        c_tl.vertex(0, 0);
+        c_tl.vertex(this.CURSOR_WEIGHT, this.CURSOR_LENGTH);
+        c_tl.vertex(this.CURSOR_WEIGHT, this.CURSOR_WEIGHT);
         c_tl.endShape();
 
         PShape c_tr = createShape();
@@ -295,13 +295,13 @@ public class GameState {
         c_tr.strokeWeight(this.CURSOR_WEIGHT);
         c_tr.stroke(0);
         c_tr.fill(255);
-        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), 0);
-        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, 0);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), this.CURSOR_WEIGHT);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, this.CURSOR_WEIGHT);
         c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, this.CURSOR_WIDTH);
         c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH, this.CURSOR_WIDTH);
         c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH, this.CURSOR_LENGTH);
         c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), this.CURSOR_LENGTH);
-        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), 0);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), this.CURSOR_WEIGHT);
         c_tr.endShape();
 
         PShape c_bl = createShape();
@@ -309,13 +309,13 @@ public class GameState {
         c_bl.strokeWeight(this.CURSOR_WEIGHT);
         c_bl.stroke(0);
         c_bl.fill(255);
-        c_bl.vertex(0, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_bl.vertex(this.CURSOR_WEIGHT, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
         c_bl.vertex(this.CURSOR_LENGTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
         c_bl.vertex(this.CURSOR_LENGTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
         c_bl.vertex(this.CURSOR_WIDTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
         c_bl.vertex(this.CURSOR_WIDTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
-        c_bl.vertex(0, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
-        c_bl.vertex(0, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_bl.vertex(this.CURSOR_WEIGHT, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_bl.vertex(this.CURSOR_WEIGHT, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
         c_bl.endShape();
 
         PShape c_br = createShape();
@@ -337,15 +337,15 @@ public class GameState {
         c_tm.strokeWeight(this.CURSOR_WEIGHT);
         c_tm.stroke(0);
         c_tm.fill(255);
-        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, 0);
-        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), 0);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.CURSOR_WEIGHT);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), this.CURSOR_WEIGHT);
         c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), this.CURSOR_WIDTH);
         c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH + (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_WIDTH);
         c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH + (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_LENGTH);
         c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH - (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_LENGTH);
         c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH - (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_WIDTH);
         c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.CURSOR_WIDTH);
-        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, 0);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.CURSOR_WEIGHT);
         c_tm.endShape();
 
         PShape c_bm = createShape();
