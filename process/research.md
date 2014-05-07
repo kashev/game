@@ -63,7 +63,7 @@ Because the game learns, the motivation to play this game is very much the strug
 
 ## Research for My Game
 - [ClosureScript Implementation of Tetris Attack](http://jamie.ly/wordpress/programming/software/clojurescript-tetris-attack/)
+- [BLock Matching Algorithm](http://androidgamify.blogspot.com/2013/10/match-3-game-algorithm-part-2-how-to.html)
 
-## TODO
-- [ ] Lighting
-- [ ] Stroke and Stuff
+## Why Do You Want to Play the Game?
+See Process PDF.
