@@ -100,11 +100,12 @@ public class GameState {
      *     Modifying these will change the appearance of the game.
      */
     
-    private final boolean stroke_on = false;
-    private final int stroke_weight = 2;
+    private final boolean STROKE_ON = false;
+    private final int STROKE_WEIGHT = 2;
+    private final int CURSOR_WEIGHT = 3;
 
     /* ColorPalette is used to determine color scheme for game */
-    private ColorPalette cp;    
+    private ColorPalette cp;
 
     /***
      *     #     #     #     ######   ###     #     ######   #        #######   #####  
@@ -156,12 +157,14 @@ public class GameState {
     private final int BLOCK_SIZE;
     private final int SIDE_BAR;
     private final int CANVAS_WIDTH, CANVAS_HEIGHT;
+    private final int CURSOR_WIDTH, CURSOR_LENGTH;
+    
     private int cursor_x, cursor_y;
     /* members with initial values */
+    private int   frames_past  = 0;
     private byte  state        = START_STATE;
     private int   score        = 0;
-    private float speed        = START_SPEED; // seconds.
-    private int   frames_past  = 0;
+    private float speed        = START_SPEED; // seconds
     private int diamond_count  = 0,
                 triangle_count = 0,
                 circle_count   = 0,
@@ -189,6 +192,8 @@ public class GameState {
         this.SIDE_BAR      = sidebar;
         this.CANVAS_WIDTH  = (this.BLOCK_SIZE * this.BLOCKS_ACROSS) + (2 * this.SIDE_BAR);
         this.CANVAS_HEIGHT = (this.BLOCK_SIZE * this.BLOCKS_HIGH);
+        this.CURSOR_WIDTH  = (int)(this.BLOCK_SIZE * 0.2) + (int)(this.CURSOR_WEIGHT / 2);
+        this.CURSOR_LENGTH = (int)(this.BLOCK_SIZE * 0.4) + (int)(this.CURSOR_WEIGHT / 2);
 
         this.cp = new ColorPalette(ColorPalette.LIGHT_THEME); // must be called before initBlockGraphics.
                                                               // change the argument to change the color scheme.
@@ -268,14 +273,112 @@ public class GameState {
     private void
     initCursorGraphics ()
     {
-        this.cursor_graphic = createGraphics(2 * this.BLOCK_SIZE,
-                                             this.BLOCK_SIZE,
+        this.cursor_graphic = createGraphics((2 * this.BLOCK_SIZE) + (2 * CURSOR_WIDTH),
+                                             this.BLOCK_SIZE + (2 * CURSOR_WIDTH),
                                              P2D);
+        PShape c_tl = createShape();
+        c_tl.beginShape();
+        c_tl.strokeWeight(this.CURSOR_WEIGHT);
+        c_tl.stroke(0);
+        c_tl.fill(255);
+        c_tl.vertex(0, 0);
+        c_tl.vertex(this.CURSOR_LENGTH, 0);
+        c_tl.vertex(this.CURSOR_LENGTH, this.CURSOR_WIDTH);
+        c_tl.vertex(this.CURSOR_WIDTH, this.CURSOR_WIDTH);
+        c_tl.vertex(this.CURSOR_WIDTH, this.CURSOR_LENGTH);
+        c_tl.vertex(0, this.CURSOR_LENGTH);
+        c_tl.vertex(0, 0);
+        c_tl.endShape();
+
+        PShape c_tr = createShape();
+        c_tr.beginShape();
+        c_tr.strokeWeight(this.CURSOR_WEIGHT);
+        c_tr.stroke(0);
+        c_tr.fill(255);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), 0);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, 0);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, this.CURSOR_WIDTH);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH, this.CURSOR_WIDTH);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH, this.CURSOR_LENGTH);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), this.CURSOR_LENGTH);
+        c_tr.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), 0);
+        c_tr.endShape();
+
+        PShape c_bl = createShape();
+        c_bl.beginShape();
+        c_bl.strokeWeight(this.CURSOR_WEIGHT);
+        c_bl.stroke(0);
+        c_bl.fill(255);
+        c_bl.vertex(0, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_bl.vertex(this.CURSOR_LENGTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_bl.vertex(this.CURSOR_LENGTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_bl.vertex(this.CURSOR_WIDTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_bl.vertex(this.CURSOR_WIDTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_bl.vertex(0, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_bl.vertex(0, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_bl.endShape();
+
+        PShape c_br = createShape();
+        c_br.beginShape();
+        c_br.strokeWeight(this.CURSOR_WEIGHT);
+        c_br.stroke(0);
+        c_br.fill(255);
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH, (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_br.vertex((2 * this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH), (this.BLOCK_SIZE) + (2 * this.CURSOR_WIDTH));
+        c_br.endShape();
+
+        PShape c_tm = createShape();
+        c_tm.beginShape();
+        c_tm.strokeWeight(this.CURSOR_WEIGHT);
+        c_tm.stroke(0);
+        c_tm.fill(255);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, 0);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), 0);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), this.CURSOR_WIDTH);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH + (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_WIDTH);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH + (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_LENGTH);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH - (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_LENGTH);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH - (int)(0.5 * this.CURSOR_WIDTH), this.CURSOR_WIDTH);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.CURSOR_WIDTH);
+        c_tm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, 0);
+        c_tm.endShape();
+
+        PShape c_bm = createShape();
+        c_bm.beginShape();
+        c_bm.strokeWeight(this.CURSOR_WEIGHT);
+        c_bm.stroke(0);
+        c_bm.fill(255);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH));
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH));
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + (2 * this.CURSOR_LENGTH), this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH + (int)(0.5 * this.CURSOR_WIDTH), this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH + (int)(0.5 * this.CURSOR_WIDTH), this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH - (int)(0.5 * this.CURSOR_WIDTH), this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) - this.CURSOR_LENGTH);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH + this.CURSOR_LENGTH - (int)(0.5 * this.CURSOR_WIDTH), this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH) - this.CURSOR_WIDTH);
+        c_bm.vertex(this.BLOCK_SIZE + this.CURSOR_WIDTH - this.CURSOR_LENGTH, this.BLOCK_SIZE + (2 * this.CURSOR_WIDTH));
+        c_bm.endShape();
+
         this.cursor_graphic.beginDraw();
-        this.cursor_graphic.fill(255, 0);
-        this.cursor_graphic.strokeWeight(10);
-        this.cursor_graphic.rect(0, 0, this.BLOCK_SIZE, this.BLOCK_SIZE, this.BLOCK_SIZE * 0.15);
-        this.cursor_graphic.rect(this.BLOCK_SIZE, 0, this.BLOCK_SIZE, this.BLOCK_SIZE, this.BLOCK_SIZE * 0.15);
+
+        /* DRAW TOP LEFT */
+        this.cursor_graphic.shape(c_tl, 0, 0);
+        /* DRAW TOP RIGHT */
+        this.cursor_graphic.shape(c_tr, 0, 0);
+        /* DRAW BOTTOM LEFT */
+        this.cursor_graphic.shape(c_bl, 0, 0);
+        /* DRAW BOTTOM RIGHT */
+        this.cursor_graphic.shape(c_br, 0, 0);
+        /* DRAW TOP MIDDLE */
+        this.cursor_graphic.shape(c_tm, 0, 0);
+        /* DRAW BOTTOM MIDDLE */
+        this.cursor_graphic.shape(c_bm, 0, 0);
+
         this.cursor_graphic.endDraw();
     }
     
@@ -346,13 +449,13 @@ public class GameState {
         diamond_shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         diamond_shape.endShape(CLOSE);
         diamond_shape.setFill(this.cp.getDiamondColorFill());
-        diamond_shape.setStroke(this.stroke_on);
+        diamond_shape.setStroke(this.STROKE_ON);
         
         this.diamond_graphic.beginDraw();
         this.diamond_graphic.background(0, 0);
-        if (this.stroke_on)
+        if (this.STROKE_ON)
         {
-            this.diamond_graphic.strokeWeight(this.stroke_weight);
+            this.diamond_graphic.strokeWeight(this.STROKE_WEIGHT);
         }
         else
         {
@@ -377,13 +480,13 @@ public class GameState {
         triangle_shape.vertex((int)(this.BLOCK_SIZE * 0.5), (int)(this.BLOCK_SIZE * 0.1));
         triangle_shape.endShape(CLOSE);
         triangle_shape.setFill(this.cp.getTriangleColorFill());
-        triangle_shape.setStroke(this.stroke_on);
+        triangle_shape.setStroke(this.STROKE_ON);
 
         this.triangle_graphic.beginDraw();
         this.triangle_graphic.background(0, 0);
-        if (this.stroke_on)
+        if (this.STROKE_ON)
         {
-            this.triangle_graphic.strokeWeight(this.stroke_weight);
+            this.triangle_graphic.strokeWeight(this.STROKE_WEIGHT);
         }
         else
         {
@@ -405,13 +508,13 @@ public class GameState {
                                                    (int)(this.BLOCK_SIZE * 0.8),
                                                    (int)(this.BLOCK_SIZE * 0.8));
         circle_shape.setFill(this.cp.getCircleColorFill());
-        circle_shape.setStroke(this.stroke_on);
+        circle_shape.setStroke(this.STROKE_ON);
 
         this.circle_graphic.beginDraw();
         this.circle_graphic.background(0, 0);
-        if (this.stroke_on)
+        if (this.STROKE_ON)
         {
-            this.circle_graphic.strokeWeight(this.stroke_weight);
+            this.circle_graphic.strokeWeight(this.STROKE_WEIGHT);
         }
         else
         {
@@ -449,13 +552,13 @@ public class GameState {
         star_shape.vertex((int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.05)); // 1
         star_shape.endShape(CLOSE);
         star_shape.setFill(this.cp.getStarColorFill());
-        star_shape.setStroke(this.stroke_on);
+        star_shape.setStroke(this.STROKE_ON);
 
         this.star_graphic.beginDraw();
         this.star_graphic.background(0, 0);
-        if (this.stroke_on)
+        if (this.STROKE_ON)
         {
-            this.star_graphic.strokeWeight(this.stroke_weight);
+            this.star_graphic.strokeWeight(this.STROKE_WEIGHT);
         }
         else
         {
@@ -483,13 +586,13 @@ public class GameState {
                                  (int)(this.BLOCK_SIZE * 0.50), (int)(this.BLOCK_SIZE * 0.30));  // anchor
         heart_shape.endShape(CLOSE);
         heart_shape.setFill(this.cp.getHeartColorFill());
-        heart_shape.setStroke(this.stroke_on);
+        heart_shape.setStroke(this.STROKE_ON);
 
         this.heart_graphic.beginDraw();
         this.heart_graphic.background(0, 0);
-        if (this.stroke_on)
+        if (this.STROKE_ON)
         {
-            this.heart_graphic.strokeWeight(this.stroke_weight);
+            this.heart_graphic.strokeWeight(this.STROKE_WEIGHT);
         }
         else
         {
@@ -989,7 +1092,7 @@ public class GameState {
         pushMatrix();
         translate(this.cursor_x * this.BLOCK_SIZE, this.cursor_y * this.BLOCK_SIZE);
 
-        image(this.cursor_graphic, 0, 0);
+        image(this.cursor_graphic, -1 * CURSOR_WIDTH, -1 * CURSOR_WIDTH);
 
         popMatrix();
     }
